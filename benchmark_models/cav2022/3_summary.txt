@@ -1,0 +1,25 @@
+tacas4 - props: 26, params: 141
+
+formula: AF !{x}: (AX (~{x} && AF {x}))
+1.7617588706839192e+45 RESULTS FOUND IN TOTAL
+8.820118950590725e+41 COLORS FOUND IN TOTAL
+65408.0 STATES FOUND IN TOTAL
+423.8243205547333
+
+formula: AF !{x}: ((AX (~{x} && AF {x})) && (EF !{y}: EX ~AF {y}))
+0.0 RESULTS FOUND IN TOTAL
+0.0 COLORS FOUND IN TOTAL
+0.0 STATES FOUND IN TOTAL
+394.2969629764557
+
+formula: !{x}: 3{y}: (@{x}: ~{y} && AX {x}) && (@{y}: AX {y})
+7.1362384635298e+44 RESULTS FOUND IN TOTAL
+4.961316909707283e+41 COLORS FOUND IN TOTAL
+65536.0 STATES FOUND IN TOTAL
+2.359882116317749
+
+formula: 3{x}: 3{y}: (@{x}: ~{y} && AX {x}) && (@{y}: AX {y}) && EF ({x} && !{z}: AX {z}) && EF ({y} && !{z}: AX {z}) && AX (EF ({x} && !{z}: AX {z}) ^ EF ({y} && !{z}: AX {z}))
+0.0 RESULTS FOUND IN TOTAL
+0.0 COLORS FOUND IN TOTAL
+0.0 STATES FOUND IN TOTAL
+8.687233686447144

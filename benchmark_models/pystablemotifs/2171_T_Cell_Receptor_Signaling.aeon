@@ -1,0 +1,267 @@
+ccblp2 -? Dummy
+itk -? Dummy
+plcgb -? Dummy
+slp76 -? Dummy
+vav1 -? Dummy
+zap70 -? Dummy
+fyn -? abl
+lckp1 -? abl
+unknown_input2 -? akap79
+fos -? ap1
+jun -? ap1
+pkb -? bad
+gsk3 -? bcat
+unknown_input2 -? bcl10
+bad -? bclxl
+ip3 -? ca
+camk4 -? cabin1
+akap79 -? calcin
+cabin1 -? calcin
+calpr1 -? calcin
+cam -? calcin
+unknown_input2 -? calpr1
+ca -? cam
+cam -? camk2
+cam -? camk4
+unknown_input -? card11
+bcl10 -? card11a
+card11 -? card11a
+malt1 -? card11a
+cd28 -? cblb
+ccblr -? ccblp1
+zap70 -? ccblp1
+ccblr -? ccblp2
+fyn -? ccblp2
+unknown_input -? ccblr
+cd28_input -? cd28
+cd28_input -? cd28_input
+cd4 -? cd4
+unknown_input -? cd45
+unknown_input2 -? cdc42
+creb -? cre
+rsk -? creb
+pag -? csk
+gsk3 -? cyc1
+dgk -? dag
+plcga -? dag
+tcrb -? dgk
+mek -? erk
+pkb -? fkhr
+erk -? fos
+cd45 -? fyn
+lckp1 -? fyn
+lckr -? fyn
+tcrb -? fyn
+gads -? gab2
+grb2 -? gab2
+lat -? gab2
+zap70 -? gab2
+unknown_input -? gadd45
+lat -? gads
+unknown_input3 -? gap
+lat -? grb2
+pkb -? gsk3
+lat -? hpk1
+ikkab -? ikb
+camk2 -? ikkab
+ikkg -? ikkab
+card11a -? ikkg
+pkcth -? ikkg
+plcga -? ip3
+pip3 -? itk
+slp76 -? itk
+zap70 -? itk
+mekk1 -? jnk
+mkk4 -? jnk
+jnk -? jun
+zap70 -? lat
+cd4 -? lckp1
+cd45 -? lckp1
+csk -? lckp1
+lckr -? lckp1
+shp1 -? lckp1
+lckr -? lckp2
+tcrb -? lckp2
+lckr_input -? lckr
+lckr_input -? lckr_input
+unknown_input -? malt1
+raf -? mek
+cdc42 -? mekk1
+hpk1 -? mekk1
+rac1p2 -? mekk1
+mekk1 -? mkk4
+mlk3 -? mkk4
+hpk1 -? mlk3
+rac1p1 -? mlk3
+calcin -? nfat
+ikb -? nfkb
+pkb -? p21c
+pkb -? p27k
+gadd45 -? p38
+zap70 -? p38
+pdk1 -? p70s
+fyn -? pag
+tcrb -? pag
+pip3 -? pdk1
+cblb -? pi3k
+lckp2 -? pi3k
+xx -? pi3k
+pi3k -? pip3
+pten -? pip3
+ship1 -? pip3
+pdk1 -? pkb
+dag -? pkcth
+pdk1 -? pkcth
+vav1 -? pkcth
+ccblp2 -? plcga
+itk -? plcga
+plcgb -? plcga
+slp76 -? plcga
+vav1 -? plcga
+zap70 -? plcga
+lat -? plcgb
+unknown_input2 -? pten
+rac1r -? rac1p1
+vav1 -? rac1p1
+rac1r -? rac1p2
+vav3 -? rac1p2
+unknown_input -? rac1r
+ras -? raf
+gap -? ras
+rasgrp -? ras
+sos -? ras
+dag -? rasgrp
+lckp1 -? rlk
+erk -? rsk
+lat -? sh3bp2
+zap70 -? sh3bp2
+unknown_input2 -? ship1
+erk -? shp1
+lckp1 -? shp1
+gab2 -? shp2
+gab2 -? slp76
+gads -? slp76
+zap70 -? slp76
+grb2 -? sos
+cdc42 -? sre
+rac1p2 -? sre
+ccblp1 -? tcrb
+tcrlig -? tcrb
+tcrlig_input -? tcrlig
+tcrlig_input -? tcrlig_input
+fyn -? tcrp
+lckp1 -? tcrp
+tcrb -? tcrp
+unknown_input -? unknown_input
+unknown_input2 -? unknown_input2
+unknown_input3 -? unknown_input3
+sh3bp2 -? vav1
+xx -? vav1
+zap70 -? vav1
+sh3bp2 -? vav3
+cd28 -? xx
+abl -? zap70
+ccblp1 -? zap70
+tcrp -? zap70
+$Dummy: (!ccblp2 & (vav1 & (slp76 & (zap70 & (itk & plcgb)))))
+$abl: ((!fyn & lckp1) | fyn)
+$akap79: unknown_input2
+$ap1: (jun & fos)
+$bad: !pkb
+$bcat: !gsk3
+$bcl10: unknown_input2
+$bclxl: !bad
+$ca: ip3
+$cabin1: !camk4
+$calcin: (cam & (!calpr1 & (!akap79 & !cabin1)))
+$calpr1: unknown_input2
+$cam: ca
+$camk2: cam
+$camk4: cam
+$card11: unknown_input
+$card11a: (bcl10 & (malt1 & card11))
+$cblb: !cd28
+$ccblp1: (ccblr & zap70)
+$ccblp2: (ccblr & fyn)
+$ccblr: unknown_input
+$cd28: cd28_input
+$cd28_input: cd28_input
+$cd4: cd4
+$cd45: unknown_input
+$cdc42: unknown_input2
+$cre: creb
+$creb: rsk
+$csk: pag
+$cyc1: !gsk3
+$dag: (plcga & !dgk)
+$dgk: tcrb
+$erk: mek
+$fkhr: !pkb
+$fos: erk
+$fyn: ((!cd45 & (tcrb & lckr)) | ((cd45 & (!tcrb & lckp1)) | ((cd45 & (tcrb & (!lckr & lckp1))) | (cd45 & (tcrb & lckr)))))
+$gab2: ((!grb2 & (lat & (zap70 & gads))) | (grb2 & (lat & zap70)))
+$gadd45: unknown_input
+$gads: lat
+$gap: unknown_input3
+$grb2: lat
+$gsk3: !pkb
+$hpk1: lat
+$ikb: !ikkab
+$ikkab: (camk2 & ikkg)
+$ikkg: (pkcth & card11a)
+$ip3: plcga
+$itk: (pip3 & (slp76 & zap70))
+$jnk: ((!mkk4 & mekk1) | mkk4)
+$jun: jnk
+$lat: zap70
+$lckp1: (cd4 & (cd45 & (!csk & (lckr & !shp1))))
+$lckp2: (tcrb & lckr)
+$lckr: lckr_input
+$lckr_input: lckr_input
+$malt1: unknown_input
+$mek: raf
+$mekk1: ((!cdc42 & (!hpk1 & rac1p2)) | ((!cdc42 & hpk1) | cdc42))
+$mkk4: ((!mlk3 & mekk1) | mlk3)
+$mlk3: ((!rac1p1 & hpk1) | rac1p1)
+$nfat: calcin
+$nfkb: !ikb
+$p21c: !pkb
+$p27k: !pkb
+$p38: (zap70 & !gadd45)
+$p70s: pdk1
+$pag: (!tcrb & fyn)
+$pdk1: pip3
+$pi3k: ((!cblb & (!xx & lckp2)) | (!cblb & xx))
+$pip3: (!ship1 & (pi3k & !pten))
+$pkb: pdk1
+$pkcth: (pdk1 & (vav1 & dag))
+$plcga: (!ccblp2 & (vav1 & (slp76 & (zap70 & (itk & plcgb)))))
+$plcgb: lat
+$pten: unknown_input2
+$rac1p1: (rac1r & vav1)
+$rac1p2: (rac1r & vav3)
+$rac1r: unknown_input
+$raf: ras
+$ras: (rasgrp & (sos & !gap))
+$rasgrp: dag
+$rlk: lckp1
+$rsk: erk
+$sh3bp2: (lat & zap70)
+$ship1: unknown_input2
+$shp1: (!erk & lckp1)
+$shp2: gab2
+$slp76: (zap70 & (!gab2 & gads))
+$sos: grb2
+$sre: ((!cdc42 & rac1p2) | cdc42)
+$tcrb: (tcrlig & !ccblp1)
+$tcrlig: tcrlig_input
+$tcrlig_input: tcrlig_input
+$tcrp: ((tcrb & (!fyn & lckp1)) | (tcrb & fyn))
+$unknown_input: unknown_input
+$unknown_input2: unknown_input2
+$unknown_input3: unknown_input3
+$vav1: ((!sh3bp2 & xx) | ((sh3bp2 & (!xx & zap70)) | (sh3bp2 & xx)))
+$vav3: sh3bp2
+$xx: cd28
+$zap70: (tcrp & (abl & !ccblp1))
+

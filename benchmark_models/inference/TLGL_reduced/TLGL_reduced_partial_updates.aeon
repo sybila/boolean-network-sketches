@@ -1,0 +1,78 @@
+#position:S1P:168.93336200268723,202.74112105420892
+$S1P:!Apoptosis_ & q(Ceramide_)
+Ceramide_ -| S1P
+Apoptosis_ -| S1P
+#position:sFas:63.75958067930824,172.57301716810912
+$sFas:!Apoptosis_ & p(S1P)
+S1P -> sFas
+Apoptosis_ -| sFas
+#position:Apoptosis_:688.5554710478364,237.26364030075158
+Caspase -> Apoptosis_
+Apoptosis_ -> Apoptosis_
+#position:Fas:124.0746008550851,109.6075409347269
+$Fas:!Apoptosis_ & o(sFas)
+Apoptosis_ -| Fas
+sFas -| Fas
+#position:Ceramide_:213.34353706013408,49
+$Ceramide_:!Apoptosis_ & n(Fas, S1P)
+Fas -> Ceramide_
+S1P -| Ceramide_
+Apoptosis_ -| Ceramide_
+#position:Caspase:294.4234636766888,286.05948874538143
+$Caspase:!Apoptosis_ & m(BID_, DISC_, IAP_)
+DISC_ -> Caspase
+IAP_ -| Caspase
+BID_ -> Caspase
+Apoptosis_ -| Caspase
+#position:MCL1:380.7055926568139,256.3246687526509
+$MCL1:!Apoptosis_ & l(DISC_)
+DISC_ -| MCL1
+Apoptosis_ -| MCL1
+#position:BID_:302.28124099758134,431.88227201594043
+$BID_:!Apoptosis_ & k(MCL1)
+MCL1 -| BID_
+Apoptosis_ -| BID_
+#position:DISC_:259.9285368283198,145.01224253749336
+$DISC_:!Apoptosis_ & j(Fas,Ceramide_,FLIP_)
+Fas -> DISC_
+Ceramide_ -> DISC_
+Apoptosis_ -| DISC_
+FLIP_ -| DISC_
+#position:FLIP_:349.86789007051686,132.76868366981117
+$FLIP_:!Apoptosis_ & i(DISC_)
+DISC_ -| FLIP_
+Apoptosis_ -| FLIP_
+#position:CTLA4_:113.52161114998367,311.41861005589675
+$CTLA4_:!Apoptosis_ & h(TCR)
+TCR -> CTLA4_
+Apoptosis_ -| CTLA4_
+#position:TCR:22.5,276.19639641945963
+$TCR:!Apoptosis_ & g(CTLA4_)
+CTLA4_ -| TCR
+Apoptosis_ -| TCR
+#position:IFNG_:129.70386935948457,519.2349633663064
+$IFNG_:!Apoptosis_ & f(P2, SMAD_)
+P2 -| IFNG_
+SMAD_ -| IFNG_
+Apoptosis_ -| IFNG_
+#position:CREB:26.006651086283426,392.6857760002017
+$CREB:!Apoptosis_ & e(IFNG_)
+IFNG_ -> CREB
+Apoptosis_ -| CREB
+#position:P2:115.18425847218222,435.07964490445534
+$P2:!Apoptosis_ & d(P2, IFNG_)
+P2 -> P2
+IFNG_ -> P2
+Apoptosis_ -| P2
+#position:SMAD_:224.41636627546976,531.4070681621588
+$SMAD_:!Apoptosis_ & c(GPCR_)
+GPCR_ -> SMAD_
+Apoptosis_ -| SMAD_
+#position:GPCR_:203.85034898799447,393.36240664311714
+$GPCR_:!Apoptosis_ & b(S1P)
+S1P -> GPCR_
+Apoptosis_ -| GPCR_
+#position:IAP_:383.2470816184017,379.9850920276701
+$IAP_:!Apoptosis_ & a(BID_)
+BID_ -| IAP_
+Apoptosis_ -| IAP_

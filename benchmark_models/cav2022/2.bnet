@@ -1,0 +1,22 @@
+targets,factors
+Cat1_2, ((!HapX | ((!Yap1 | Cat1_2_11) & (!!Yap1 | Cat1_2_10))) & (!!HapX | ((!Yap1 | Cat1_2_01) & (!!Yap1 | Cat1_2_00))))
+CccA, !HapX
+EstB, !SreA
+FCminusFe, SidA
+FCplusFe, (FCminusFe & LIP)
+HapX, (hapX & !LIP)
+ICP, ((!FCplusFe | ((!HapX | ((!VAC | ICP_111) & (!!VAC | ICP_110))) & (!!HapX | ((!VAC | ICP_101) & (!!VAC | ICP_100))))) & (!!FCplusFe | ((!HapX | ((!VAC | ICP_011) & (!!VAC | ICP_010))) & (!!HapX | ((!VAC | ICP_001) & (!!VAC | ICP_000))))))
+LIP, ((!EstB | ((!MirB | ((!RIA | ((!TAFC | ((!_Iron | LIP_11111) & (!!_Iron | LIP_11110))) & (!!TAFC | ((!_Iron | LIP_11101) & (!!_Iron | LIP_11100))))) & (!!RIA | ((!TAFC | ((!_Iron | LIP_11011) & (!!_Iron | LIP_11010))) & (!!TAFC | ((!_Iron | LIP_11001) & (!!_Iron | LIP_11000))))))) & (!!MirB | ((!RIA | ((!TAFC | ((!_Iron | LIP_10111) & (!!_Iron | LIP_10110))) & (!!TAFC | ((!_Iron | LIP_10101) & (!!_Iron | LIP_10100))))) & (!!RIA | ((!TAFC | ((!_Iron | LIP_10011) & (!!_Iron | LIP_10010))) & (!!TAFC | ((!_Iron | LIP_10001) & (!!_Iron | LIP_10000))))))))) & (!!EstB | ((!MirB | ((!RIA | ((!TAFC | ((!_Iron | LIP_01111) & (!!_Iron | LIP_01110))) & (!!TAFC | ((!_Iron | LIP_01101) & (!!_Iron | LIP_01100))))) & (!!RIA | ((!TAFC | ((!_Iron | LIP_01011) & (!!_Iron | LIP_01010))) & (!!TAFC | ((!_Iron | LIP_01001) & (!!_Iron | LIP_01000))))))) & (!!MirB | ((!RIA | ((!TAFC | ((!_Iron | LIP_00111) & (!!_Iron | LIP_00110))) & (!!TAFC | ((!_Iron | LIP_00101) & (!!_Iron | LIP_00100))))) & (!!RIA | ((!TAFC | ((!_Iron | LIP_00011) & (!!_Iron | LIP_00010))) & (!!TAFC | ((!_Iron | LIP_00001) & (!!_Iron | LIP_00000))))))))))
+MirB, (HapX & !SreA)
+RIA, !SreA
+ROS, ((!Cat1_2 | ((!LIP | ((!ROS | ((!SOD2_3 | ((!Superoxide | ((!ThP | ROS_111111) & (!!ThP | ROS_111110))) & (!!Superoxide | ((!ThP | ROS_111101) & (!!ThP | ROS_111100))))) & (!!SOD2_3 | ((!Superoxide | ((!ThP | ROS_111011) & (!!ThP | ROS_111010))) & (!!Superoxide | ((!ThP | ROS_111001) & (!!ThP | ROS_111000))))))) & (!!ROS | ((!SOD2_3 | ((!Superoxide | ((!ThP | ROS_110111) & (!!ThP | ROS_110110))) & (!!Superoxide | ((!ThP | ROS_110101) & (!!ThP | ROS_110100))))) & (!!SOD2_3 | ((!Superoxide | ((!ThP | ROS_110011) & (!!ThP | ROS_110010))) & (!!Superoxide | ((!ThP | ROS_110001) & (!!ThP | ROS_110000))))))))) & (!!LIP | ((!ROS | ((!SOD2_3 | ((!Superoxide | ((!ThP | ROS_101111) & (!!ThP | ROS_101110))) & (!!Superoxide | ((!ThP | ROS_101101) & (!!ThP | ROS_101100))))) & (!!SOD2_3 | ((!Superoxide | ((!ThP | ROS_101011) & (!!ThP | ROS_101010))) & (!!Superoxide | ((!ThP | ROS_101001) & (!!ThP | ROS_101000))))))) & (!!ROS | ((!SOD2_3 | ((!Superoxide | ((!ThP | ROS_100111) & (!!ThP | ROS_100110))) & (!!Superoxide | ((!ThP | ROS_100101) & (!!ThP | ROS_100100))))) & (!!SOD2_3 | ((!Superoxide | ((!ThP | ROS_100011) & (!!ThP | ROS_100010))) & (!!Superoxide | ((!ThP | ROS_100001) & (!!ThP | ROS_100000))))))))))) & (!!Cat1_2 | ((!LIP | ((!ROS | ((!SOD2_3 | ((!Superoxide | ((!ThP | ROS_011111) & (!!ThP | ROS_011110))) & (!!Superoxide | ((!ThP | ROS_011101) & (!!ThP | ROS_011100))))) & (!!SOD2_3 | ((!Superoxide | ((!ThP | ROS_011011) & (!!ThP | ROS_011010))) & (!!Superoxide | ((!ThP | ROS_011001) & (!!ThP | ROS_011000))))))) & (!!ROS | ((!SOD2_3 | ((!Superoxide | ((!ThP | ROS_010111) & (!!ThP | ROS_010110))) & (!!Superoxide | ((!ThP | ROS_010101) & (!!ThP | ROS_010100))))) & (!!SOD2_3 | ((!Superoxide | ((!ThP | ROS_010011) & (!!ThP | ROS_010010))) & (!!Superoxide | ((!ThP | ROS_010001) & (!!ThP | ROS_010000))))))))) & (!!LIP | ((!ROS | ((!SOD2_3 | ((!Superoxide | ((!ThP | ROS_001111) & (!!ThP | ROS_001110))) & (!!Superoxide | ((!ThP | ROS_001101) & (!!ThP | ROS_001100))))) & (!!SOD2_3 | ((!Superoxide | ((!ThP | ROS_001011) & (!!ThP | ROS_001010))) & (!!Superoxide | ((!ThP | ROS_001001) & (!!ThP | ROS_001000))))))) & (!!ROS | ((!SOD2_3 | ((!Superoxide | ((!ThP | ROS_000111) & (!!ThP | ROS_000110))) & (!!Superoxide | ((!ThP | ROS_000101) & (!!ThP | ROS_000100))))) & (!!SOD2_3 | ((!Superoxide | ((!ThP | ROS_000011) & (!!ThP | ROS_000010))) & (!!Superoxide | ((!ThP | ROS_000001) & (!!ThP | ROS_000000))))))))))))
+SOD2_3, Yap1
+SidA, (HapX & !SreA)
+SreA, (LIP & sreA)
+TAFC, SidA
+ThP, Yap1
+VAC, (CccA & LIP)
+Yap1, ROS
+hapX, !SreA
+sreA, !HapX
+

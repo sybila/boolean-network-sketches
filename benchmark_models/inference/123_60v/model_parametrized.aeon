@@ -1,0 +1,164 @@
+#position:sa160_Nsp3_____rna:627.7624019491984,961.3837745376311
+$sa160_Nsp3_____rna:sa219_Nsp3_____rna
+sa219_Nsp3_____rna -> sa160_Nsp3_____rna
+#position:Nsp3:635.255917975886,1212.5937940882113
+$Nsp3:sa160_Nsp3_____rna
+sa160_Nsp3_____rna -> Nsp3
+#position:Nsp3_Nsp4_Nsp6_complex:628.0622814708936,1486.2746860384254
+Nsp3 -> Nsp3_Nsp4_Nsp6_complex
+Nsp6 -> Nsp3_Nsp4_Nsp6_complex
+Nsp4 -> Nsp3_Nsp4_Nsp6_complex
+#position:Nsp6:500.4958088274954,1841.7979400525776
+$Nsp6:sa47_Nsp6_____rna
+sa47_Nsp6_____rna -> Nsp6
+#position:Nsp4:815.1563695091186,1292.7810629944572
+$Nsp4:sa3_Nsp4_____rna
+sa3_Nsp4_____rna -> Nsp4
+#position:sa47_Nsp6_____rna:467.43229207614814,1631.4308034242938
+$sa47_Nsp6_____rna:sa218_Nsp6_____rna
+sa218_Nsp6_____rna -> sa47_Nsp6_____rna
+#position:sa3_Nsp4_____rna:994.3510501179776,1390.021695145172
+$sa3_Nsp4_____rna:sa220_Nsp4_____rna
+sa220_Nsp4_____rna -> sa3_Nsp4_____rna
+#position:csa15_Nsp4_ALG11_complex_endoplasmic_reticulum:918.3457898496836,997.7666592104126
+Nsp4 -> csa15_Nsp4_ALG11_complex_endoplasmic_reticulum
+sa14_ALG11_endoplasmic_reticulum -> csa15_Nsp4_ALG11_complex_endoplasmic_reticulum
+#position:sa14_ALG11_endoplasmic_reticulum:959.5625069806906,467.7212700835456
+$sa14_ALG11_endoplasmic_reticulum:false
+#position:csa2_Nsp4_IDE_complex_cell:736.63538507823,1024.192282957228
+Nsp4 -> csa2_Nsp4_IDE_complex_cell
+sa8_IDE_cell -> csa2_Nsp4_IDE_complex_cell
+#position:sa8_IDE_cell:663.9954148060883,707.8717621291794
+$sa8_IDE_cell:false
+#position:Nsp4_IDE_complex:758.1506524035719,696.8353620720843
+$Nsp4_IDE_complex:csa2_Nsp4_IDE_complex_cell
+csa2_Nsp4_IDE_complex_cell -> Nsp4_IDE_complex
+#position:Nsp4_DNAJC11_complex:904.9397948271028,1470.1766773318461
+Nsp4 -> Nsp4_DNAJC11_complex
+DNAJC11 -> Nsp4_DNAJC11_complex
+#position:DNAJC11:1014.8666379838035,1609.2775007089062
+$DNAJC11:false
+#position:F_ATPase_Nsp6_complex:359.6792448068,1884.6307347879592
+Nsp6 -> F_ATPase_Nsp6_complex
+F_ATPase_complex -> F_ATPase_Nsp6_complex
+#position:F_ATPase_complex:243.4959135175539,1915.4256197149045
+$F_ATPase_complex:false
+#position:Nsp4_NUP210_complex_endoplasmic_reticulum:814.4814512338637,1712.074719879118
+Nsp4 -> Nsp4_NUP210_complex_endoplasmic_reticulum
+NUP210_endoplasmic_reticulum -> Nsp4_NUP210_complex_endoplasmic_reticulum
+#position:NUP210_endoplasmic_reticulum:926.3928236185077,1880.9217451563825
+$NUP210_endoplasmic_reticulum:false
+#position:Nsp4_NUP210_complex_nucleus:835.8459473613925,2155.7387662981705
+$Nsp4_NUP210_complex_nucleus:Nsp4_NUP210_complex_endoplasmic_reticulum
+Nsp4_NUP210_complex_endoplasmic_reticulum -> Nsp4_NUP210_complex_nucleus
+#position:Several_drugs_drug:849.3763494930529,2639.374836519587
+$Several_drugs_drug:false
+#position:SIGMAR1_Drugs_complex:746.0951786638116,2559.10631834391
+Several_drugs_drug -> SIGMAR1_Drugs_complex
+SIGMAR1_endoplasmic_reticulum -> SIGMAR1_Drugs_complex
+#position:SIGMAR1_endoplasmic_reticulum:644.9339971170814,2453.764418176619
+$SIGMAR1_endoplasmic_reticulum:false
+#position:Nsp6_SIGMAR1_complex_endoplasmic_reticulum:539.9265139202466,2236.0728344230865
+Nsp6 -> Nsp6_SIGMAR1_complex_endoplasmic_reticulum
+SIGMAR1_endoplasmic_reticulum -> Nsp6_SIGMAR1_complex_endoplasmic_reticulum
+#position:Nsp6_SIGMAR1_complex_nucleus:555.2156797877553,2672.3393608048927
+$Nsp6_SIGMAR1_complex_nucleus:Nsp6_SIGMAR1_complex_endoplasmic_reticulum
+Nsp6_SIGMAR1_complex_endoplasmic_reticulum -> Nsp6_SIGMAR1_complex_nucleus
+#position:V_ATPase_Nsp6_complex_endoplasmic_reticulum:450.0968189446575,2278.1525407628405
+Nsp6 -> V_ATPase_Nsp6_complex_endoplasmic_reticulum
+V_ATPase_complex_endoplasmic_reticulum -> V_ATPase_Nsp6_complex_endoplasmic_reticulum
+#position:V_ATPase_complex_endoplasmic_reticulum:375.5303673876845,2820.5853095964076
+V_type_space_proton_space_ATPase_complex -> V_ATPase_complex_endoplasmic_reticulum
+ATP6AP1 -> V_ATPase_complex_endoplasmic_reticulum
+#position:V_ATPase_Nsp6_complex_endosome:323.7183520835486,2311.8040983049564
+$V_ATPase_Nsp6_complex_endosome:V_ATPase_Nsp6_complex_endoplasmic_reticulum
+V_ATPase_Nsp6_complex_endoplasmic_reticulum -> V_ATPase_Nsp6_complex_endosome
+#position:TIM_complex_Nsp4_complex:827.5002691346053,992.1066818482007
+Nsp4 -> TIM_complex_Nsp4_complex
+TOM_complex_complex -> TIM_complex_Nsp4_complex
+#position:TOM_complex_complex:846.722349582267,615.2903187254379
+$TOM_complex_complex:false
+#position:V_type_space_proton_space_ATPase_complex:270.4892644110104,3013.2292632605263
+$V_type_space_proton_space_ATPase_complex:false
+#position:ATP6AP1:374.9505738773419,3182.8786811675564
+$ATP6AP1:false
+#position:NUP210_Selinexor_complex:1050.2996066828161,1904.2385447746485
+NUP210_endoplasmic_reticulum -> NUP210_Selinexor_complex
+Selinexor_drug -> NUP210_Selinexor_complex
+#position:Selinexor_drug:1167.90793890877,1937.8550612996714
+$Selinexor_drug:false
+#position:P_ATPase_Nsp6_complex:590.4107594823126,1743.4200549447494
+Nsp6 -> P_ATPase_Nsp6_complex
+P_ATPase_complex -> P_ATPase_Nsp6_complex
+#position:P_ATPase_complex:717.6256063471317,1761.1950431997989
+$P_ATPase_complex:false
+#position:csa4_Nsp4_IDE_complex_cell:724.726295283732,1392.371405373865
+$csa4_Nsp4_IDE_complex_cell:csa2_Nsp4_IDE_complex_cell
+csa2_Nsp4_IDE_complex_cell -> csa4_Nsp4_IDE_complex_cell
+#position:SLC6A15_Nsp6_complex:374.0118541970506,1638.4783197644842
+Nsp6 -> SLC6A15_Nsp6_complex
+SLC6A15 -> SLC6A15_Nsp6_complex
+#position:SLC6A15:237.25934690748437,1547.4959929186268
+$SLC6A15:false
+#position:SLC6A15_Orf9c_complex:141.61445048587206,1702.4297339006903
+SLC6A15 -> SLC6A15_Orf9c_complex
+Orf9c -> SLC6A15_Orf9c_complex
+#position:Orf9c:22.5,1726.174752723868
+$Orf9c:false
+#position:SLC6A15_M_complex:146.75332855534566,1360.179749618931
+SLC6A15 -> SLC6A15_M_complex
+M -> SLC6A15_M_complex
+#position:M:29.34412385104622,1330.1458789325484
+$M:false
+#position:SLC6A15_Loratadine_complex:252.62350488619524,1259.2235939191487
+SLC6A15 -> SLC6A15_Loratadine_complex
+Loratadine_drug -> SLC6A15_Loratadine_complex
+#position:Loratadine_drug:163.178156867702,1063.088875785374
+$Loratadine_drug:false
+#position:V_ATPase_complex_endosome:466.24460536732244,3057.546875450895
+$V_ATPase_complex_endosome:V_ATPase_complex_endoplasmic_reticulum
+V_ATPase_complex_endoplasmic_reticulum -> V_ATPase_complex_endosome
+#position:ATP6AP1_Bafilomycin_A1_complex:389.84451448652834,3501.4722762518772
+ATP6AP1 -> ATP6AP1_Bafilomycin_A1_complex
+Bafilomycin_A1_drug -> ATP6AP1_Bafilomycin_A1_complex
+#position:Bafilomycin_A1_drug:479.6926675983754,3670.7006022568435
+$Bafilomycin_A1_drug:false
+#position:Nsp6_SIGMAR1_complex_cell:630.3966691773085,2076.470690832382
+$Nsp6_SIGMAR1_complex_cell:Nsp6_SIGMAR1_complex_endoplasmic_reticulum
+Nsp6_SIGMAR1_complex_endoplasmic_reticulum -> Nsp6_SIGMAR1_complex_cell
+#position:csa93_Nsp4_ALG11_complex_endoplasmic_reticulum:1048.4541419055176,922.9764564846416
+$csa93_Nsp4_ALG11_complex_endoplasmic_reticulum:csa15_Nsp4_ALG11_complex_endoplasmic_reticulum
+csa15_Nsp4_ALG11_complex_endoplasmic_reticulum -> csa93_Nsp4_ALG11_complex_endoplasmic_reticulum
+#position:sa220_Nsp4_____rna:1105.0108139839622,1450.5458723823424
+$sa220_Nsp4_____rna:sa3_Nsp4_____rna
+sa3_Nsp4_____rna -> sa220_Nsp4_____rna
+#position:sa218_Nsp6_____rna:447.59728239742145,1354.4460205658015
+$sa218_Nsp6_____rna:sa47_Nsp6_____rna
+sa47_Nsp6_____rna -> sa218_Nsp6_____rna
+#position:IDE_human_host:680.4634205732054,452.67076668584974
+$IDE_human_host:sa8_IDE_cell
+sa8_IDE_cell -> IDE_human_host
+#position:sa219_Nsp3_____rna:537.7533467064638,758.2305516250149
+$sa219_Nsp3_____rna:sa160_Nsp3_____rna
+sa160_Nsp3_____rna -> sa219_Nsp3_____rna
+#position:Plasma_membrane_organization_phenotype:538.2234096513266,1225.256648272981
+$Plasma_membrane_organization_phenotype:Nsp3_Nsp4_Nsp6_complex
+Nsp3_Nsp4_Nsp6_complex -> Plasma_membrane_organization_phenotype
+#position:NUP210_nucleus:960.8491510749645,2208.336678062108
+$NUP210_nucleus:NUP210_endoplasmic_reticulum
+NUP210_endoplasmic_reticulum -> NUP210_nucleus
+#position:sa225_IDE_cell:584.3576707823581,464.7173073660741
+$sa225_IDE_cell:sa8_IDE_cell
+sa8_IDE_cell -> sa225_IDE_cell
+#position:SIGMAR1_nucleus:656.4389189106475,2793.0003628320005
+$SIGMAR1_nucleus:SIGMAR1_endoplasmic_reticulum
+SIGMAR1_endoplasmic_reticulum -> SIGMAR1_nucleus
+#position:SIGMAR1_cell:735.5692503328833,2224.117903733515
+$SIGMAR1_cell:SIGMAR1_endoplasmic_reticulum
+SIGMAR1_endoplasmic_reticulum -> SIGMAR1_cell
+#position:sa230_ALG11_endoplasmic_reticulum:1048.8574958380268,135.5
+$sa230_ALG11_endoplasmic_reticulum:sa14_ALG11_endoplasmic_reticulum
+sa14_ALG11_endoplasmic_reticulum -> sa230_ALG11_endoplasmic_reticulum
+#position:H__ion:179.71750265114747,3219.853697357155
+$H__ion:V_type_space_proton_space_ATPase_complex
+V_type_space_proton_space_ATPase_complex -> H__ion

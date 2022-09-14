@@ -1,0 +1,102 @@
+unknown_input ,  unknown_input
+lckr_input ,  lckr_input
+unknown_input2 ,  unknown_input2
+cd28_input ,  cd28_input
+cd4 ,  cd4
+tcrlig_input ,  tcrlig_input
+unknown_input3 ,  unknown_input3
+bcl10 ,  unknown_input2
+grb2 ,  lat
+cre ,  creb
+mlk3 ,  (! rac1p1 & hpk1) | (rac1p1)
+pkcth ,  pdk1 & vav1 & dag
+cblb ,  ! cd28
+creb ,  rsk
+cd45 ,  unknown_input
+plcga ,  ! ccblp2 & vav1 & slp76 & zap70 & itk & plcgb
+cam ,  ca
+ccblr ,  unknown_input
+gsk3 ,  ! pkb
+sh3bp2 ,  lat & zap70
+bcat ,  ! gsk3
+rasgrp ,  dag
+pdk1 ,  pip3
+p38 ,  zap70 & ! gadd45
+p70s ,  pdk1
+cyc1 ,  ! gsk3
+jun ,  jnk
+rac1r ,  unknown_input
+ap1 ,  jun & fos
+ccblp2 ,  ccblr & fyn
+pkb ,  pdk1
+jnk ,  (! mkk4 & mekk1) | (mkk4)
+erk ,  mek
+pip3 ,  ! ship1 & pi3k & ! pten
+p21c ,  ! pkb
+csk ,  pag
+sos ,  grb2
+nfat ,  calcin
+card11a ,  bcl10 & malt1 & card11
+malt1 ,  unknown_input
+tcrb ,  tcrlig & ! ccblp1
+ship1 ,  unknown_input2
+rac1p1 ,  rac1r & vav1
+fos ,  erk
+camk4 ,  cam
+bclxl ,  ! bad
+xx ,  cd28
+cd28 ,  cd28_input
+cdc42 ,  unknown_input2
+ip3 ,  plcga
+camk2 ,  cam
+shp2 ,  gab2
+lat ,  zap70
+sre ,  (! cdc42 & rac1p2) | (cdc42)
+card11 ,  unknown_input
+p27k ,  ! pkb
+lckr ,  lckr_input
+tcrp ,  (tcrb & ! fyn & lckp1) | (tcrb & fyn)
+vav1 ,  (! sh3bp2 & xx) | (sh3bp2 & ! xx & zap70) | (sh3bp2 & xx)
+shp1 ,  ! erk & lckp1
+rlk ,  lckp1
+vav3 ,  sh3bp2
+calpr1 ,  unknown_input2
+fyn ,  (! cd45 & tcrb & lckr) | (cd45 & ! tcrb & lckp1) | (cd45 & tcrb & ! lckr & lckp1) | (cd45 & tcrb & lckr)
+tcrlig ,  tcrlig_input
+hpk1 ,  lat
+lckp1 ,  cd4 & cd45 & ! csk & lckr & ! shp1
+pi3k ,  (! cblb & ! xx & lckp2) | (! cblb & xx)
+mek ,  raf
+ikb ,  ! ikkab
+lckp2 ,  tcrb & lckr
+dag ,  plcga & ! dgk
+gap ,  unknown_input3
+rsk ,  erk
+slp76 ,  zap70 & ! gab2 & gads
+zap70 ,  tcrp & abl & ! ccblp1
+pag ,  ! tcrb & fyn
+rac1p2 ,  rac1r & vav3
+itk ,  pip3 & slp76 & zap70
+akap79 ,  unknown_input2
+ikkab ,  camk2 & ikkg
+nfkb ,  ! ikb
+raf ,  ras
+abl ,  (! fyn & lckp1) | (fyn)
+calcin ,  cam & ! calpr1 & ! akap79 & ! cabin1
+bad ,  ! pkb
+ca ,  ip3
+mkk4 ,  (! mlk3 & mekk1) | (mlk3)
+pten ,  unknown_input2
+plcgb ,  lat
+Dummy ,  ! ccblp2 & vav1 & slp76 & zap70 & itk & plcgb
+fkhr ,  ! pkb
+mekk1 ,  (! cdc42 & ! hpk1 & rac1p2) | (! cdc42 & hpk1) | (cdc42)
+ikkg ,  pkcth & card11a
+gab2 ,  (! grb2 & lat & zap70 & gads) | (grb2 & lat & zap70)
+gadd45 ,  unknown_input
+cabin1 ,  ! camk4
+dgk ,  tcrb
+ras ,  rasgrp & sos & ! gap
+ccblp1 ,  ccblr & zap70
+gads ,  lat
+

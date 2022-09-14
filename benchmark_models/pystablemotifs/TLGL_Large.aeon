@@ -1,0 +1,206 @@
+NFKB -? A20
+Caspase -? Apoptosis
+BclxL -? BID
+Caspase -? BID
+GZMB -? BID
+MCL1 -? BID
+BID -? BclxL
+DISC -? BclxL
+GZMB -? BclxL
+NFKB -? BclxL
+STAT3 -? BclxL
+0 -? CD45
+ERK -? CREB
+IFNG -? CREB
+TCR -? CTLA4
+BID -? Caspase
+DISC -? Caspase
+GZMB -? Caspase
+IAP -? Caspase
+TRADD -? Caspase
+Fas -? Ceramide
+S1P -? Ceramide
+FYN -? Cytoskeleton_signaling
+Ceramide -? DISC
+FLIP -? DISC
+Fas -? DISC
+FasT -? DISC
+IL2 -? DISC
+MEK -? ERK
+PI3K -? ERK
+CREB -? FLIP
+DISC -? FLIP
+IFNG -? FLIP
+NFKB -? FLIP
+IL2RB -? FYN
+TCR -? FYN
+FasL -? Fas
+FasT -? Fas
+sFas -? Fas
+ERK -? FasL
+NFAT -? FasL
+NFKB -? FasL
+STAT3 -? FasL
+NFKB -? FasT
+GAP -? GAP
+IL15 -? GAP
+IL2 -? GAP
+PDGFR -? GAP
+RAS -? GAP
+S1P -? GPCR
+IL2RB -? GRB2
+ZAP70 -? GRB2
+CREB -? GZMB
+IFNG -? GZMB
+TBET -? GZMB
+BID -? IAP
+NFKB -? IAP
+IFNGT -? IFNG
+IL15 -? IFNG
+IL2 -? IFNG
+P2 -? IFNG
+SMAD -? IFNG
+Stimuli -? IFNG
+NFAT -? IFNGT
+STAT3 -? IFNGT
+TBET -? IFNGT
+IL15 -? IL15
+NFAT -? IL2
+NFKB -? IL2
+STAT3 -? IL2
+TBET -? IL2
+IL2 -? IL2RA
+IL2RA -? IL2RA
+IL2RAT -? IL2RA
+IL2 -? IL2RAT
+NFKB -? IL2RAT
+STAT3 -? IL2RAT
+IL15 -? IL2RB
+IL2 -? IL2RB
+IL2RBT -? IL2RB
+ERK -? IL2RBT
+TBET -? IL2RBT
+CD45 -? JAK
+IFNG -? JAK
+IL2RA -? JAK
+IL2RB -? JAK
+RANTES -? JAK
+SOCS -? JAK
+CD45 -? LCK
+IL2RB -? LCK
+TCR -? LCK
+ZAP70 -? LCK
+DISC -? MCL1
+IL2RB -? MCL1
+NFKB -? MCL1
+PI3K -? MCL1
+STAT3 -? MCL1
+RAS -? MEK
+PI3K -? NFAT
+FLIP -? NFKB
+IAP -? NFKB
+PI3K -? NFKB
+TPL2 -? NFKB
+TRADD -? NFKB
+IFNG -? P2
+P2 -? P2
+Stimuli2 -? P2
+STAT3 -? P27
+PDGF -? PDGFR
+S1P -? PDGFR
+PDGFR -? PI3K
+RAS -? PI3K
+GRB2 -? PLCG1
+PDGFR -? PLCG1
+P27 -? Proliferation
+STAT3 -? Proliferation
+NFKB -? RANTES
+GAP -? RAS
+GRB2 -? RAS
+PLCG1 -? RAS
+Ceramide -? S1P
+SPHK1 -? S1P
+GPCR -? SMAD
+IL15 -? SOCS
+IL2 -? SOCS
+JAK -? SOCS
+PDGFR -? SPHK1
+JAK -? STAT3
+Stimuli -? Stimuli
+0 -? Stimuli2
+0 -? TAX
+JAK -? TBET
+TBET -? TBET
+CTLA4 -? TCR
+Stimuli -? TCR
+NFKB -? TNF
+PI3K -? TPL2
+TAX -? TPL2
+TNF -? TPL2
+A20 -? TRADD
+IAP -? TRADD
+TNF -? TRADD
+FYN -? ZAP70
+LCK -? ZAP70
+FasT -? sFas
+S1P -? sFas
+$A20: NFKB
+$Apoptosis: Caspase
+$BID: ((Caspase | GZMB) & !(BclxL | MCL1))
+$BclxL: ((NFKB | STAT3) & !(BID | (GZMB | DISC)))
+$CD45: 0
+$CREB: (ERK & IFNG)
+$CTLA4: TCR
+$Caspase: ((((TRADD | GZMB) & BID) & !IAP) | DISC)
+$Ceramide: (Fas & !S1P)
+$Cytoskeleton_signaling: FYN
+$DISC: (FasT & ((Fas & IL2) | (Ceramide | (Fas & !FLIP))))
+$ERK: (MEK & PI3K)
+$FLIP: ((NFKB | (CREB & IFNG)) & !DISC)
+$FYN: (TCR | IL2RB)
+$Fas: ((FasT & FasL) & !sFas)
+$FasL: (STAT3 | (NFKB | (NFAT | ERK)))
+$FasT: NFKB
+$GAP: ((RAS | (PDGFR & GAP)) & !(IL15 | IL2))
+$GPCR: S1P
+$GRB2: (IL2RB | ZAP70)
+$GZMB: ((CREB & IFNG) | TBET)
+$IAP: (NFKB & !BID)
+$IFNG: (((IL2 | (IL15 | Stimuli)) & IFNGT) & !(SMAD | P2))
+$IFNGT: (TBET | (STAT3 | NFAT))
+$IL15: IL15
+$IL2: ((NFKB | (STAT3 | NFAT)) & !TBET)
+$IL2RA: ((IL2 & IL2RAT) & !IL2RA)
+$IL2RAT: (IL2 & (STAT3 | NFKB))
+$IL2RB: (IL2RBT & (IL2 | IL15))
+$IL2RBT: (ERK & TBET)
+$JAK: ((IL2RA | (IL2RB | (RANTES | IFNG))) & !(SOCS | CD45))
+$LCK: (CD45 | ((TCR | IL2RB) & !ZAP70))
+$MCL1: ((IL2RB & (STAT3 & (NFKB & PI3K))) & !DISC)
+$MEK: RAS
+$NFAT: PI3K
+$NFKB: ((TPL2 | PI3K) | (FLIP & (TRADD & IAP)))
+$P2: ((IFNG | P2) & !Stimuli2)
+$P27: STAT3
+$PDGFR: (S1P | PDGF)
+$PI3K: (PDGFR | RAS)
+$PLCG1: (GRB2 | PDGFR)
+$Proliferation: (STAT3 & !P27)
+$RANTES: NFKB
+$RAS: ((GRB2 | PLCG1) & !GAP)
+$S1P: (SPHK1 & !Ceramide)
+$SMAD: GPCR
+$SOCS: (JAK & !(IL2 | IL15))
+$SPHK1: PDGFR
+$STAT3: JAK
+$Stimuli: Stimuli
+$Stimuli2: 0
+$TAX: 0
+$TBET: (JAK | TBET)
+$TCR: (Stimuli & !CTLA4)
+$TNF: NFKB
+$TPL2: (TAX | (PI3K & TNF))
+$TRADD: (TNF & !(IAP | A20))
+$ZAP70: (LCK & !FYN)
+$sFas: (FasT & S1P)
+

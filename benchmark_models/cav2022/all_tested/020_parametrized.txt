@@ -1,0 +1,25 @@
+020 - props: 39, params: 132
+
+formula: AF !{x}: (AX (~{x} && AF {x}))
+0.0 RESULTS FOUND IN TOTAL
+0.0 COLORS FOUND IN TOTAL
+0.0 STATES FOUND IN TOTAL
+31.779460430145264
+
+formula: AF !{x}: ((AX (~{x} && AF {x})) && (EF !{y}: EX ~AF {y}))
+0.0 RESULTS FOUND IN TOTAL
+0.0 COLORS FOUND IN TOTAL
+0.0 STATES FOUND IN TOTAL
+113.45933794975281
+
+formula: !{x}: 3{y}: (@{x}: ~{y} && AX {x}) && (@{y}: AX {y})
+0.0 RESULTS FOUND IN TOTAL
+0.0 COLORS FOUND IN TOTAL
+0.0 STATES FOUND IN TOTAL
+48.380107164382935
+
+formula: 3{x}: 3{y}: (@{x}: ~{y} && AX {x}) && (@{y}: AX {y}) && EF ({x} && !{z}: AX {z}) && EF ({y} && !{z}: AX {z}) && AX (EF ({x} && !{z}: AX {z}) ^ EF ({y} && !{z}: AX {z}))
+0.0 RESULTS FOUND IN TOTAL
+0.0 COLORS FOUND IN TOTAL
+0.0 STATES FOUND IN TOTAL
+114.4375867843628

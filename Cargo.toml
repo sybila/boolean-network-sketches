@@ -1,0 +1,37 @@
+[package]
+name = "bn-inference-tool"
+version = "0.1.0"
+authors = ["Ondrej Huvar <ohuvar@gmail.com>"]
+edition = "2021"
+
+#[profile.release]
+#lto = true
+
+[profile.test]
+opt-level = 3
+
+[[bin]]
+name = "experiment-aeon"
+path = "src/bin/experiment_aeon.rs"
+
+[[bin]]
+name = "inference-attractors"
+path = "src/bin/infer_networks_attractors.rs"
+
+[[bin]]
+name = "inference-case-study"
+path = "src/bin/inference_case_studies.rs"
+
+[[bin]]
+name = "print-regulations"
+path = "src/bin/print_regulations.rs"
+
+
+[dependencies]
+biodivine-lib-bdd = "0.4.0"
+biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn.git", branch = "hctl-experimental" }
+biodivine-aeon-server = { git = "https://github.com/sybila/biodivine-aeon-server", branch = "hctl-experimental" }
+hctl-model-checker = { git = "https://github.com/ondrej33/HCTL_rust.git", branch = "master" }
+termcolor = "1.1.2"
+rand = "0.6.5"
+

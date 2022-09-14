@@ -1,0 +1,8 @@
+Loaded model with 121 vars.
+After applying static constraints, 53378248050663950000000 concretizations remain.
+attractor ensured
+attractor ensured
+After ensuring attractor presence, 682290 concretizations remain.
+682290 suitable networks found in total
+OK - color of goal network is included in resulting set.
+Elapsed time: 148292ms

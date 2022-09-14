@@ -1,0 +1,27 @@
+targets,factors
+BTRC, ((!BTRC | ((!TRIM9 | BTRC_11) & (!!TRIM9 | BTRC_10))) & (!!BTRC | ((!TRIM9 | BTRC_01) & (!!TRIM9 | BTRC_00))))
+CACTIN, ((!CACTIN | ((!TRIM39 | CACTIN_11) & (!!TRIM39 | CACTIN_10))) & (!!CACTIN | ((!TRIM39 | CACTIN_01) & (!!TRIM39 | CACTIN_00))))
+CASP1, ((PYCARD_ubiquitinated_ubiquitinated_ubiquitinated & NLRP3) & CASP1)
+Hops_Complex_complex, ((!Orf3a | Hops_Complex_complex_1) & (!!Orf3a | Hops_Complex_complex_0))
+IFNB1, ((!IFNB1 | ((!SERPINF2 | IFNB1_11) & (!!SERPINF2 | IFNB1_10))) & (!!IFNB1 | ((!SERPINF2 | IFNB1_01) & (!!SERPINF2 | IFNB1_00))))
+IKBKG_IKBKB_CHUK_complex, LPS_TNF___IL_1_complex
+IL1b, ((((CASP1 | P65_P015_complex) | E) & IL1b) | P65_P015_complex)
+LPS_TLR4_MYD88_complex, ((TLR4 & IRF6) & MYD88)
+MYD88, ((MYD88 & TLR7_8_9_complex) | (MYD88 & !TRIM59))
+NEMO_IKKA_IKKB_complex, ((((TAB2_TAB3_TAK1_complex | TRIM14_TRIM23_complex) & !TRIM22) & !TRIM29) & !TRIM27_TRIM21_complex)
+NFKB1_NFKNIA_complex, ((!CACTIN | ((!NFKB1 | ((!NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated | NFKB1_NFKNIA_complex_111) & (!!NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated | NFKB1_NFKNIA_complex_110))) & (!!NFKB1 | ((!NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated | NFKB1_NFKNIA_complex_101) & (!!NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated | NFKB1_NFKNIA_complex_100))))) & (!!CACTIN | ((!NFKB1 | ((!NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated | NFKB1_NFKNIA_complex_011) & (!!NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated | NFKB1_NFKNIA_complex_010))) & (!!NFKB1 | ((!NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated | NFKB1_NFKNIA_complex_001) & (!!NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated | NFKB1_NFKNIA_complex_000))))))
+NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated, ((!BTRC | ((!NEMO_IKKA_IKKB_complex | NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated_11) & (!!NEMO_IKKA_IKKB_complex | NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated_10))) & (!!BTRC | ((!NEMO_IKKA_IKKB_complex | NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated_01) & (!!NEMO_IKKA_IKKB_complex | NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated_00))))
+NLRP3, ORF8b
+P65_P015_complex, ((IKBKG_IKBKB_CHUK_complex & E) | ((TRAF3 | IKBKG_IKBKB_CHUK_complex) | Orf3a))
+PYCARD_ubiquitinated_ubiquitinated_ubiquitinated, (TRAF3 | Orf3a)
+S, ((!Orf3a | S_1) & (!!Orf3a | S_0))
+SERPINF2, ((!TAB2_TAB3_TAK1_complex | SERPINF2_1) & (!!TAB2_TAB3_TAK1_complex | SERPINF2_0))
+TAB2_TAB3_TAK1_complex, (TRAF6 & !TRIM30a_TRIM38_complex)
+TICAM1, ((TICAM1 & TLR3) & !TRIM38)
+TLR3, double_stranded_RNA_rna
+TLR7_8_9_complex, ssRNA_rna
+TRAF3, (TRAF3 & TICAM1)
+TRAF6, ((((MYD88 | TRIM23) & TRAF6) & !TRIM38) | (TRAF6 & LPS_TLR4_MYD88_complex))
+TRIM39, ((!TRIM39 | TRIM39_1) & (!!TRIM39 | TRIM39_0))
+TRIM59, (TRIM59 & Orf3a)
+

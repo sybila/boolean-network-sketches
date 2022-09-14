@@ -1,0 +1,684 @@
+#position:Nsp9_cell:0,0
+$Nsp9_cell:true
+#position:Fibrillincomp_complex:0,0
+Nsp9_cell -> Fibrillincomp_complex
+csa8_Fibrillin_complex_human_host -> Fibrillincomp_complex
+FBLN5 -> Fibrillincomp_complex
+PLG -> Fibrillincomp_complex
+#position:csa8_Fibrillin_complex_human_host:0,0
+$csa8_Fibrillin_complex_human_host:true
+#position:FBLN5:0,0
+$FBLN5:true
+#position:PLG:0,0
+PLG -> PLG
+PLAT -> PLG
+Nafamostat_drug -> PLG
+#position:Nuclear_Pore_complex:0,0
+nup2_complex -> Nuclear_Pore_complex
+nup1_complex -> Nuclear_Pore_complex
+#position:Nuclear_Pore_comp_complex:0,0
+Nuclear_Pore_complex -> Nuclear_Pore_comp_complex
+Nsp9_cell -> Nuclear_Pore_comp_complex
+#position:MIB1:0,0
+$MIB1:true
+#position:MIBcomp_complex:0,0
+MIB1 -> MIBcomp_complex
+DLL1 -> MIBcomp_complex
+#position:DLL1:0,0
+$DLL1:true
+#position:Vpr:0,0
+$Vpr:true
+#position:csa41_COPS_complex_nucleus:0,0
+Vpr -> csa41_COPS_complex_nucleus
+csa40_COPS_complex_nucleus -> csa41_COPS_complex_nucleus
+#position:csa40_COPS_complex_nucleus:0,0
+$csa40_COPS_complex_nucleus:(((((COPS2 & COPS4) & COPS5) & COPS6) & COPS7A) & COPS8)
+COPS2 -> csa40_COPS_complex_nucleus
+COPS4 -> csa40_COPS_complex_nucleus
+COPS5 -> csa40_COPS_complex_nucleus
+COPS6 -> csa40_COPS_complex_nucleus
+COPS7A -> csa40_COPS_complex_nucleus
+COPS8 -> csa40_COPS_complex_nucleus
+#position:SCARB1:0,0
+$SCARB1:true
+#position:lipidcomp_complex:0,0
+SCARB1 -> lipidcomp_complex
+Phosphatidyl_serine_simple_molecule -> lipidcomp_complex
+#position:Phosphatidyl_serine_simple_molecule:0,0
+$Phosphatidyl_serine_simple_molecule:true
+#position:MAT1A:0,0
+$MAT1A:true
+#position:SAdComp_complex:0,0
+MAT1A -> SAdComp_complex
+S_Adenosylmethionine_drug -> SAdComp_complex
+#position:S_Adenosylmethionine_drug:0,0
+$S_Adenosylmethionine_drug:true
+#position:nup2_complex:0,0
+NUP214 -> nup2_complex
+NUP88 -> nup2_complex
+#position:nup1_complex:0,0
+NUP54 -> nup1_complex
+NUP58 -> nup1_complex
+NUP62 -> nup1_complex
+#position:EXOSC2:0,0
+$EXOSC2:true
+#position:EXOCcomp_complex:0,0
+$EXOCcomp_complex:((((EXOSC2 & Nsp8) & EXOSC3) & EXOSC5) & EXOSC8)
+EXOSC2 -> EXOCcomp_complex
+Nsp8 -> EXOCcomp_complex
+EXOSC3 -> EXOCcomp_complex
+EXOSC5 -> EXOCcomp_complex
+EXOSC8 -> EXOCcomp_complex
+#position:Nsp8:0,0
+$Nsp8:true
+#position:EXOSC3:0,0
+$EXOSC3:true
+#position:EXOSC5:0,0
+$EXOSC5:true
+#position:EXOSC8:0,0
+$EXOSC8:true
+#position:Nsp9_nucleus:0,0
+$Nsp9_nucleus:true
+#position:gtf2f2comp_complex:0,0
+Nsp9_nucleus -> gtf2f2comp_complex
+GTF2F2 -> gtf2f2comp_complex
+#position:GTF2F2:0,0
+$GTF2F2:true
+#position:EDN1_homo_complex_human_host:0,0
+csa36_EDN1_homo_complex_nucleus -> EDN1_homo_complex_human_host
+#position:EDN1_homo_complex_cell:0,0
+EDN1_homo_complex_human_host -> EDN1_homo_complex_cell
+EDNRA -> EDN1_homo_complex_cell
+#position:EDNRA:0,0
+$EDNRA:true
+#position:mibcomp_complex:0,0
+MIB1 -> mibcomp_complex
+Nsp9_cell -> mibcomp_complex
+#position:csa36_EDN1_homo_complex_nucleus:0,0
+EDN1 -> csa36_EDN1_homo_complex_nucleus
+#position:znfcomp_complex:0,0
+Nsp9_nucleus -> znfcomp_complex
+ZNF503 -> znfcomp_complex
+#position:ZNF503:0,0
+$ZNF503:true
+#position:csa63_Nsp7812_complex_cell:0,0
+Nsp8 -> csa63_Nsp7812_complex_cell
+Nsp7 -> csa63_Nsp7812_complex_cell
+Nsp12 -> csa63_Nsp7812_complex_cell
+#position:Nsp7:0,0
+$Nsp7:true
+#position:Nsp12:0,0
+$Nsp12:true
+#position:csa64_Nsp7812_complex_cell:0,0
+csa63_Nsp7812_complex_cell -> csa64_Nsp7812_complex_cell
+RdRpassembled_rna -> csa64_Nsp7812_complex_cell
+remdesivir__drug -> csa64_Nsp7812_complex_cell
+favipiravir_drug -> csa64_Nsp7812_complex_cell
+#position:RdRpassembled_rna:0,0
+$RdRpassembled_rna:true
+#position:remdesivir__drug:0,0
+$remdesivir__drug:true
+#position:favipiravir_drug:0,0
+$favipiravir_drug:true
+#position:NUP54:0,0
+$NUP54:true
+#position:NUP58:0,0
+$NUP58:true
+#position:NUP62:0,0
+$NUP62:true
+#position:NUP214:0,0
+$NUP214:true
+#position:NUP88:0,0
+$NUP88:true
+#position:BAG6:0,0
+$BAG6:true
+#position:csa37_EDN1_homo_complex_nucleus:0,0
+BAG6 -> csa37_EDN1_homo_complex_nucleus
+csa36_EDN1_homo_complex_nucleus -> csa37_EDN1_homo_complex_nucleus
+#position:NEK9:0,0
+$NEK9:true
+#position:NEKs_complex:0,0
+NEK9 -> NEKs_complex
+NEK7 -> NEKs_complex
+NEK6 -> NEKs_complex
+#position:NEK7:0,0
+$NEK7:true
+#position:NEK6:0,0
+$NEK6:true
+#position:gtfrnapoly_complex:0,0
+$gtfrnapoly_complex:(((((GTF2F2 & GTF2B) & POLR2A) & POLR2B) & POLR2E) & POLR2G)
+GTF2F2 -> gtfrnapoly_complex
+GTF2B -> gtfrnapoly_complex
+POLR2A -> gtfrnapoly_complex
+POLR2B -> gtfrnapoly_complex
+POLR2E -> gtfrnapoly_complex
+POLR2G -> gtfrnapoly_complex
+#position:GTF2B:0,0
+$GTF2B:true
+#position:POLR2A:0,0
+$POLR2A:true
+#position:POLR2B:0,0
+$POLR2B:true
+#position:POLR2E:0,0
+$POLR2E:true
+#position:POLR2G:0,0
+$POLR2G:true
+#position:csa43_EDN1_homo_complex_nucleus:0,0
+csa36_EDN1_homo_complex_nucleus -> csa43_EDN1_homo_complex_nucleus
+UBQLN4 -> csa43_EDN1_homo_complex_nucleus
+#position:csa44_EDN1_homo_complex_endoplasmic_reticulum:0,0
+csa43_EDN1_homo_complex_nucleus -> csa44_EDN1_homo_complex_endoplasmic_reticulum
+#position:EDN1:0,0
+EDN1_rna -> EDN1
+#position:eifcomp_complex:0,0
+Nsp9_nucleus -> eifcomp_complex
+EIF4H -> eifcomp_complex
+#position:EIF4H:0,0
+$EIF4H:true
+#position:COPS2:0,0
+$COPS2:true
+#position:COPS4:0,0
+$COPS4:true
+#position:COPS5:0,0
+$COPS5:true
+#position:COPS6:0,0
+$COPS6:true
+#position:COPS7A:0,0
+$COPS7A:true
+#position:COPS8:0,0
+$COPS8:true
+#position:csa42_EDN1_homo_complex_nucleus:0,0
+csa36_EDN1_homo_complex_nucleus -> csa42_EDN1_homo_complex_nucleus
+COPS6 -> csa42_EDN1_homo_complex_nucleus
+#position:UBQLN4:0,0
+$UBQLN4:true
+#position:csa39_EDN1_homo_complex_endoplasmic_reticulum:0,0
+csa36_EDN1_homo_complex_nucleus -> csa39_EDN1_homo_complex_endoplasmic_reticulum
+#position:TAT_HIV_complex:0,0
+GTF2F2 -> TAT_HIV_complex
+TAT -> TAT_HIV_complex
+#position:TAT:0,0
+$TAT:true
+#position:dcafcomp_complex:0,0
+Nsp9_nucleus -> dcafcomp_complex
+DCAF7 -> dcafcomp_complex
+#position:DCAF7:0,0
+$DCAF7:true
+#position:SPART:0,0
+$SPART:true
+#position:SPARTcomp_complex:0,0
+SPART -> SPARTcomp_complex
+AIFM1 -> SPARTcomp_complex
+#position:AIFM1:0,0
+$AIFM1:true
+#position:Nsp10_cell:0,0
+$Nsp10_cell:true
+#position:pathogen_complex:0,0
+$pathogen_complex:((((Nsp10_cell & Nsp9_cell) & Nsp16) & NEMF) & Nsp14_cell)
+Nsp10_cell -> pathogen_complex
+Nsp9_cell -> pathogen_complex
+Nsp16 -> pathogen_complex
+NEMF -> pathogen_complex
+Nsp14_cell -> pathogen_complex
+#position:Nsp16:0,0
+$Nsp16:true
+#position:NEMF:0,0
+$NEMF:true
+#position:Nsp14_cell:0,0
+$Nsp14_cell:true
+#position:CA12:0,0
+$CA12:true
+#position:HCTcomp_complex:0,0
+CA12 -> HCTcomp_complex
+Hydrochlorothiazide_drug -> HCTcomp_complex
+#position:Hydrochlorothiazide_drug:0,0
+$Hydrochlorothiazide_drug:true
+#position:FOCAD:0,0
+$FOCAD:true
+#position:FOCADcomp_complex:0,0
+FOCAD -> FOCADcomp_complex
+Nsp7 -> FOCADcomp_complex
+Nsp8 -> FOCADcomp_complex
+#position:spartcomp_complex:0,0
+SPART -> spartcomp_complex
+Nsp9_cell -> spartcomp_complex
+#position:homodimer_complex:0,0
+Nsp9_cell -> homodimer_complex
+#position:RNArecognition_complex:0,0
+homodimer_complex -> RNArecognition_complex
+ssRNAoligo_rna -> RNArecognition_complex
+#position:ssRNAoligo_rna:0,0
+$ssRNAoligo_rna:true
+#position:mat2bcomp_complex:0,0
+Nsp9_cell -> mat2bcomp_complex
+MAT2B -> mat2bcomp_complex
+#position:MAT2B:0,0
+$MAT2B:true
+#position:MAT2A:0,0
+$MAT2A:true
+#position:SAdComp2_complex:0,0
+MAT2A -> SAdComp2_complex
+S_Adenosylmethionine_drug -> SAdComp2_complex
+#position:PTGS2:0,0
+$PTGS2:true
+#position:PTGScomp_complex:0,0
+PTGS2 -> PTGScomp_complex
+Rofecoxib_drug -> PTGScomp_complex
+#position:Rofecoxib_drug:0,0
+$Rofecoxib_drug:true
+#position:RHOA:0,0
+$RHOA:true
+#position:RHOA7comp_complex:0,0
+RHOA -> RHOA7comp_complex
+Nsp7 -> RHOA7comp_complex
+#position:MAT_complex:0,0
+MAT1A -> MAT_complex
+MAT2A -> MAT_complex
+MAT2B -> MAT_complex
+#position:NEC1_complex:0,0
+MAT2B -> NEC1_complex
+PCSK1 -> NEC1_complex
+#position:PCSK1:0,0
+$PCSK1:true
+#position:AIFMFlaComp_complex:0,0
+$AIFMFlaComp_complex:(AIFM1 & Flavin_adenine_dinucleotide_drug)
+AIFM1 -> AIFMFlaComp_complex
+Flavin_adenine_dinucleotide_drug -> AIFMFlaComp_complex
+#position:Flavin_adenine_dinucleotide_drug:0,0
+$Flavin_adenine_dinucleotide_drug:true
+#position:EDNRASitaComp_complex:0,0
+$EDNRASitaComp_complex:(EDNRA & Sitaxentan_drug)
+EDNRA -> EDNRASitaComp_complex
+Sitaxentan_drug -> EDNRASitaComp_complex
+#position:Sitaxentan_drug:0,0
+$Sitaxentan_drug:true
+#position:EDNRAmbComp_complex:0,0
+$EDNRAmbComp_complex:(EDNRA & Ambrisentan_drug)
+EDNRA -> EDNRAmbComp_complex
+Ambrisentan_drug -> EDNRAmbComp_complex
+#position:Ambrisentan_drug:0,0
+$Ambrisentan_drug:true
+#position:EDNRAcetComp_complex:0,0
+EDNRA -> EDNRAcetComp_complex
+Acetylsalicylic_acid_drug -> EDNRAcetComp_complex
+#position:Acetylsalicylic_acid_drug:0,0
+$Acetylsalicylic_acid_drug:true
+#position:EDNRMacComp_complex:0,0
+EDNRA -> EDNRMacComp_complex
+Macitentan_drug -> EDNRMacComp_complex
+#position:Macitentan_drug:0,0
+$Macitentan_drug:true
+#position:SEPSECS:0,0
+$SEPSECS:true
+#position:SPcomp_complex:0,0
+SEPSECS -> SPcomp_complex
+Pyridoxal_phosphate_simple_molecule -> SPcomp_complex
+#position:Pyridoxal_phosphate_simple_molecule:0,0
+$Pyridoxal_phosphate_simple_molecule:true
+#position:MYCBPcomp_complex:0,0
+Nsp12 -> MYCBPcomp_complex
+MYCBP2 -> MYCBPcomp_complex
+#position:MYCBP2:0,0
+$MYCBP2:true
+#position:SBNOcomp_complex:0,0
+Nsp12 -> SBNOcomp_complex
+SBNO1 -> SBNOcomp_complex
+#position:SBNO1:0,0
+$SBNO1:true
+#position:s389_complex:0,0
+Nsp12 -> s389_complex
+BCKDK -> s389_complex
+#position:BCKDK:0,0
+$BCKDK:true
+#position:ADPcomp_complex:0,0
+BCKDK -> ADPcomp_complex
+ADP_simple_molecule -> ADPcomp_complex
+#position:ADP_simple_molecule:0,0
+$ADP_simple_molecule:true
+#position:dcafznf_complex:0,0
+ZNF503 -> dcafznf_complex
+DCAF7 -> dcafznf_complex
+#position:RBMcomp_complex:0,0
+Nsp12 -> RBMcomp_complex
+RBM41 -> RBMcomp_complex
+#position:RBM41:0,0
+$RBM41:true
+#position:ZNFcomp_complex:0,0
+Nsp12 -> ZNFcomp_complex
+ZNF318 -> ZNFcomp_complex
+#position:ZNF318:0,0
+$ZNF318:true
+#position:LARPcomp_complex:0,0
+Nsp12 -> LARPcomp_complex
+LARP4B_ -> LARPcomp_complex
+#position:LARP4B_:0,0
+$LARP4B_:true
+#position:SRP54comp_complex:0,0
+Nsp8 -> SRP54comp_complex
+SRP54 -> SRP54comp_complex
+SRP19 -> SRP54comp_complex
+#position:SRP54:0,0
+$SRP54:true
+#position:SRP19:0,0
+$SRP19:true
+#position:ZC3H7Acomp_complex:0,0
+Nsp12 -> ZC3H7Acomp_complex
+ZC3H7A_ -> ZC3H7Acomp_complex
+#position:ZC3H7A_:0,0
+$ZC3H7A_:true
+#position:NECINsComp_complex:0,0
+PCSK1 -> NECINsComp_complex
+Insulin -> NECINsComp_complex
+#position:Insulin:0,0
+$Insulin:true
+#position:SCARB1_complex:0,0
+SCARB1 -> SCARB1_complex
+Nsp7 -> SCARB1_complex
+#position:CA12comp_complex:0,0
+Nsp7 -> CA12comp_complex
+CA12 -> CA12comp_complex
+#position:ZonisamideComp_complex:0,0
+CA12 -> ZonisamideComp_complex
+Zonisamide_drug -> ZonisamideComp_complex
+#position:Zonisamide_drug:0,0
+$Zonisamide_drug:true
+#position:EAcomp_complex:0,0
+CA12 -> EAcomp_complex
+Ellagic_Acid_drug -> EAcomp_complex
+#position:Ellagic_Acid_drug:0,0
+$Ellagic_Acid_drug:true
+#position:HFTcomp_complex:0,0
+CA12 -> HFTcomp_complex
+Hydroflumethiazide_drug -> HFTcomp_complex
+#position:Hydroflumethiazide_drug:0,0
+$Hydroflumethiazide_drug:true
+#position:BZcomp_complex:0,0
+CA12 -> BZcomp_complex
+Benzthiazide_drug -> BZcomp_complex
+#position:Benzthiazide_drug:0,0
+$Benzthiazide_drug:true
+#position:AP2A2comp_complex:0,0
+Nsp10_cell -> AP2A2comp_complex
+AP2A2 -> AP2A2comp_complex
+#position:AP2A2:0,0
+$AP2A2:true
+#position:csa51_Fibrillin_complex_human_host:0,0
+csa8_Fibrillin_complex_human_host -> csa51_Fibrillin_complex_human_host
+ELN -> csa51_Fibrillin_complex_human_host
+PLG -> csa51_Fibrillin_complex_human_host
+#position:ELN:0,0
+$ELN:true
+#position:RofecoxibComp_complex:0,0
+ELN -> RofecoxibComp_complex
+Rofecoxib_drug -> RofecoxibComp_complex
+#position:NspComp_complex:0,0
+Nsp8 -> NspComp_complex
+Nsp9_cell -> NspComp_complex
+#position:NECENVComp_complex:0,0
+$NECENVComp_complex:(PCSK1 & ENV)
+PCSK1 -> NECENVComp_complex
+ENV -> NECENVComp_complex
+#position:ENV:0,0
+$ENV:true
+#position:CYB5R3:0,0
+$CYB5R3:true
+#position:NADHcomp_complex:0,0
+$NADHcomp_complex:(CYB5R3 & NADH_simple_molecule)
+CYB5R3 -> NADHcomp_complex
+NADH_simple_molecule -> NADHcomp_complex
+#position:NADH_simple_molecule:0,0
+$NADH_simple_molecule:true
+#position:CYB5R3comp_complex:0,0
+CYB5R3 -> CYB5R3comp_complex
+Nsp7 -> CYB5R3comp_complex
+#position:FADcomp_complex:0,0
+CYB5R3 -> FADcomp_complex
+FAD_simple_molecule -> FADcomp_complex
+#position:FAD_simple_molecule:0,0
+$FAD_simple_molecule:true
+#position:COMT:0,0
+$COMT:true
+#position:COMT_complex:0,0
+$COMT_complex:(COMT & Nsp7)
+COMT -> COMT_complex
+Nsp7 -> COMT_complex
+#position:RALA:0,0
+$RALA:true
+#position:GDPcomp_complex:0,0
+RALA -> GDPcomp_complex
+GDP_simple_molecule -> GDPcomp_complex
+#position:GDP_simple_molecule:0,0
+$GDP_simple_molecule:true
+#position:RALAcomp_complex:0,0
+$RALAcomp_complex:(RALA & Nsp7)
+RALA -> RALAcomp_complex
+Nsp7 -> RALAcomp_complex
+#position:TCcomp_complex:0,0
+$TCcomp_complex:(COMT & Tolcapone_drug)
+COMT -> TCcomp_complex
+Tolcapone_drug -> TCcomp_complex
+#position:Tolcapone_drug:0,0
+$Tolcapone_drug:true
+#position:NCcomp_complex:0,0
+$NCcomp_complex:(COMT & Entacapone_drug)
+COMT -> NCcomp_complex
+Entacapone_drug -> NCcomp_complex
+#position:Entacapone_drug:0,0
+$Entacapone_drug:true
+#position:DCcomp_complex:0,0
+$DCcomp_complex:(COMT & 3_5_Dinitrocatechol_drug)
+COMT -> DCcomp_complex
+3_5_Dinitrocatechol_drug -> DCcomp_complex
+#position:3_5_Dinitrocatechol_drug:0,0
+$3_5_Dinitrocatechol_drug:true
+#position:ACcomp_complex:0,0
+$ACcomp_complex:(COMT & Ademetionine_drug)
+COMT -> ACcomp_complex
+Ademetionine_drug -> ACcomp_complex
+#position:Ademetionine_drug:0,0
+$Ademetionine_drug:true
+#position:DNCcomp_complex:0,0
+$DNCcomp_complex:(COMT & _3_4_DIHYDROXY_2_NITROPHENYL__PHENYL_METHANONE_drug)
+COMT -> DNCcomp_complex
+_3_4_DIHYDROXY_2_NITROPHENYL__PHENYL_METHANONE_drug -> DNCcomp_complex
+#position:_3_4_DIHYDROXY_2_NITROPHENYL__PHENYL_METHANONE_drug:0,0
+$_3_4_DIHYDROXY_2_NITROPHENYL__PHENYL_METHANONE_drug:true
+#position:MCcomp_complex:0,0
+$MCcomp_complex:(COMT & 2_Methoxyestradiol_drug)
+COMT -> MCcomp_complex
+2_Methoxyestradiol_drug -> MCcomp_complex
+#position:2_Methoxyestradiol_drug:0,0
+$2_Methoxyestradiol_drug:true
+#position:RAB7A:0,0
+$RAB7A:true
+#position:RAB7comp_complex:0,0
+$RAB7comp_complex:(RAB7A & Nsp7)
+RAB7A -> RAB7comp_complex
+Nsp7 -> RAB7comp_complex
+#position:csa99_RGcomp_complex_cell:0,0
+$csa99_RGcomp_complex_cell:(RAB7A & GDP_simple_molecule)
+RAB7A -> csa99_RGcomp_complex_cell
+GDP_simple_molecule -> csa99_RGcomp_complex_cell
+#position:SIRT5:0,0
+$SIRT5:true
+#position:SScomp_complex:0,0
+$SScomp_complex:(SIRT5 & Suramin_drug)
+SIRT5 -> SScomp_complex
+Suramin_drug -> SScomp_complex
+#position:Suramin_drug:0,0
+$Suramin_drug:true
+#position:csa101_RGcomp_complex_cell:0,0
+$csa101_RGcomp_complex_cell:(RHOA & GDP_simple_molecule)
+RHOA -> csa101_RGcomp_complex_cell
+GDP_simple_molecule -> csa101_RGcomp_complex_cell
+#position:nek9comp_complex:0,0
+$nek9comp_complex:(Nsp9_nucleus & NEK9)
+Nsp9_nucleus -> nek9comp_complex
+NEK9 -> nek9comp_complex
+#position:MPHOSPHcomp_complex:0,0
+$MPHOSPHcomp_complex:(Nsp8 & MPHOSPH10)
+Nsp8 -> MPHOSPHcomp_complex
+MPHOSPH10 -> MPHOSPHcomp_complex
+#position:MPHOSPH10:0,0
+$MPHOSPH10:true
+#position:ACSL3:0,0
+$ACSL3:true
+#position:ACSLcomp_complex:0,0
+$ACSLcomp_complex:(ACSL3 & Nsp7)
+ACSL3 -> ACSLcomp_complex
+Nsp7 -> ACSLcomp_complex
+#position:IMPDH2:0,0
+$IMPDH2:true
+#position:IMercomp_complex:0,0
+$IMercomp_complex:(IMPDH2 & Mercaptopurine_drug)
+IMPDH2 -> IMercomp_complex
+Mercaptopurine_drug -> IMercomp_complex
+#position:Mercaptopurine_drug:0,0
+$Mercaptopurine_drug:true
+#position:MRPS5:0,0
+$MRPS5:true
+#position:MRPScomp_complex:0,0
+MRPS5 -> MRPScomp_complex
+Nsp8 -> MRPScomp_complex
+MRPS2 -> MRPScomp_complex
+#position:MRPS2:0,0
+$MRPS2:true
+#position:IRcomp_complex:0,0
+$IRcomp_complex:(IMPDH2 & Ribavirin_drug)
+IMPDH2 -> IRcomp_complex
+Ribavirin_drug -> IRcomp_complex
+#position:Ribavirin_drug:0,0
+$Ribavirin_drug:true
+#position:LOXcomp_complex:0,0
+FBLN5 -> LOXcomp_complex
+LOXL1 -> LOXcomp_complex
+PLG -> LOXcomp_complex
+#position:LOXL1:0,0
+$LOXL1:true
+#position:SEPSECScomp_complex:0,0
+$SEPSECScomp_complex:(Nsp8 & SEPSECS)
+Nsp8 -> SEPSECScomp_complex
+SEPSECS -> SEPSECScomp_complex
+#position:NOL10comp_complex:0,0
+$NOL10comp_complex:(Nsp8 & NOL10)
+Nsp8 -> NOL10comp_complex
+NOL10 -> NOL10comp_complex
+#position:NOL10:0,0
+$NOL10:true
+#position:SRP72:0,0
+$SRP72:true
+#position:SRP72comp_complex:0,0
+$SRP72comp_complex:(SRP72 & Nsp7)
+SRP72 -> SRP72comp_complex
+Nsp7 -> SRP72comp_complex
+#position:NARS2:0,0
+$NARS2:true
+#position:NLcomp_complex:0,0
+NARS2 -> NLcomp_complex
+L_Asparagine_simple_molecule -> NLcomp_complex
+#position:L_Asparagine_simple_molecule:0,0
+$L_Asparagine_simple_molecule:true
+#position:SIRT5comp_complex:0,0
+$SIRT5comp_complex:(Nsp14_cell & SIRT5)
+Nsp14_cell -> SIRT5comp_complex
+SIRT5 -> SIRT5comp_complex
+#position:AATFcomp_complex:0,0
+$AATFcomp_complex:(Nsp8 & AATF)
+Nsp8 -> AATFcomp_complex
+AATF -> AATFcomp_complex
+#position:AATF:0,0
+$AATF:true
+#position:Nsp14_nucleus:0,0
+$Nsp14_nucleus:true
+#position:INPDH2comp_complex:0,0
+$INPDH2comp_complex:(Nsp14_nucleus & IMPDH2)
+Nsp14_nucleus -> INPDH2comp_complex
+IMPDH2 -> INPDH2comp_complex
+#position:DDX10comp_complex:0,0
+$DDX10comp_complex:(Nsp8 & DDX10)
+Nsp8 -> DDX10comp_complex
+DDX10 -> DDX10comp_complex
+#position:DDX10:0,0
+$DDX10:true
+#position:TCFcomp_complex:0,0
+$TCFcomp_complex:(Nsp12 & TCF12)
+Nsp12 -> TCFcomp_complex
+TCF12 -> TCFcomp_complex
+#position:TCF12:0,0
+$TCF12:true
+#position:Nsp10_nucleus:0,0
+$Nsp10_nucleus:true
+#position:ERGIC1comp_complex:0,0
+$ERGIC1comp_complex:(Nsp10_nucleus & ERGIC1)
+Nsp10_nucleus -> ERGIC1comp_complex
+ERGIC1 -> ERGIC1comp_complex
+#position:ERGIC1:0,0
+$ERGIC1:true
+#position:GFER:0,0
+$GFER:true
+#position:GFERcomp_complex:0,0
+$GFERcomp_complex:(GFER & Nsp10_cell)
+GFER -> GFERcomp_complex
+Nsp10_cell -> GFERcomp_complex
+#position:FGCOMP_complex:0,0
+$FGCOMP_complex:(GFER & FAD_simple_molecule)
+GFER -> FGCOMP_complex
+FAD_simple_molecule -> FGCOMP_complex
+#position:AP2M1comp_complex:0,0
+$AP2M1comp_complex:(Nsp10_cell & AP2M1)
+Nsp10_cell -> AP2M1comp_complex
+AP2M1 -> AP2M1comp_complex
+#position:AP2M1:0,0
+$AP2M1:true
+#position:IMcomp_complex:0,0
+$IMcomp_complex:(IMPDH2 & Mycophenolic_acid_drug)
+IMPDH2 -> IMcomp_complex
+Mycophenolic_acid_drug -> IMcomp_complex
+#position:Mycophenolic_acid_drug:0,0
+Mycophenolate_mofetil_drug -> Mycophenolic_acid_drug
+#position:NGDNcomp_complex:0,0
+$NGDNcomp_complex:(Nsp8 & NGDN)
+Nsp8 -> NGDNcomp_complex
+NGDN -> NGDNcomp_complex
+#position:NGDN:0,0
+$NGDN:true
+#position:CCDCcomp_complex:0,0
+$CCDCcomp_complex:(Nsp8 & CCDC86)
+Nsp8 -> CCDCcomp_complex
+CCDC86 -> CCDCcomp_complex
+#position:CCDC86:0,0
+$CCDC86:true
+#position:MEPCEcomp_complex:0,0
+Nsp8 -> MEPCEcomp_complex
+MEPCE -> MEPCEcomp_complex
+LARP7 -> MEPCEcomp_complex
+#position:MEPCE:0,0
+$MEPCE:true
+#position:LARP7:0,0
+$LARP7:true
+#position:NARS2comp_complex:0,0
+$NARS2comp_complex:(Nsp8 & NARS2)
+Nsp8 -> NARS2comp_complex
+NARS2 -> NARS2comp_complex
+#position:ZNF250comp_complex:0,0
+Nsp14_nucleus -> ZNF250comp_complex
+ZNF250 -> ZNF250comp_complex
+#position:ZNF250:0,0
+$ZNF250:true
+#position:PEG10comp_complex:0,0
+Nsp14_cell -> PEG10comp_complex
+PEG10 -> PEG10comp_complex
+#position:PEG10:0,0
+$PEG10:true
+#position:EDN1_rna:0,0
+DCAF7 -> EDN1_rna
+#position:virus_replication_phenotype:0,0
+csa64_Nsp7812_complex_cell -> virus_replication_phenotype
+#position:Neutrophil_activation_phenotype:0,0
+pathogen_complex -> Neutrophil_activation_phenotype
+#position:Mycophenolate_mofetil_drug:0,0
+$Mycophenolate_mofetil_drug:true
+#position:PLAT:0,0
+$PLAT:true
+#position:Nafamostat_drug:0,0
+$Nafamostat_drug:true

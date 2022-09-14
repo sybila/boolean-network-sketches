@@ -1,0 +1,22 @@
+GF,  GF
+CyclinD1,  ! Replication & ((E2F1 | CyclinD1) | (Myc & GF))
+CyclinE ,  (Cdh1 | (! Metaphase)) & (E2F1 & (! (p27Kip1 | pRB)))
+Myc,  GF | E2F1
+E2F1 ,  (! CyclinA | pRB) & (E2F1 | Myc)
+p27Kip1 ,  (! (CyclinB & Cdk1)) & (! (CyclinD1 | (CyclinA & CyclinE)))
+pRB,  ! (CyclinB & Cdk1) & (! CyclinD1) & (p27Kip1 | ! (CyclinA | CyclinE))
+Cdc20 ,  pAPC & (! Cdh1) & (! Mad2)
+Cdc25A,  (E2F1 & (CyclinE | CyclinA)) | ((! Cdh1) & CyclinE & CyclinA)
+Cdc25C ,  CyclinA | (CyclinB & Cdk1)
+Cdh1,  (! (CyclinB & Cdk1)) & (! CyclinA)
+Cdk1,  Cdc25C & (CyclinA | CyclinB) & (Cdk1 | (! Wee1))
+CyclinA,  ((E2F1 & Cdc25A) | CyclinA) & (! (pAPC | (Cdh1 & UbcH10)))
+CyclinB ,  ! (pAPC & Cdc20) & (! Cdh1)
+Mad2,  n4NDNA & CyclinB & Cdk1 & ! ((pAPC & Cdc20) | Metaphase)
+pAPC ,  (pAPC & Cdc20) | (CyclinB & Cdk1)
+UbcH10 ,  (! Cdh1) | (UbcH10 & (Cdc20 | CyclinA | CyclinB))
+Wee1,  Replication & (! ((CyclinA | CyclinB) & Cdk1))
+Metaphase ,  n4NDNA & CyclinB & Cdk1 & ! (pAPC & Cdc20)
+Replication ,  CyclinE & Cdc25A & (! n4NDNA)
+n4NDNA,  (! Cdh1) & (n4NDNA | (CyclinA & Replication))
+

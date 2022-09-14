@@ -1,0 +1,41 @@
+targets,factors
+A20, NFkB
+AKT, ((!PIP3 | AKT_1) & (!!PIP3 | AKT_0))
+APC, ((!Apaf1 | ((!Cas9 | ((!IAP | ((!Mito | APC_1111) & (!!Mito | APC_1110))) & (!!IAP | ((!Mito | APC_1101) & (!!Mito | APC_1100))))) & (!!Cas9 | ((!IAP | ((!Mito | APC_1011) & (!!Mito | APC_1010))) & (!!IAP | ((!Mito | APC_1001) & (!!Mito | APC_1000))))))) & (!!Apaf1 | ((!Cas9 | ((!IAP | ((!Mito | APC_0111) & (!!Mito | APC_0110))) & (!!IAP | ((!Mito | APC_0101) & (!!Mito | APC_0100))))) & (!!Cas9 | ((!IAP | ((!Mito | APC_0011) & (!!Mito | APC_0010))) & (!!IAP | ((!Mito | APC_0001) & (!!Mito | APC_0000))))))))
+Apaf1, ((!p53 | Apaf1_1) & (!!p53 | Apaf1_0))
+Apoptosis, ((!DNADamageEvent | Apoptosis_1) & (!!DNADamageEvent | Apoptosis_0))
+BAD, (p53 & !AKT)
+BID, ((!BclX | ((!Cas8 | ((!JNK | ((!p53 | BID_1111) & (!!p53 | BID_1110))) & (!!JNK | ((!p53 | BID_1101) & (!!p53 | BID_1100))))) & (!!Cas8 | ((!JNK | ((!p53 | BID_1011) & (!!p53 | BID_1010))) & (!!JNK | ((!p53 | BID_1001) & (!!p53 | BID_1000))))))) & (!!BclX | ((!Cas8 | ((!JNK | ((!p53 | BID_0111) & (!!p53 | BID_0110))) & (!!JNK | ((!p53 | BID_0101) & (!!p53 | BID_0100))))) & (!!Cas8 | ((!JNK | ((!p53 | BID_0011) & (!!p53 | BID_0010))) & (!!JNK | ((!p53 | BID_0001) & (!!p53 | BID_0000))))))))
+BclX, ((!BAD | ((!NFkB | ((!p53 | BclX_111) & (!!p53 | BclX_110))) & (!!NFkB | ((!p53 | BclX_101) & (!!p53 | BclX_100))))) & (!!BAD | ((!NFkB | ((!p53 | BclX_011) & (!!p53 | BclX_010))) & (!!NFkB | ((!p53 | BclX_001) & (!!p53 | BclX_000))))))
+Cas12, Cas7
+Cas3, ((!APC | ((!Cas6 | ((!Cas8 | ((!IAP | Cas3_1111) & (!!IAP | Cas3_1110))) & (!!Cas8 | ((!IAP | Cas3_1101) & (!!IAP | Cas3_1100))))) & (!!Cas6 | ((!Cas8 | ((!IAP | Cas3_1011) & (!!IAP | Cas3_1010))) & (!!Cas8 | ((!IAP | Cas3_1001) & (!!IAP | Cas3_1000))))))) & (!!APC | ((!Cas6 | ((!Cas8 | ((!IAP | Cas3_0111) & (!!IAP | Cas3_0110))) & (!!Cas8 | ((!IAP | Cas3_0101) & (!!IAP | Cas3_0100))))) & (!!Cas6 | ((!Cas8 | ((!IAP | Cas3_0011) & (!!IAP | Cas3_0010))) & (!!Cas8 | ((!IAP | Cas3_0001) & (!!IAP | Cas3_0000))))))))
+Cas6, (Cas3 & !IAP)
+Cas7, ((!APC | ((!Cas8 | ((!IAP | Cas7_111) & (!!IAP | Cas7_110))) & (!!Cas8 | ((!IAP | Cas7_101) & (!!IAP | Cas7_100))))) & (!!APC | ((!Cas8 | ((!IAP | Cas7_011) & (!!IAP | Cas7_010))) & (!!Cas8 | ((!IAP | Cas7_001) & (!!IAP | Cas7_000))))))
+Cas8, ((FADD & !cFLIP) | (Cas6 & !cFLIP))
+Cas9, ((!AKT | ((!Cas12 | ((!Cas3 | ((!IAP | Cas9_1111) & (!!IAP | Cas9_1110))) & (!!Cas3 | ((!IAP | Cas9_1101) & (!!IAP | Cas9_1100))))) & (!!Cas12 | ((!Cas3 | ((!IAP | Cas9_1011) & (!!IAP | Cas9_1010))) & (!!Cas3 | ((!IAP | Cas9_1001) & (!!IAP | Cas9_1000))))))) & (!!AKT | ((!Cas12 | ((!Cas3 | ((!IAP | Cas9_0111) & (!!IAP | Cas9_0110))) & (!!Cas3 | ((!IAP | Cas9_0101) & (!!IAP | Cas9_0100))))) & (!!Cas12 | ((!Cas3 | ((!IAP | Cas9_0011) & (!!IAP | Cas9_0010))) & (!!Cas3 | ((!IAP | Cas9_0001) & (!!IAP | Cas9_0000))))))))
+DNADamageEvent, ((!Cas3 | DNADamageEvent_1) & (!!Cas3 | DNADamageEvent_0))
+FADD, ((!TRADD | FADD_1) & (!!TRADD | FADD_0))
+GFR, ((!GF | GFR_1) & (!!GF | GFR_0))
+IAP, ((!Cas3 | ((!Cas6 | ((!Mito | ((!NFkB | IAP_1111) & (!!NFkB | IAP_1110))) & (!!Mito | ((!NFkB | IAP_1101) & (!!NFkB | IAP_1100))))) & (!!Cas6 | ((!Mito | ((!NFkB | IAP_1011) & (!!NFkB | IAP_1010))) & (!!Mito | ((!NFkB | IAP_1001) & (!!NFkB | IAP_1000))))))) & (!!Cas3 | ((!Cas6 | ((!Mito | ((!NFkB | IAP_0111) & (!!NFkB | IAP_0110))) & (!!Mito | ((!NFkB | IAP_0101) & (!!NFkB | IAP_0100))))) & (!!Cas6 | ((!Mito | ((!NFkB | IAP_0011) & (!!NFkB | IAP_0010))) & (!!Mito | ((!NFkB | IAP_0001) & (!!NFkB | IAP_0000))))))))
+IKK, ((AKT & !A20) | (NIK & !A20))
+IkB, (NFkB & !IKK)
+JNK, ((!JNKK | JNK_1) & (!!JNKK | JNK_0))
+JNKK, (MEKK1 & !AKT)
+MEKK1, ((!RIP | MEKK1_1) & (!!RIP | MEKK1_0))
+Mdm2, ((!AKT | ((!p53 | Mdm2_11) & (!!p53 | Mdm2_10))) & (!!AKT | ((!p53 | Mdm2_01) & (!!p53 | Mdm2_00))))
+Mito, (BID & !BclX)
+NFkB, !IkB
+NIK, TRAF2
+PI3K, GFR
+PIP2, GFR
+PIP3, ((PI3K & PIP2) & !PTEN)
+PTEN, p53
+RIP, TRADD
+TNFR1, ((!TNF | TNFR1_1) & (!!TNF | TNFR1_0))
+TNFR2, TNF
+TRADD, TNFR1
+TRAF, ((!TRADD | TRAF_1) & (!!TRADD | TRAF_0))
+TRAF2, (TNFR2 | RIP)
+cFLIP, ((!TRAF | cFLIP_1) & (!!TRAF | cFLIP_0))
+p53, ((!DNADamageEvent | ((!JNK | ((!Mdm2 | p53_111) & (!!Mdm2 | p53_110))) & (!!JNK | ((!Mdm2 | p53_101) & (!!Mdm2 | p53_100))))) & (!!DNADamageEvent | ((!JNK | ((!Mdm2 | p53_011) & (!!Mdm2 | p53_010))) & (!!JNK | ((!Mdm2 | p53_001) & (!!Mdm2 | p53_000))))))
+

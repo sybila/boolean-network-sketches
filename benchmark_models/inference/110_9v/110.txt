@@ -1,0 +1,17 @@
+Attractors (2 stable, 0.01s):
+~CckA & ~ChpT & ClpXP_RcdA & ~CpdR & ~CtrAb & DivJ & DivK & ~DivL & ~PleC
+CckA & ChpT & ~ClpXP_RcdA & CpdR & CtrAb & ~DivJ & ~DivK & DivL & PleC
+
+Parametrized:
+- all 9 functions
+- 9 vars
+- 24 params
+
+Formulas:
+(3{x}: ( @{x}: ~CckA & ~ChpT & ClpXP_RcdA & ~CpdR & ~CtrAb & DivJ & DivK & ~DivL & ~PleC & (!{y}: AG EF ({y} & ~CckA & ~ChpT & ClpXP_RcdA & ~CpdR & ~CtrAb & DivJ & DivK & ~DivL & ~PleC ) ) ) ) & (3{x}: ( @{x}: CckA & ChpT & ~ClpXP_RcdA & CpdR & CtrAb & ~DivJ & ~DivK & DivL & PleC & (!{y}: AG EF ({y} & CckA & ChpT & ~ClpXP_RcdA & CpdR & CtrAb & ~DivJ & ~DivK & DivL & PleC ) ) ) ) & true
+
+(3{x}: ( @{x}: ~CckA & ~ChpT & ClpXP_RcdA & ~CpdR & ~CtrAb & DivJ & DivK & ~DivL & ~PleC & (!{y}: AG EF ({y} & ~CckA & ~ChpT & ClpXP_RcdA & ~CpdR & ~CtrAb & DivJ & DivK & ~DivL & ~PleC ) ) ) ) & (3{x}: ( @{x}: CckA & ChpT & ~ClpXP_RcdA & CpdR & CtrAb & ~DivJ & ~DivK & DivL & PleC & (!{y}: AG EF ({y} & CckA & ChpT & ~ClpXP_RcdA & CpdR & CtrAb & ~DivJ & ~DivK & DivL & PleC ) ) ) ) & true~(3{x}:(@{x}: ~(AG EF ( ~CckA & ~ChpT & ClpXP_RcdA & ~CpdR & ~CtrAb & DivJ & DivK & ~DivL & ~PleC))  & ~(AG EF ( CckA & ChpT & ~ClpXP_RcdA & CpdR & CtrAb & ~DivJ &~DivK & DivL & PleC))  & (!{y}: AG EF {y})))
+
+Results:
+14088 colors, 0.2s
+14088 colors, 0.7s

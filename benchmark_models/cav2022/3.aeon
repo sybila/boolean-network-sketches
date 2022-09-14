@@ -1,0 +1,90 @@
+#position:Arr:37.57966343960561,249.68699755513273
+$Arr:Wg
+Wg -? Arr
+#position:Dsh:158.53796472797092,304.9966533481594
+$Dsh:((!Fz & (Arr & !Nkd)) | (Fz & !Nkd))
+Arr -? Dsh
+Fz -? Dsh
+Nkd -? Dsh
+#position:Fz:140.5977807495492,161.30436653505024
+$Fz:(Wg & Boca)
+Boca -? Fz
+Wg -? Fz
+#position:Nkd:46.50287260002972,385.02924052154816
+$Nkd:Nkd
+Nkd -? Nkd
+#position:APC:259.9695104174066,394.2257704716373
+$APC:!Dsh
+Dsh -? APC
+#position:Arm:349.12067204553637,451.3152525349044
+APC -?? Arm
+Axin -?? Arm
+CK1alpha -?? Arm
+Hipk -?? Arm
+Proteasome -?? Arm
+Sgg -?? Arm
+Slmb -?? Arm
+#position:Axin:295.9385021971823,278.3001538244858
+$Axin:!Dsh
+Dsh -? Axin
+#position:CK1alpha:367.36444281848856,615.0503249858973
+$CK1alpha:0
+0 -? CK1alpha
+#position:Hipk:469.4248236001666,424.9134331342201
+$Hipk:Hipk
+Hipk -? Hipk
+#position:Proteasome:261.2284825716167,598.9257343655133
+$Proteasome:Proteasome
+Proteasome -? Proteasome
+#position:Sgg:185.29175059867583,451.9084607492066
+$Sgg:!Dsh
+Dsh -? Sgg
+#position:Slmb:399.70421806238437,304.16466711544285
+$Slmb:Slmb
+Slmb -? Slmb
+#position:0:331.7514311478146,758.0831148786883
+#position:Wg:22.5,128.56390287095294
+$Wg:Wg
+Wg -? Wg
+#position:Boca:169.36900097858404,31
+$Boca:Boca
+Boca -? Boca
+#position:Ttv:839.2356625399271,150.0998097524926
+Ttv -?? Ttv
+#position:Dally:950.0657846231494,200.43696988837377
+$Dally:(Ttv & !Wf)
+Ttv -? Dally
+Wf -? Dally
+#position:Wf:994.2772755596459,74.72940343934049
+Wf -?? Wf
+#position:Dlp:884.5111284099738,27.5
+$Dlp:(Ttv & !Wf)
+Ttv -? Dlp
+Wf -? Dlp
+#position:Gro:721.1403577155025,531.0472532110515
+Gro -?? Gro
+#position:Hyx:754.2356625399271,647.707782509463
+Hyx -?? Hyx
+#position:Lgs:732.59868428767,763.9516861014131
+Lgs -?? Lgs
+#position:Nej:521.5301925371103,735.6198666242046
+Nej -?? Nej
+#position:Nemo:599.6394902690561,441.1219634482983
+$Nemo:Nemo
+Nemo -? Nemo
+#position:Pan:498.03067655801306,541.4610056164122
+$Pan:(Arm & !Nemo)
+Arm -? Pan
+Nemo -? Pan
+#position:Pygo:624.7061305356409,813.9862808533487
+$Pygo:Pygo
+Pygo -? Pygo
+#position:Targets:627.3630479573693,653.1249424496651
+$Targets:(Pan & (Lgs & (Nej & (!Gro & (Hyx & Pygo)))))
+Gro -? Targets
+Hyx -? Targets
+Lgs -? Targets
+Nej -? Targets
+Pan -? Targets
+Pygo -? Targets
+

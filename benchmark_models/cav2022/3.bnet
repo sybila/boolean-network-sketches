@@ -1,0 +1,28 @@
+targets,factors
+APC, !Dsh
+Arm, ((!APC | ((!Axin | ((!CK1alpha | ((!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_1111111) & (!!Slmb | Arm_1111110))) & (!!Sgg | ((!Slmb | Arm_1111101) & (!!Slmb | Arm_1111100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_1111011) & (!!Slmb | Arm_1111010))) & (!!Sgg | ((!Slmb | Arm_1111001) & (!!Slmb | Arm_1111000))))))) & (!!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_1110111) & (!!Slmb | Arm_1110110))) & (!!Sgg | ((!Slmb | Arm_1110101) & (!!Slmb | Arm_1110100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_1110011) & (!!Slmb | Arm_1110010))) & (!!Sgg | ((!Slmb | Arm_1110001) & (!!Slmb | Arm_1110000))))))))) & (!!CK1alpha | ((!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_1101111) & (!!Slmb | Arm_1101110))) & (!!Sgg | ((!Slmb | Arm_1101101) & (!!Slmb | Arm_1101100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_1101011) & (!!Slmb | Arm_1101010))) & (!!Sgg | ((!Slmb | Arm_1101001) & (!!Slmb | Arm_1101000))))))) & (!!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_1100111) & (!!Slmb | Arm_1100110))) & (!!Sgg | ((!Slmb | Arm_1100101) & (!!Slmb | Arm_1100100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_1100011) & (!!Slmb | Arm_1100010))) & (!!Sgg | ((!Slmb | Arm_1100001) & (!!Slmb | Arm_1100000))))))))))) & (!!Axin | ((!CK1alpha | ((!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_1011111) & (!!Slmb | Arm_1011110))) & (!!Sgg | ((!Slmb | Arm_1011101) & (!!Slmb | Arm_1011100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_1011011) & (!!Slmb | Arm_1011010))) & (!!Sgg | ((!Slmb | Arm_1011001) & (!!Slmb | Arm_1011000))))))) & (!!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_1010111) & (!!Slmb | Arm_1010110))) & (!!Sgg | ((!Slmb | Arm_1010101) & (!!Slmb | Arm_1010100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_1010011) & (!!Slmb | Arm_1010010))) & (!!Sgg | ((!Slmb | Arm_1010001) & (!!Slmb | Arm_1010000))))))))) & (!!CK1alpha | ((!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_1001111) & (!!Slmb | Arm_1001110))) & (!!Sgg | ((!Slmb | Arm_1001101) & (!!Slmb | Arm_1001100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_1001011) & (!!Slmb | Arm_1001010))) & (!!Sgg | ((!Slmb | Arm_1001001) & (!!Slmb | Arm_1001000))))))) & (!!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_1000111) & (!!Slmb | Arm_1000110))) & (!!Sgg | ((!Slmb | Arm_1000101) & (!!Slmb | Arm_1000100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_1000011) & (!!Slmb | Arm_1000010))) & (!!Sgg | ((!Slmb | Arm_1000001) & (!!Slmb | Arm_1000000))))))))))))) & (!!APC | ((!Axin | ((!CK1alpha | ((!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_0111111) & (!!Slmb | Arm_0111110))) & (!!Sgg | ((!Slmb | Arm_0111101) & (!!Slmb | Arm_0111100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_0111011) & (!!Slmb | Arm_0111010))) & (!!Sgg | ((!Slmb | Arm_0111001) & (!!Slmb | Arm_0111000))))))) & (!!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_0110111) & (!!Slmb | Arm_0110110))) & (!!Sgg | ((!Slmb | Arm_0110101) & (!!Slmb | Arm_0110100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_0110011) & (!!Slmb | Arm_0110010))) & (!!Sgg | ((!Slmb | Arm_0110001) & (!!Slmb | Arm_0110000))))))))) & (!!CK1alpha | ((!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_0101111) & (!!Slmb | Arm_0101110))) & (!!Sgg | ((!Slmb | Arm_0101101) & (!!Slmb | Arm_0101100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_0101011) & (!!Slmb | Arm_0101010))) & (!!Sgg | ((!Slmb | Arm_0101001) & (!!Slmb | Arm_0101000))))))) & (!!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_0100111) & (!!Slmb | Arm_0100110))) & (!!Sgg | ((!Slmb | Arm_0100101) & (!!Slmb | Arm_0100100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_0100011) & (!!Slmb | Arm_0100010))) & (!!Sgg | ((!Slmb | Arm_0100001) & (!!Slmb | Arm_0100000))))))))))) & (!!Axin | ((!CK1alpha | ((!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_0011111) & (!!Slmb | Arm_0011110))) & (!!Sgg | ((!Slmb | Arm_0011101) & (!!Slmb | Arm_0011100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_0011011) & (!!Slmb | Arm_0011010))) & (!!Sgg | ((!Slmb | Arm_0011001) & (!!Slmb | Arm_0011000))))))) & (!!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_0010111) & (!!Slmb | Arm_0010110))) & (!!Sgg | ((!Slmb | Arm_0010101) & (!!Slmb | Arm_0010100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_0010011) & (!!Slmb | Arm_0010010))) & (!!Sgg | ((!Slmb | Arm_0010001) & (!!Slmb | Arm_0010000))))))))) & (!!CK1alpha | ((!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_0001111) & (!!Slmb | Arm_0001110))) & (!!Sgg | ((!Slmb | Arm_0001101) & (!!Slmb | Arm_0001100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_0001011) & (!!Slmb | Arm_0001010))) & (!!Sgg | ((!Slmb | Arm_0001001) & (!!Slmb | Arm_0001000))))))) & (!!Hipk | ((!Proteasome | ((!Sgg | ((!Slmb | Arm_0000111) & (!!Slmb | Arm_0000110))) & (!!Sgg | ((!Slmb | Arm_0000101) & (!!Slmb | Arm_0000100))))) & (!!Proteasome | ((!Sgg | ((!Slmb | Arm_0000011) & (!!Slmb | Arm_0000010))) & (!!Sgg | ((!Slmb | Arm_0000001) & (!!Slmb | Arm_0000000))))))))))))))
+Arr, Wg
+Axin, !Dsh
+Boca, Boca
+CK1alpha, 0
+Dally, (Ttv & !Wf)
+Dlp, (Ttv & !Wf)
+Dsh, ((!Fz & (Arr & !Nkd)) | (Fz & !Nkd))
+Fz, (Wg & Boca)
+Gro, ((!Gro | Gro_1) & (!!Gro | Gro_0))
+Hipk, Hipk
+Hyx, ((!Hyx | Hyx_1) & (!!Hyx | Hyx_0))
+Lgs, ((!Lgs | Lgs_1) & (!!Lgs | Lgs_0))
+Nej, ((!Nej | Nej_1) & (!!Nej | Nej_0))
+Nemo, Nemo
+Nkd, Nkd
+Pan, (Arm & !Nemo)
+Proteasome, Proteasome
+Pygo, Pygo
+Sgg, !Dsh
+Slmb, Slmb
+Targets, (Pan & (Lgs & (Nej & (!Gro & (Hyx & Pygo)))))
+Ttv, ((!Ttv | Ttv_1) & (!!Ttv | Ttv_0))
+Wf, ((!Wf | Wf_1) & (!!Wf | Wf_0))
+Wg, Wg
+

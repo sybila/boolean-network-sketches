@@ -1,0 +1,21 @@
+#position:DivL:0,0
+DivK -? DivL
+#position:CckA:0,0
+DivL -? CckA
+#position:ChpT:0,0
+CckA -? ChpT
+#position:CpdR:0,0
+ChpT -? CpdR
+#position:ClpXP_RcdA:0,0
+CpdR -? ClpXP_RcdA
+#position:CtrAb:0,0
+ChpT -? CtrAb
+ClpXP_RcdA -? CtrAb
+#position:DivK:0,0
+DivJ -? DivK
+PleC -? DivK
+#position:DivJ:0,0
+DivK -? DivJ
+PleC -? DivJ
+#position:PleC:0,0
+DivK -? PleC

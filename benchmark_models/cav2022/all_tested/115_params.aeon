@@ -1,0 +1,88 @@
+#position:H4C14:22.5,405.28100645826004
+#position:csa2_histone_complex_nucleus:146.14210064828842,329.2360990737624
+H4C14 -?? csa2_histone_complex_nucleus
+H4_16 -?? csa2_histone_complex_nucleus
+H4C1 -?? csa2_histone_complex_nucleus
+H3C15 -?? csa2_histone_complex_nucleus
+H3C1 -?? csa2_histone_complex_nucleus
+H4C9 -?? csa2_histone_complex_nucleus
+H2BC21 -?? csa2_histone_complex_nucleus
+H2A -?? csa2_histone_complex_nucleus
+#position:H4_16:33.1215930492589,266.0347567006408
+#position:H4C1:145.54659644666674,31.000000000000057
+#position:H3C15:235.7386086783267,127.10450607115268
+#position:H3C1:56.11705158724563,135.22401281850296
+#position:H4C9:241.00676933246237,359.33607030637853
+#position:H2BC21:56.46880186043028,551.1875301874838
+#position:H2A:282.6847267380596,252.87062870018366
+#position:csa1_histone_complex_nucleus:236.1366276056558,656.7973191818079
+csa2_histone_complex_nucleus -?? csa1_histone_complex_nucleus
+BRD4 -?? csa1_histone_complex_nucleus
+BRD2 -?? csa1_histone_complex_nucleus
+#position:BRD4:236.81655409126046,951.9443269925383
+BRD4 -?? BRD4
+E_nucleus -?? BRD4
+#position:BRD2:396.77945482252665,751.540921291206
+BRD2 -?? BRD2
+JQ_1_simple_molecule -?? BRD2
+E_nucleus -?? BRD2
+#position:E_nucleus:343.1588822548568,928.4527165629837
+#position:JQ_1_simple_molecule:456.47681967207427,886.388403847244
+#position:MPP5:920.984603513095,539.012023378883
+$MPP5:MPP5
+MPP5 -> MPP5
+#position:CRB3_PALS1_PATJ_complex_complex:1120.1329979209609,542.93758420613
+MPP5 -?? CRB3_PALS1_PATJ_complex_complex
+CRB3 -?? CRB3_PALS1_PATJ_complex_complex
+PATJ -?? CRB3_PALS1_PATJ_complex_complex
+#position:CRB3:1128.7211054086558,638.3615506760899
+$CRB3:CRB3
+CRB3 -> CRB3
+#position:PATJ:1140.7498871372602,445.24235988787734
+$PATJ:PATJ
+PATJ -> PATJ
+#position:H__ion:840.0935275618783,1132.167323382323
+#position:ASIC1:802.4437399037033,984.591466980039
+$ASIC1:H__ion
+H__ion -> ASIC1
+#position:ASIC1_trimer_H__STOML3_complex:713.0276985975463,765.9272009575628
+$ASIC1_trimer_H__STOML3_complex:((ASIC1 & STOML3) & !E_cell)
+ASIC1 -> ASIC1_trimer_H__STOML3_complex
+STOML3 -> ASIC1_trimer_H__STOML3_complex
+E_cell -| ASIC1_trimer_H__STOML3_complex
+#position:STOML3:641.8078990676763,1018.0479709859086
+#position:E_cell:746.7934445747496,458.635899284508
+#position:ATP1A_ATP1B_FXYDs_complex:658.0327617175983,301.13641106332375
+$ATP1A_ATP1B_FXYDs_complex:!E_cell
+E_cell -| ATP1A_ATP1B_FXYDs_complex
+#position:E_PALS1_complex:857.4891423976399,342.3798188101424
+$E_PALS1_complex:(MPP5 & E_cell)
+MPP5 -> E_PALS1_complex
+E_cell -> E_PALS1_complex
+#position:CDK9:136.82908296989982,1238.4294452208433
+#position:P_TEFb_complex:236.7036975306644,1149.5164252463246
+CDK9 -?? P_TEFb_complex
+BRD4 -?? P_TEFb_complex
+CCNT1 -?? P_TEFb_complex
+#position:CCNT1:332.2919712315842,1252.189649342458
+#position:TBP:439.53280661026355,655.6874702267422
+TBP -?? TBP
+BRD2 -?? TBP
+#position:K__ion:614.2324109952427,38.5
+$K__ion:ATP1A_ATP1B_FXYDs_complex
+ATP1A_ATP1B_FXYDs_complex -> K__ion
+#position:Na__ion:541.4768196720743,274.76345317370954
+$Na__ion:ATP1A_ATP1B_FXYDs_complex
+ATP1A_ATP1B_FXYDs_complex -> Na__ion
+#position:Activity_of_sodium_channels_phenotype:601.8737850020143,705.4798528697555
+ATP1A_ATP1B_FXYDs_complex -?? Activity_of_sodium_channels_phenotype
+STOML3 -?? Activity_of_sodium_channels_phenotype
+ASIC1_trimer_H__STOML3_complex -?? Activity_of_sodium_channels_phenotype
+#position:Maintenance_of_tight_junction_phenotype:947.5071065105064,161.58347050617476
+CRB3_PALS1_PATJ_complex_complex -? Maintenance_of_tight_junction_phenotype
+E_PALS1_complex -? Maintenance_of_tight_junction_phenotype
+#position:RNA_Polymerase_II_dependent_Transcription__phenotype:233.61207737360027,1587.8756473880699
+P_TEFb_complex -?? RNA_Polymerase_II_dependent_Transcription__phenotype
+#position:Chromatin_organization_phenotype:147.01815678341197,853.8103872971702
+csa1_histone_complex_nucleus -?? Chromatin_organization_phenotype
+

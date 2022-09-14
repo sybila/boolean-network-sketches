@@ -1,0 +1,108 @@
+Cdh1 -? Cdc20
+Mad2 -? Cdc20
+pAPC -? Cdc20
+Cdh1 -? Cdc25A
+CyclinA -? Cdc25A
+CyclinE -? Cdc25A
+E2F1 -? Cdc25A
+Cdk1 -? Cdc25C
+CyclinA -? Cdc25C
+CyclinB -? Cdc25C
+Cdk1 -? Cdh1
+CyclinA -? Cdh1
+CyclinB -? Cdh1
+Cdc25C -? Cdk1
+Cdk1 -? Cdk1
+CyclinA -? Cdk1
+CyclinB -? Cdk1
+Wee1 -? Cdk1
+Cdc25A -? CyclinA
+Cdh1 -? CyclinA
+CyclinA -? CyclinA
+E2F1 -? CyclinA
+UbcH10 -? CyclinA
+pAPC -? CyclinA
+Cdc20 -? CyclinB
+Cdh1 -? CyclinB
+pAPC -? CyclinB
+CyclinD1 -? CyclinD1
+E2F1 -? CyclinD1
+GF -? CyclinD1
+Myc -? CyclinD1
+Replication -? CyclinD1
+Cdh1 -? CyclinE
+E2F1 -? CyclinE
+Metaphase -? CyclinE
+p27Kip1 -? CyclinE
+pRB -? CyclinE
+CyclinA -? E2F1
+E2F1 -? E2F1
+Myc -? E2F1
+pRB -? E2F1
+GF -? GF
+Cdc20 -? Mad2
+Cdk1 -? Mad2
+CyclinB -? Mad2
+Metaphase -? Mad2
+n4NDNA -? Mad2
+pAPC -? Mad2
+Cdc20 -? Metaphase
+Cdk1 -? Metaphase
+CyclinB -? Metaphase
+n4NDNA -? Metaphase
+pAPC -? Metaphase
+E2F1 -? Myc
+GF -? Myc
+Cdc25A -? Replication
+CyclinE -? Replication
+n4NDNA -? Replication
+Cdc20 -? UbcH10
+Cdh1 -? UbcH10
+CyclinA -? UbcH10
+CyclinB -? UbcH10
+UbcH10 -? UbcH10
+Cdk1 -? Wee1
+CyclinA -? Wee1
+CyclinB -? Wee1
+Replication -? Wee1
+Cdh1 -? n4NDNA
+CyclinA -? n4NDNA
+Replication -? n4NDNA
+n4NDNA -? n4NDNA
+Cdk1 -? p27Kip1
+CyclinA -? p27Kip1
+CyclinB -? p27Kip1
+CyclinD1 -? p27Kip1
+CyclinE -? p27Kip1
+Cdc20 -? pAPC
+Cdk1 -? pAPC
+CyclinB -? pAPC
+pAPC -? pAPC
+Cdk1 -? pRB
+CyclinA -? pRB
+CyclinB -? pRB
+CyclinD1 -? pRB
+CyclinE -? pRB
+p27Kip1 -? pRB
+$Cdc20: (pAPC & (!Cdh1 & !Mad2))
+$Cdc25A: ((E2F1 & (CyclinE | CyclinA)) | (!Cdh1 & (CyclinE & CyclinA)))
+$Cdc25C: (CyclinA | (CyclinB & Cdk1))
+$Cdh1: (!(CyclinB & Cdk1) & !CyclinA)
+$Cdk1: (Cdc25C & ((CyclinA | CyclinB) & (Cdk1 | !Wee1)))
+$CyclinA: (((E2F1 & Cdc25A) | CyclinA) & !(pAPC | (Cdh1 & UbcH10)))
+$CyclinB: (!(pAPC & Cdc20) & !Cdh1)
+$CyclinD1: (!Replication & ((E2F1 | CyclinD1) | (Myc & GF)))
+$CyclinE: ((Cdh1 | !Metaphase) & (E2F1 & !(p27Kip1 | pRB)))
+$E2F1: ((!CyclinA | pRB) & (E2F1 | Myc))
+$GF: GF
+$Mad2: (n4NDNA & (CyclinB & (Cdk1 & !((pAPC & Cdc20) | Metaphase))))
+$Metaphase: (n4NDNA & (CyclinB & (Cdk1 & !(pAPC & Cdc20))))
+$Myc: (GF | E2F1)
+$Replication: (CyclinE & (Cdc25A & !n4NDNA))
+$UbcH10: (!Cdh1 | (UbcH10 & (Cdc20 | (CyclinA | CyclinB))))
+$Wee1: (Replication & !((CyclinA | CyclinB) & Cdk1))
+$n4NDNA: (!Cdh1 & (n4NDNA | (CyclinA & Replication)))
+$p27Kip1: (!(CyclinB & Cdk1) & !(CyclinD1 | (CyclinA & CyclinE)))
+$pAPC: ((pAPC & Cdc20) | (CyclinB & Cdk1))
+$pRB: (!(CyclinB & Cdk1) & (!CyclinD1 & (p27Kip1 | !(CyclinA | CyclinE))))
+

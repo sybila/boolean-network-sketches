@@ -1,0 +1,18 @@
+NOPE
+
+Attractors (7 stable, 0.01s):
+~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & ~SHR & ~WOX5
+~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & SHR & ~WOX5
+~ARF & AUXIAA & ~AUXIN & JKD & MGP & ~PLT & SCR & SHR & ~WOX5
+ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & ~SHR & ~WOX5
+ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & SHR & ~WOX5
+ARF & ~AUXIAA & AUXIN & JKD & ~MGP & PLT & SCR & SHR & WOX5
+ARF & ~AUXIAA & AUXIN & JKD & MGP & PLT & SCR & SHR & ~WOX5
+
+
+Formulas:
+(3{x}: ( @{x}: ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & ~SHR & ~WOX5 & (!{y}: AG EF ({y} & ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & ~SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & SHR & ~WOX5 & (!{y}: AG EF ({y} & ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ~ARF & AUXIAA & ~AUXIN & JKD & MGP & ~PLT & SCR & SHR & ~WOX5 & (!{y}: AG EF ({y} & ~ARF & AUXIAA & ~AUXIN & JKD & MGP & ~PLT & SCR & SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & ~SHR & ~WOX5 & (!{y}: AG EF ({y} & ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & ~SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & SHR & ~WOX5 & (!{y}: AG EF ({y} & ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ARF & ~AUXIAA & AUXIN & JKD &~MGP & PLT & SCR & SHR & WOX5 & (!{y}: AG EF ({y} & ARF & ~AUXIAA & AUXIN & JKD & ~MGP & PLT & SCR & SHR & WOX5 ) ) ) ) & (3{x}: ( @{x}: ARF & ~AUXIAA & AUXIN & JKD & MGP & PLT & SCR & SHR & ~WOX5 & (!{y}: AG EF ({y} & ARF & ~AUXIAA & AUXIN & JKD & MGP & PLT & SCR & SHR & ~WOX5 ) ) ) ) & true
+
+(3{x}: ( @{x}: ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & ~SHR & ~WOX5 & (!{y}: AG EF ({y} & ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & ~SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & SHR & ~WOX5 & (!{y}: AG EF ({y} & ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ~ARF & AUXIAA & ~AUXIN & JKD & MGP & ~PLT & SCR & SHR & ~WOX5 & (!{y}: AG EF ({y} & ~ARF & AUXIAA & ~AUXIN & JKD & MGP & ~PLT & SCR & SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & ~SHR & ~WOX5 & (!{y}: AG EF ({y} & ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & ~SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & SHR & ~WOX5 & (!{y}: AG EF ({y} & ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & SHR & ~WOX5 ) ) ) ) & (3{x}: ( @{x}: ARF & ~AUXIAA & AUXIN & JKD &~MGP & PLT & SCR & SHR & WOX5 & (!{y}: AG EF ({y} & ARF & ~AUXIAA & AUXIN & JKD & ~MGP & PLT & SCR & SHR & WOX5 ) ) ) ) & (3{x}: ( @{x}: ARF & ~AUXIAA & AUXIN & JKD & MGP & PLT & SCR & SHR & ~WOX5 & (!{y}: AG EF ({y} & ARF & ~AUXIAA & AUXIN & JKD & MGP & PLT & SCR & SHR & ~WOX5 ) ) ) ) & true & ~(3{x}:(@{x}: ~(AG EF ( ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & ~SHR & ~WOX5))  & ~(AG EF ( ~ARF & AUXIAA & ~AUXIN & ~JKD & ~MGP & ~PLT & ~SCR & SHR & ~WOX5))  & ~(AG EF ( ~ARF & AUXIAA & ~AUXIN & JKD & MGP & ~PLT & SCR & SHR & ~WOX5))  & ~(AG EF ( ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & ~SHR & ~WOX5))  & ~(AG EF ( ARF & ~AUXIAA & AUXIN & ~JKD & ~MGP & PLT & ~SCR & SHR & ~WOX5))  & ~(AG EF ( ARF & ~AUXIAA & AUXIN & JKD & ~MGP & PLT & SCR & SHR & WOX5))  & ~(AG EF ( ARF & ~AUXIAA & AUXIN & JKD & MGP & PLT & SCR & SHR & ~WOX5))  & (!{y}: AG EF {y})))
+
+NOPE

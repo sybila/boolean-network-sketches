@@ -1,1 +1,1 @@
-# BN-inference
+# Boolean network inference tool

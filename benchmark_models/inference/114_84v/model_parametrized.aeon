@@ -1,0 +1,313 @@
+#position:Orf9c:0,0
+$Orf9c:false
+#position:NDUFA1:0,0
+$NDUFA1:!Orf9c
+Orf9c -| NDUFA1
+#position:Complex_1_complex:0,0
+$Complex_1_complex:((Complex_1_complex & (NADH_simple_molecule | (NDUFA1 & (NDUFB9 & (OXPHOS_factors_complex & csa98_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix))))) | (!Complex_1_complex & (NDUFA1 & (NDUFB9 & (OXPHOS_factors_complex & csa98_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix)))))
+NDUFA1 -> Complex_1_complex
+NDUFB9 -> Complex_1_complex
+csa98_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix -> Complex_1_complex
+OXPHOS_factors_complex -> Complex_1_complex
+NADH_simple_molecule -> Complex_1_complex
+Complex_1_complex -> Complex_1_complex
+#position:NDUFB9:0,0
+$NDUFB9:!Orf9c
+Orf9c -| NDUFB9
+#position:csa98_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix:0,0
+$csa98_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix:true
+#position:OXPHOS_factors_complex:0,0
+$OXPHOS_factors_complex:(ACAD9 & (ECSIT & NDUFAF7))
+ACAD9 -> OXPHOS_factors_complex
+ECSIT -> OXPHOS_factors_complex
+NDUFAF7 -> OXPHOS_factors_complex
+#position:NADH_simple_molecule:0,0
+$NADH_simple_molecule:false
+#position:ACAD9:0,0
+$ACAD9:!Orf9c
+Orf9c -| ACAD9
+#position:ECSIT:0,0
+$ECSIT:!Orf9c
+Orf9c -| ECSIT
+#position:NDUFAF7:0,0
+$NDUFAF7:!Nsp7
+Nsp7 -| NDUFAF7
+#position:Nsp7:0,0
+$Nsp7:false
+#position:mt_DNA_damage_phenotype:0,0
+$mt_DNA_damage_phenotype:true
+#position:mt_DNA_gene:0,0
+$mt_DNA_gene:((Mt_DNA_repair_complex & (damaged_mt_DNA_gene | (!mt_DNA_damage_phenotype & mt_DNA_replication_phenotype))) | (!Mt_DNA_repair_complex & ((Mt_dNTP_pool_complex & (damaged_mt_DNA_gene | (!mt_DNA_damage_phenotype & mt_DNA_replication_phenotype))) | (!Mt_dNTP_pool_complex & ((TFAM & (damaged_mt_DNA_gene | (!mt_DNA_damage_phenotype & mt_DNA_replication_phenotype))) | (!TFAM & (!mt_DNA_damage_phenotype & mt_DNA_replication_phenotype)))))))
+mt_DNA_damage_phenotype -| mt_DNA_gene
+mt_DNA_replication_phenotype -> mt_DNA_gene
+damaged_mt_DNA_gene -> mt_DNA_gene
+TFAM -> mt_DNA_gene
+Mt_DNA_repair_complex -> mt_DNA_gene
+Mt_dNTP_pool_complex -> mt_DNA_gene
+#position:mt_DNA_replication_phenotype:0,0
+$mt_DNA_replication_phenotype:(Mt_dNTP_pool_complex | (Mt_replication_complex | TFAM))
+TFAM -> mt_DNA_replication_phenotype
+Mt_replication_complex -> mt_DNA_replication_phenotype
+Mt_dNTP_pool_complex -> mt_DNA_replication_phenotype
+#position:damaged_mt_DNA_gene:0,0
+$damaged_mt_DNA_gene:(mt_DNA_damage_phenotype & mt_DNA_gene)
+mt_DNA_gene -> damaged_mt_DNA_gene
+mt_DNA_damage_phenotype -> damaged_mt_DNA_gene
+#position:TFAM:0,0
+$TFAM:false
+#position:Mt_DNA_repair_complex:0,0
+$Mt_DNA_repair_complex:false
+#position:Mt_dNTP_pool_complex:0,0
+$Mt_dNTP_pool_complex:true
+#position:mt_mRNA_rna:0,0
+$mt_mRNA_rna:((MT_transcription_complex & (!damaged_mt_DNA_gene & mt_DNA_gene)) | (!MT_transcription_complex & (TFAM & (!damaged_mt_DNA_gene & mt_DNA_gene))))
+mt_DNA_gene -> mt_mRNA_rna
+TFAM -> mt_mRNA_rna
+MT_transcription_complex -> mt_mRNA_rna
+damaged_mt_DNA_gene -| mt_mRNA_rna
+#position:MT_transcription_complex:0,0
+$MT_transcription_complex:false
+#position:csa60_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix:0,0
+$csa60_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix:((Mt_ribosomal_proteins_complex & mt_mRNA_rna) | (!Mt_ribosomal_proteins_complex & ((Mt_translation_complex & mt_mRNA_rna) | (!Mt_translation_complex & (Nsp8_affected_Mt_ribosomal_proteins_complex & mt_mRNA_rna)))))
+mt_mRNA_rna -> csa60_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix
+Mt_translation_complex -> csa60_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix
+Mt_ribosomal_proteins_complex -> csa60_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix
+Nsp8_affected_Mt_ribosomal_proteins_complex -> csa60_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix
+#position:Mt_translation_complex:0,0
+$Mt_translation_complex:false
+#position:Mt_ribosomal_proteins_complex:0,0
+$Mt_ribosomal_proteins_complex:false
+#position:Nsp8_affected_Mt_ribosomal_proteins_complex:0,0
+$Nsp8_affected_Mt_ribosomal_proteins_complex:!Nsp8
+Nsp8 -| Nsp8_affected_Mt_ribosomal_proteins_complex
+#position:Nsp8:0,0
+$Nsp8:false
+#position:SIRT3:0,0
+$SIRT3:false
+#position:csa24_complex_2_complex_mitochondrial_matrix:0,0
+$csa24_complex_2_complex_mitochondrial_matrix:((Complex_1_complex & (OXPHOS_factors_complex | (SIRT3 | (csa84_complex_2_complex_mitochondrial_matrix & sa219_Q_simple_molecule_mitochondrial_matrix)))) | (!Complex_1_complex & (OXPHOS_factors_complex | SIRT3)))
+SIRT3 -> csa24_complex_2_complex_mitochondrial_matrix
+OXPHOS_factors_complex -> csa24_complex_2_complex_mitochondrial_matrix
+csa84_complex_2_complex_mitochondrial_matrix -> csa24_complex_2_complex_mitochondrial_matrix
+sa219_Q_simple_molecule_mitochondrial_matrix -> csa24_complex_2_complex_mitochondrial_matrix
+Complex_1_complex -> csa24_complex_2_complex_mitochondrial_matrix
+#position:csa84_complex_2_complex_mitochondrial_matrix:0,0
+$csa84_complex_2_complex_mitochondrial_matrix:(TCA_phenotype & csa24_complex_2_complex_mitochondrial_matrix)
+csa24_complex_2_complex_mitochondrial_matrix -> csa84_complex_2_complex_mitochondrial_matrix
+TCA_phenotype -> csa84_complex_2_complex_mitochondrial_matrix
+#position:sa219_Q_simple_molecule_mitochondrial_matrix:0,0
+$sa219_Q_simple_molecule_mitochondrial_matrix:false
+#position:TCA_phenotype:0,0
+$TCA_phenotype:false
+#position:csa103_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix:0,0
+$csa103_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix:false
+#position:complex_3_complex:0,0
+$complex_3_complex:((Complex_1_complex & ((OXPHOS_factors_complex & (csa103_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix | sa219_Q_simple_molecule_mitochondrial_matrix)) | (!OXPHOS_factors_complex & sa219_Q_simple_molecule_mitochondrial_matrix))) | (!Complex_1_complex & (OXPHOS_factors_complex & csa103_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix)))
+csa103_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix -> complex_3_complex
+OXPHOS_factors_complex -> complex_3_complex
+Complex_1_complex -> complex_3_complex
+sa219_Q_simple_molecule_mitochondrial_matrix -> complex_3_complex
+#position:ATP_Synthase_complex:0,0
+$ATP_Synthase_complex:((ATP5MG & (H__ion_mitochondrion | !Nsp6)) | (!ATP5MG & H__ion_mitochondrion))
+H__ion_mitochondrion -> ATP_Synthase_complex
+ATP5MG -> ATP_Synthase_complex
+Nsp6 -| ATP_Synthase_complex
+#position:H__ion_mitochondrial_matrix:0,0
+$H__ion_mitochondrial_matrix:(ATP_Synthase_complex | ((Complex_1_complex & ((Fe3__ion & ((H_2_O_2__simple_molecule & (NADH_simple_molecule | (hydroxide_simple_molecule | superoxide_simple_molecule))) | (!H_2_O_2__simple_molecule & (NADH_simple_molecule | superoxide_simple_molecule)))) | (!Fe3__ion & ((H_2_O_2__simple_molecule & (NADH_simple_molecule | hydroxide_simple_molecule)) | (!H_2_O_2__simple_molecule & NADH_simple_molecule))))) | (!Complex_1_complex & ((Fe3__ion & ((H_2_O_2__simple_molecule & (hydroxide_simple_molecule | superoxide_simple_molecule)) | (!H_2_O_2__simple_molecule & superoxide_simple_molecule))) | (!Fe3__ion & (H_2_O_2__simple_molecule & hydroxide_simple_molecule))))))
+ATP_Synthase_complex -> H__ion_mitochondrial_matrix
+H_2_O_2__simple_molecule -> H__ion_mitochondrial_matrix
+hydroxide_simple_molecule -> H__ion_mitochondrial_matrix
+NADH_simple_molecule -> H__ion_mitochondrial_matrix
+Complex_1_complex -> H__ion_mitochondrial_matrix
+superoxide_simple_molecule -> H__ion_mitochondrial_matrix
+Fe3__ion -> H__ion_mitochondrial_matrix
+#position:H_2_O_2__simple_molecule:0,0
+$H_2_O_2__simple_molecule:(H__ion_mitochondrial_matrix & ((SOD1 & superoxide_simple_molecule) | (!SOD1 & (SOD2 & superoxide_simple_molecule))))
+superoxide_simple_molecule -> H_2_O_2__simple_molecule
+H__ion_mitochondrial_matrix -> H_2_O_2__simple_molecule
+SOD1 -> H_2_O_2__simple_molecule
+SOD2 -> H_2_O_2__simple_molecule
+#position:hydroxide_simple_molecule:0,0
+$hydroxide_simple_molecule:(Fe2__ion & H_2_O_2__simple_molecule)
+H_2_O_2__simple_molecule -> hydroxide_simple_molecule
+Fe2__ion -> hydroxide_simple_molecule
+#position:superoxide_simple_molecule:0,0
+$superoxide_simple_molecule:((H_2_O_2__simple_molecule & (O_2__simple_molecule | hydroxide_simple_molecule)) | (!H_2_O_2__simple_molecule & O_2__simple_molecule))
+H_2_O_2__simple_molecule -> superoxide_simple_molecule
+hydroxide_simple_molecule -> superoxide_simple_molecule
+O_2__simple_molecule -> superoxide_simple_molecule
+paraquat_simple_molecule ->? superoxide_simple_molecule
+#position:Fe3__ion:0,0
+$Fe3__ion:(Fe2__ion & (H_2_O_2__simple_molecule | hydroxide_simple_molecule))
+H_2_O_2__simple_molecule -> Fe3__ion
+Fe2__ion -> Fe3__ion
+hydroxide_simple_molecule -> Fe3__ion
+#position:H__ion_mitochondrion:0,0
+$H__ion_mitochondrion:((Complex_1_complex & (H__ion_mitochondrial_matrix | complex_3_complex)) | (!Complex_1_complex & complex_3_complex))
+H__ion_mitochondrial_matrix -> H__ion_mitochondrion
+Complex_1_complex -> H__ion_mitochondrion
+O_2__simple_molecule ->? H__ion_mitochondrion
+sa13_Cyt_C_mitochondrial_matrix ->? H__ion_mitochondrion
+sa255_QH_2__simple_molecule_mitochondrial_matrix ->? H__ion_mitochondrion
+complex_3_complex -> H__ion_mitochondrion
+#position:O_2__simple_molecule:0,0
+$O_2__simple_molecule:(Fe3__ion & superoxide_simple_molecule)
+superoxide_simple_molecule -> O_2__simple_molecule
+Fe3__ion -> O_2__simple_molecule
+#position:sa13_Cyt_C_mitochondrial_matrix:0,0
+$sa13_Cyt_C_mitochondrial_matrix:false
+#position:sa255_QH_2__simple_molecule_mitochondrial_matrix:0,0
+$sa255_QH_2__simple_molecule_mitochondrial_matrix:false
+#position:ATP5MG:0,0
+$ATP5MG:true
+#position:Nsp6:0,0
+$Nsp6:true
+#position:complex_4_complex:0,0
+$complex_4_complex:((OXPHOS_factors_complex & ((complex_3_complex & (csa103_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix | sa253_Cyt_C_mitochondrial_matrix)) | (!complex_3_complex & csa103_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix))) | (!OXPHOS_factors_complex & (complex_3_complex & sa253_Cyt_C_mitochondrial_matrix)))
+csa103_mtDNA_encoded_OXPHOS_units_complex_mitochondrial_matrix -> complex_4_complex
+OXPHOS_factors_complex -> complex_4_complex
+complex_3_complex -> complex_4_complex
+sa253_Cyt_C_mitochondrial_matrix -> complex_4_complex
+#position:sa253_Cyt_C_mitochondrial_matrix:0,0
+$sa253_Cyt_C_mitochondrial_matrix:(H__ion_mitochondrial_matrix & (O_2__simple_molecule & (complex_3_complex & (sa13_Cyt_C_mitochondrial_matrix & sa255_QH_2__simple_molecule_mitochondrial_matrix))))
+O_2__simple_molecule -> sa253_Cyt_C_mitochondrial_matrix
+sa13_Cyt_C_mitochondrial_matrix -> sa253_Cyt_C_mitochondrial_matrix
+H__ion_mitochondrial_matrix -> sa253_Cyt_C_mitochondrial_matrix
+sa255_QH_2__simple_molecule_mitochondrial_matrix -> sa253_Cyt_C_mitochondrial_matrix
+complex_3_complex -> sa253_Cyt_C_mitochondrial_matrix
+#position:paraquat_simple_molecule:0,0
+paraquat_dication_complex -> paraquat_simple_molecule
+Complex_1_complex -> paraquat_simple_molecule
+superoxide_simple_molecule -> paraquat_simple_molecule
+#position:paraquat_dication_complex:0,0
+$paraquat_dication_complex:(O_2__simple_molecule & paraquat_simple_molecule)
+paraquat_simple_molecule -> paraquat_dication_complex
+O_2__simple_molecule -> paraquat_dication_complex
+#position:Fe2__ion:0,0
+$Fe2__ion:(Fe3__ion & superoxide_simple_molecule)
+superoxide_simple_molecule -> Fe2__ion
+Fe3__ion -> Fe2__ion
+#position:Mt_replication_complex:0,0
+$Mt_replication_complex:false
+#position:MT_tRNAs_complex:0,0
+mt_DNA_gene -> MT_tRNAs_complex
+Mt_tRNA_synthetase_complex -> MT_tRNAs_complex
+TRMT1 -> MT_tRNAs_complex
+#position:Mt_tRNA_synthetase_complex:0,0
+$Mt_tRNA_synthetase_complex:false
+#position:TRMT1:0,0
+$TRMT1:false
+#position:TIMM29:0,0
+$TIMM29:false
+#position:TIM22_complex_complex:0,0
+TIMM29 -> TIM22_complex_complex
+Nsp4 -| TIM22_complex_complex
+#position:Nsp4:0,0
+$Nsp4:false
+#position:TIM9_TIM10_complex_complex:0,0
+$TIM9_TIM10_complex_complex:!Nsp4
+Nsp4 -| TIM9_TIM10_complex_complex
+#position:NAD__simple_molecule:0,0
+NADH_simple_molecule -> NAD__simple_molecule
+Complex_1_complex -> NAD__simple_molecule
+#position:sa6_Q_simple_molecule_mitochondrial_matrix:0,0
+$sa6_Q_simple_molecule_mitochondrial_matrix:(H__ion_mitochondrial_matrix & (O_2__simple_molecule & (complex_3_complex & (sa13_Cyt_C_mitochondrial_matrix & sa255_QH_2__simple_molecule_mitochondrial_matrix))))
+O_2__simple_molecule -> sa6_Q_simple_molecule_mitochondrial_matrix
+sa13_Cyt_C_mitochondrial_matrix -> sa6_Q_simple_molecule_mitochondrial_matrix
+H__ion_mitochondrial_matrix -> sa6_Q_simple_molecule_mitochondrial_matrix
+sa255_QH_2__simple_molecule_mitochondrial_matrix -> sa6_Q_simple_molecule_mitochondrial_matrix
+complex_3_complex -> sa6_Q_simple_molecule_mitochondrial_matrix
+#position:SOD1:0,0
+$SOD1:true
+#position:SOD2:0,0
+$SOD2:SIRT3
+SIRT3 -> SOD2
+#position:O__2__endsuper__simple_molecule:0,0
+$O__2__endsuper__simple_molecule:(H__ion_mitochondrial_matrix & (O_2__simple_molecule & (complex_3_complex & (sa13_Cyt_C_mitochondrial_matrix & sa255_QH_2__simple_molecule_mitochondrial_matrix))))
+O_2__simple_molecule -> O__2__endsuper__simple_molecule
+sa13_Cyt_C_mitochondrial_matrix -> O__2__endsuper__simple_molecule
+H__ion_mitochondrial_matrix -> O__2__endsuper__simple_molecule
+sa255_QH_2__simple_molecule_mitochondrial_matrix -> O__2__endsuper__simple_molecule
+complex_3_complex -> O__2__endsuper__simple_molecule
+#position:ADP_simple_molecule:0,0
+$ADP_simple_molecule:false
+#position:ATP_simple_molecule:0,0
+$ATP_simple_molecule:(ADP_simple_molecule & ((ATP_Synthase_complex & Pi_simple_molecule) | (!ATP_Synthase_complex & (H__ion_mitochondrial_matrix & Pi_simple_molecule))))
+ADP_simple_molecule -> ATP_simple_molecule
+Pi_simple_molecule -> ATP_simple_molecule
+ATP_Synthase_complex -> ATP_simple_molecule
+H__ion_mitochondrial_matrix -> ATP_simple_molecule
+#position:Pi_simple_molecule:0,0
+$Pi_simple_molecule:false
+#position:sa220_QH_2__simple_molecule_mitochondrial_matrix:0,0
+csa84_complex_2_complex_mitochondrial_matrix -> sa220_QH_2__simple_molecule_mitochondrial_matrix
+sa219_Q_simple_molecule_mitochondrial_matrix -> sa220_QH_2__simple_molecule_mitochondrial_matrix
+Complex_1_complex -> sa220_QH_2__simple_molecule_mitochondrial_matrix
+#position:H_2_O_simple_molecule:0,0
+$H_2_O_simple_molecule:((CAT & H_2_O_2__simple_molecule) | (!CAT & ((GPX1 & (H_2_O_2__simple_molecule & ((PRDX_complex & (TXN2 | (glutathione_simple_molecule | hydroxide_simple_molecule))) | (!PRDX_complex & (glutathione_simple_molecule | hydroxide_simple_molecule))))) | (!GPX1 & ((GPX4 & (H_2_O_2__simple_molecule & ((PRDX_complex & (TXN2 | (glutathione_simple_molecule | hydroxide_simple_molecule))) | (!PRDX_complex & (glutathione_simple_molecule | hydroxide_simple_molecule))))) | (!GPX4 & (H_2_O_2__simple_molecule & ((PRDX_complex & (TXN2 | hydroxide_simple_molecule)) | (!PRDX_complex & hydroxide_simple_molecule)))))))))
+H_2_O_2__simple_molecule -> H_2_O_simple_molecule
+TXN2 -> H_2_O_simple_molecule
+PRDX_complex -> H_2_O_simple_molecule
+glutathione_simple_molecule -> H_2_O_simple_molecule
+GPX4 -> H_2_O_simple_molecule
+GPX1 -> H_2_O_simple_molecule
+CAT -> H_2_O_simple_molecule
+hydroxide_simple_molecule -> H_2_O_simple_molecule
+#position:TXN2:0,0
+$TXN2:((H_2_O_2__simple_molecule & ((NADPH_simple_molecule & ((PRDX_complex & TXN2) | (!PRDX_complex & (TXN2 & TXNRD2)))) | (!NADPH_simple_molecule & (PRDX_complex & TXN2)))) | (!H_2_O_2__simple_molecule & (NADPH_simple_molecule & (TXN2 & TXNRD2))))
+H_2_O_2__simple_molecule -> TXN2
+TXN2 -> TXN2
+PRDX_complex -> TXN2
+NADPH_simple_molecule -> TXN2
+TXNRD2 -> TXN2
+#position:PRDX_complex:0,0
+$PRDX_complex:false
+#position:glutathione_simple_molecule:0,0
+glutathione_disulfide_simple_molecule -> glutathione_simple_molecule
+NADPH_simple_molecule -> glutathione_simple_molecule
+GSR -> glutathione_simple_molecule
+#position:GPX4:0,0
+$GPX4:true
+#position:GPX1:0,0
+$GPX1:false
+#position:CAT:0,0
+$CAT:false
+#position:NADPH_simple_molecule:0,0
+$NADPH_simple_molecule:true
+#position:TXNRD2:0,0
+$TXNRD2:true
+#position:glutathione_disulfide_simple_molecule:0,0
+H_2_O_2__simple_molecule -> glutathione_disulfide_simple_molecule
+glutathione_simple_molecule -> glutathione_disulfide_simple_molecule
+GPX4 -> glutathione_disulfide_simple_molecule
+GPX1 -> glutathione_disulfide_simple_molecule
+#position:GSR:0,0
+$GSR:false
+#position:ROS_simple_molecule:0,0
+superoxide_simple_molecule -> ROS_simple_molecule
+hydroxide_simple_molecule -> ROS_simple_molecule
+H_2_O_2__simple_molecule -> ROS_simple_molecule
+#position:HO_simple_molecule:0,0
+H_2_O_2__simple_molecule -> HO_simple_molecule
+Fe2__ion -> HO_simple_molecule
+hydroxide_simple_molecule -> HO_simple_molecule
+#position:NADP____simple_molecule:0,0
+$NADP____simple_molecule:((GSR & (NADPH_simple_molecule & ((TXN2 & (TXNRD2 | glutathione_disulfide_simple_molecule)) | (!TXN2 & glutathione_disulfide_simple_molecule)))) | (!GSR & (NADPH_simple_molecule & (TXN2 & TXNRD2))))
+glutathione_disulfide_simple_molecule -> NADP____simple_molecule
+NADPH_simple_molecule -> NADP____simple_molecule
+GSR -> NADP____simple_molecule
+TXN2 -> NADP____simple_molecule
+TXNRD2 -> NADP____simple_molecule
+#position:TOM_complex_complex:0,0
+$TOM_complex_complex:false
+#position:precursor_protein_N_terminus_binding:0,0
+$precursor_protein_N_terminus_binding:(!Orf9b & (TIM22_complex_complex | (TIM23_complex_complex | (TIM9_TIM10_complex_complex | TOM_complex_complex))))
+TOM_complex_complex -> precursor_protein_N_terminus_binding
+TIM22_complex_complex -> precursor_protein_N_terminus_binding
+Orf9b -| precursor_protein_N_terminus_binding
+TIM23_complex_complex -> precursor_protein_N_terminus_binding
+TIM9_TIM10_complex_complex -> precursor_protein_N_terminus_binding
+#position:Orf9b:0,0
+$Orf9b:false
+#position:TIM23_complex_complex:0,0
+$TIM23_complex_complex:false
