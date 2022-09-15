@@ -1,3 +1,3 @@
-# Boolean network inference tool
+# Boolean network inference library
 
 Work in progress.
