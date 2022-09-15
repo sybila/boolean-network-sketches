@@ -1,0 +1,1 @@
+These models are taken from [this paper](https://doi.org/10.3389/fgene.2018.00039) about the BN inference tool Griffin.

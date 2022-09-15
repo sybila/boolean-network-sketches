@@ -1,0 +1,1 @@
+These models are taken from [this paper](https://doi.org/10.1093/bioinformatics/btab825) about the BN analysis tool pystablemotifs.
