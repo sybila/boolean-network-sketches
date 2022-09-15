@@ -2,10 +2,10 @@ use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
 use biodivine_lib_param_bn::BooleanNetwork;
 
 use hctl_model_checker::analysis::model_check_formula_unsafe;
-use hctl_model_checker::inference::utils::check_if_result_contains_goal;
 
 #[allow(unused_imports)]
 use crate::inference_formulae::*;
+use crate::utils::check_if_result_contains_goal;
 
 use std::convert::TryFrom;
 
