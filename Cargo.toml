@@ -11,10 +11,6 @@ edition = "2021"
 opt-level = 3
 
 [[bin]]
-name = "experiment-aeon"
-path = "src/bin/experiment_aeon.rs"
-
-[[bin]]
 name = "inference-attractors"
 path = "src/bin/infer_networks_attractors.rs"
 
