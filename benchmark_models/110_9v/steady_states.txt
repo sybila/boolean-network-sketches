@@ -1,0 +1,2 @@
+~CckA & ~ChpT & ClpXP_RcdA & ~CpdR & ~CtrAb & DivJ & DivK & ~DivL & ~PleC
+CckA & ChpT & ~ClpXP_RcdA & CpdR & CtrAb & ~DivJ & ~DivK & DivL & PleC
