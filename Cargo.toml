@@ -18,16 +18,12 @@ path = "src/bin/infer_networks_attractors.rs"
 name = "inference-case-study"
 path = "src/bin/inference_case_studies.rs"
 
-[[bin]]
-name = "print-regulations"
-path = "src/bin/print_regulations.rs"
-
 
 [dependencies]
 biodivine-lib-bdd = "0.4.0"
 biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn.git", branch = "hctl-experimental" }
 biodivine-aeon-server = { git = "https://github.com/sybila/biodivine-aeon-server", branch = "hctl-experimental" }
+clap = { version = "3.1.6", features = ["derive"] }
 hctl-model-checker = { git = "https://github.com/ondrej33/HCTL_rust.git", branch = "master" }
 termcolor = "1.1.2"
 rand = "0.6.5"
-
