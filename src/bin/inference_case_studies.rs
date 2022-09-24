@@ -1,18 +1,19 @@
-#[allow(unused_imports)]
-use hctl_model_checker::analysis::{analyse_formula, model_check_formula_unsafe};
+use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
+use biodivine_lib_param_bn::BooleanNetwork;
 
 use bn_inference_tool::inference_formulae::*;
 #[allow(unused_imports)]
 use bn_inference_tool::utils::*;
 use bn_inference_tool::attractor_inference::perform_inference_with_attractors_specific;
 
+#[allow(unused_imports)]
+use hctl_model_checker::analysis::{analyse_formula, model_check_formula_unsafe};
+
 use std::convert::TryFrom;
 use std::fs::read_to_string;
 use std::time::SystemTime;
 use std::env;
 
-use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
-use biodivine_lib_param_bn::BooleanNetwork;
 
 /// Analysis of the T Cell Survival Network
 fn case_study_1(fully_parametrized: bool) {
