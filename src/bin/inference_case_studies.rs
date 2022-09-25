@@ -18,11 +18,11 @@ use std::env;
 /// Analysis of the T Cell Survival Network
 fn case_study_1(fully_parametrized: bool) {
     let aeon_string = if fully_parametrized {
-        read_to_string("benchmark_models/inference/TLGL_reduced/TLGL_reduced_no_updates.aeon").unwrap()
+        read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced_no_updates.aeon").unwrap()
     } else {
-        read_to_string("benchmark_models/inference/TLGL_reduced/TLGL_reduced_partial_updates.aeon").unwrap()
+        read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced_partial_updates.aeon").unwrap()
     };
-    let goal_aeon_string = read_to_string("benchmark_models/inference/TLGL_reduced/TLGL_reduced.aeon".to_string()).unwrap();
+    let goal_aeon_string = read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced.aeon".to_string()).unwrap();
 
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
@@ -70,7 +70,7 @@ fn case_study_1(fully_parametrized: bool) {
 
 /// Analysis of the A. thaliana Sepal Primordium Polarity
 fn case_study_2(fixed_point_version: bool) {
-    let aeon_string = read_to_string("benchmark_models/inference/griffin_2/griffin_model2.aeon").unwrap();
+    let aeon_string = read_to_string("benchmark_models/griffin_2/griffin_model2.aeon").unwrap();
     let observation1 = "AGO1 & ~AGO10 & ~AGO7 & ANT & ARF4 & ~AS1 & ~AS2 & ETT & FIL & KAN1 & miR165 & miR390 & ~REV & ~TAS3siRNA & AGO1_miR165 & ~AGO7_miR390 & ~AS1_AS2 & AUXINh & ~CKh & ~GTE6 & ~IPT5";
     let observation2 = "~AGO1 & AGO10 & AGO7 & ANT & ~ARF4 & AS1 & AS2 & ~ETT & ~FIL & ~KAN1 & ~miR165 & miR390 & REV & TAS3siRNA & ~AGO1_miR165 & AGO7_miR390 & AS1_AS2 & AUXINh & CKh & GTE6 & IPT5";
 
@@ -86,7 +86,7 @@ fn case_study_2(fixed_point_version: bool) {
 /// Analysis of the central nervous system (CNS) development
 /// Formula is created automatically from smaller subformulae, observations might not be linked
 fn case_study_3() {
-    let aeon_string = read_to_string("benchmark_models/inference/CNS_development/model.aeon").unwrap();
+    let aeon_string = read_to_string("benchmark_models/CNS_development/model.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
     let original_graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
@@ -203,7 +203,7 @@ fn case_study_3() {
 /// This time, formula is created manually and should be more precise
 #[allow(dead_code)]
 fn case_study_3_manual() {
-    let aeon_string = read_to_string("benchmark_models/inference/CNS_development/model.aeon").unwrap();
+    let aeon_string = read_to_string("benchmark_models/CNS_development/model.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
     let original_graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
@@ -261,7 +261,7 @@ fn main() {
     let start = SystemTime::now();
     match args[1].as_str() {
         "1" => case_study_1(true),
-        "2" => case_study_2(false),
+        "2" => case_study_2(true),
         "3" => case_study_3(),
         _ => {
             println!("Argument study_num must be a  number from 1 to 3, got {}", args.len() - 1);
