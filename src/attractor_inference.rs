@@ -1,7 +1,7 @@
+use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe;
+
 use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
 use biodivine_lib_param_bn::BooleanNetwork;
-
-use hctl_model_checker::analysis::model_check_formula_unsafe;
 
 #[allow(unused_imports)]
 use crate::inference_formulae::*;

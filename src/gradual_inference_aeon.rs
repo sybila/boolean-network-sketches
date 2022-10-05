@@ -9,7 +9,7 @@ use biodivine_aeon_server::scc::algo_interleaved_transition_guided_reduction::in
 use biodivine_aeon_server::scc::algo_saturated_reachability::{reach_bwd, reachability_step};
 use biodivine_aeon_server::GraphTaskContext;
 
-use hctl_model_checker::analysis::model_check_formula_unsafe;
+use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe;
 // use std::fs::{File, read_to_string};
 
 /*

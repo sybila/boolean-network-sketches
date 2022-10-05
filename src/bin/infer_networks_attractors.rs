@@ -1,9 +1,9 @@
-use bn_inference_tool::attractor_inference::*;
-
 use clap::Parser;
 
 #[allow(unused_imports)]
-use hctl_model_checker::analysis::{analyse_formula, model_check_formula_unsafe, PrintOptions};
+use biodivine_hctl_model_checker::analysis::{analyse_formula, model_check_formula_unsafe, PrintOptions};
+
+use bn_inference_tool::attractor_inference::*;
 
 use std::fs::{read_to_string, File};
 use std::io::{BufRead, BufReader};

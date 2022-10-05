@@ -3,6 +3,11 @@ name = "bn-inference-tool"
 version = "0.1.0"
 authors = ["Ondrej Huvar <ohuvar@gmail.com>"]
 edition = "2021"
+description = "Library for formal Boolean network inference."
+readme = "README.md"
+keywords = ["inference", "boolean-network", "model-checking", "symbolic", "systems-biology"]
+categories = ["science", "simulation"]
+license = "MIT"
 
 #[profile.release]
 #lto = true
@@ -18,12 +23,11 @@ path = "src/bin/infer_networks_attractors.rs"
 name = "inference-case-study"
 path = "src/bin/inference_case_studies.rs"
 
-
 [dependencies]
 biodivine-lib-bdd = "0.4.0"
-biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn.git", branch = "hctl-experimental" }
+biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn", branch = "hctl-experimental" }
 biodivine-aeon-server = { git = "https://github.com/sybila/biodivine-aeon-server", branch = "hctl-experimental" }
+biodivine-hctl-model-checker = { git = "https://github.com/sybila/biodivine-hctl-model-checker", branch = "master" }
 clap = { version = "3.1.6", features = ["derive"] }
-hctl-model-checker = { git = "https://github.com/ondrej33/HCTL_rust.git", branch = "master" }
 termcolor = "1.1.2"
 rand = "0.6.5"

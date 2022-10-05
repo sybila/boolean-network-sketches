@@ -1,3 +1,5 @@
+use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe;
+
 use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
 use biodivine_lib_param_bn::BooleanNetwork;
 
@@ -5,9 +7,6 @@ use bn_inference_tool::inference_formulae::*;
 #[allow(unused_imports)]
 use bn_inference_tool::utils::*;
 use bn_inference_tool::attractor_inference::perform_inference_with_attractors_specific;
-
-#[allow(unused_imports)]
-use hctl_model_checker::analysis::{analyse_formula, model_check_formula_unsafe};
 
 use std::convert::TryFrom;
 use std::fs::read_to_string;
@@ -261,7 +260,7 @@ fn main() {
     let start = SystemTime::now();
     match args[1].as_str() {
         "1" => case_study_1(true),
-        "2" => case_study_2(true),
+        "2" => case_study_2(false),
         "3" => case_study_3(),
         _ => {
             println!("Argument study_num must be a  number from 1 to 3, got {}", args.len() - 1);

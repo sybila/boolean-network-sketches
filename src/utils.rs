@@ -1,7 +1,8 @@
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::symbolic_async_graph::{GraphColors, SymbolicAsyncGraph};
 use biodivine_lib_param_bn::BooleanNetwork;
-use hctl_model_checker::analysis::model_check_formula_unsafe;
+
+use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe;
 
 /// Applies constraints given by HCTL `formulae` on the graph's colors
 /// Returns graph with colour space restricted only to the suitable colors
