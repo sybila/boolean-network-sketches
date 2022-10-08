@@ -1,90 +1,26 @@
-use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe;
-
 use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
 use biodivine_lib_param_bn::BooleanNetwork;
 
 use bn_inference_tool::inference_formulae::*;
-#[allow(unused_imports)]
-use bn_inference_tool::utils::*;
-use bn_inference_tool::attractor_inference::perform_inference_with_attractors_specific;
+use bn_inference_tool::utils::apply_constraints_and_restrict;
+
+use clap::Parser;
 
 use std::convert::TryFrom;
 use std::fs::read_to_string;
 use std::time::SystemTime;
-use std::env;
 
-
-/// Analysis of the T Cell Survival Network
-fn case_study_1(fully_parametrized: bool) {
-    let aeon_string = if fully_parametrized {
-        read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced_no_updates.aeon").unwrap()
-    } else {
-        read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced_partial_updates.aeon").unwrap()
-    };
-    let goal_aeon_string = read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced.aeon".to_string()).unwrap();
-
-    let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded model with {} vars.", bn.num_vars());
-    let mut graph = SymbolicAsyncGraph::new(bn, 2).unwrap();
-    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_vars());
-
-    // define the observations
-    let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
-    let healthy_attractor = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
-
-    let mut inferred_colors = graph.mk_unit_colors();
-    println!(
-        "After applying static constraints, {} concretizations remain.",
-        inferred_colors.approx_cardinality(),
-    );
-
-    let formulae: Vec<String> = vec![
-        mk_steady_state_formula_specific(healthy_attractor.to_string()),
-        mk_attractor_formula_nonspecific(diseased_attractor.to_string()),
-    ];
-
-    // first ensure attractor existence
-    graph = apply_constraints_and_restrict(formulae, graph, "attractor ensured");
-    println!(
-        "After ensuring attractor presence, {} concretizations remain.",
-        graph.mk_unit_colors().approx_cardinality(),
-    );
-
-    // then prohibit all other attractors
-    let attr_set = vec![healthy_attractor.to_string(), diseased_attractor.to_string()];
-    let formula = mk_forbid_other_attractors_formula(attr_set);
-    inferred_colors = model_check_formula_unsafe(formula, &graph).colors();
-    println!(
-        "{} suitable networks found in total",
-        inferred_colors.approx_cardinality()
-    );
-    // println!("{}", graph.pick_witness(&inferred_colors).to_string());
-
-    // check that original model is present among the results
-    // currently does not work for the specified version
-    if fully_parametrized {
-        check_if_result_contains_goal(graph, Some(goal_aeon_string), inferred_colors);
-    }
-}
-
-/// Analysis of the A. thaliana Sepal Primordium Polarity
-fn case_study_2(fixed_point_version: bool) {
-    let aeon_string = read_to_string("benchmark_models/griffin_2/griffin_model2.aeon").unwrap();
-    let observation1 = "AGO1 & ~AGO10 & ~AGO7 & ANT & ARF4 & ~AS1 & ~AS2 & ETT & FIL & KAN1 & miR165 & miR390 & ~REV & ~TAS3siRNA & AGO1_miR165 & ~AGO7_miR390 & ~AS1_AS2 & AUXINh & ~CKh & ~GTE6 & ~IPT5";
-    let observation2 = "~AGO1 & AGO10 & AGO7 & ANT & ~ARF4 & AS1 & AS2 & ~ETT & ~FIL & ~KAN1 & ~miR165 & miR390 & REV & TAS3siRNA & ~AGO1_miR165 & AGO7_miR390 & AS1_AS2 & AUXINh & CKh & GTE6 & IPT5";
-
-    perform_inference_with_attractors_specific(
-        vec![observation1.to_string(), observation2.to_string()],
-        aeon_string,
-        fixed_point_version,
-        true,
-        None,
-    );
+/// Structure to collect CLI arguments
+#[derive(Parser)]
+#[clap(author="Ondrej Huvar", about="Inference case study regarding CNS development.")]
+struct Arguments {
+    // No arguments for now, it is used just for better help messages
 }
 
 /// Analysis of the central nervous system (CNS) development
-/// Formula is created automatically from smaller subformulae, observations might not be linked
-fn case_study_3() {
+/// Infers BNs from sketch including various dynamic properties
+/// HCTL formula is created automatically, observations might not be linked
+fn case_study() {
     let aeon_string = read_to_string("benchmark_models/CNS_development/model.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
@@ -201,7 +137,7 @@ fn case_study_3() {
 /// Analysis of the central nervous system (CNS) development
 /// This time, formula is created manually and should be more precise
 #[allow(dead_code)]
-fn case_study_3_manual() {
+fn case_study_manual() {
     let aeon_string = read_to_string("benchmark_models/CNS_development/model.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
@@ -249,22 +185,12 @@ fn case_study_3_manual() {
     );
 }
 
+/// Run the case study regarding inference of CNS development model
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    if args.len() != 2 {
-        println!("1 argument expected, got {}", args.len() - 1);
-        println!("Usage: ./inference-case-study study_num");
-        return;
-    }
+    //let args = Arguments::parse();
+    Arguments::parse();
 
     let start = SystemTime::now();
-    match args[1].as_str() {
-        "1" => case_study_1(true),
-        "2" => case_study_2(false),
-        "3" => case_study_3(),
-        _ => {
-            println!("Argument study_num must be a  number from 1 to 3, got {}", args.len() - 1);
-        }
-    }
+    case_study();
     println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
 }

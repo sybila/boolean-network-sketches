@@ -16,12 +16,24 @@ license = "MIT"
 opt-level = 3
 
 [[bin]]
-name = "inference-attractors"
+name = "inference-with-attractors"
 path = "src/bin/infer_networks_attractors.rs"
 
 [[bin]]
-name = "inference-case-study"
-path = "src/bin/inference_case_studies.rs"
+name = "case-study-tlgl"
+path = "src/bin/case_study_tlgl.rs"
+
+[[bin]]
+name = "case-study-arabidopsis"
+path = "src/bin/case_study_arabidopsis.rs"
+
+[[bin]]
+name = "case-study-cns"
+path = "src/bin/case_study_cns.rs"
+
+[[bin]]
+name = "sketches"
+path = "src/bin/sketches.rs"
 
 [dependencies]
 biodivine-lib-bdd = "0.4.0"

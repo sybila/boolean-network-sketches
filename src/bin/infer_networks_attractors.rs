@@ -1,9 +1,6 @@
-use clap::Parser;
-
-#[allow(unused_imports)]
-use biodivine_hctl_model_checker::analysis::{analyse_formula, model_check_formula_unsafe, PrintOptions};
-
 use bn_inference_tool::attractor_inference::*;
+
+use clap::Parser;
 
 use std::fs::{read_to_string, File};
 use std::io::{BufRead, BufReader};
@@ -33,7 +30,10 @@ struct Arguments {
     goal_model: Option<String>,
 }
 
-
+/// Infer Boolean network using network sketches with attractor data.
+/// Sketch is given by 4 components: influence graph, PSBN, static and dynamic properties.
+/// The first three are given using aeon model format.
+/// Only dynamic properties allowed are attractor data.
 fn main() {
     let args = Arguments::parse();
     let goal_aeon_string: Option<String> = match args.goal_model {
