@@ -1,9 +1,11 @@
 [package]
-name = "bn-inference-tool"
+name = "network-sketches"
 version = "0.1.0"
 authors = ["Ondrej Huvar <ohuvar@gmail.com>"]
 edition = "2021"
-description = "Library for formal Boolean network inference."
+description = "Library for Boolean network inference using network sketches."
+homepage = "https://github.com/sybila/network-sketches"
+repository = "https://github.com/sybila/network-sketches"
 readme = "README.md"
 keywords = ["inference", "boolean-network", "model-checking", "symbolic", "systems-biology"]
 categories = ["science", "simulation"]

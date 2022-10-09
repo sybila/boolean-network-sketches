@@ -2,7 +2,7 @@
 
 Work in progress. 
 
-Small library focused on the Boolean network inference through Network Sketches.
+Small Rust library focusing on Boolean network inference through network sketches.
 
 Boolean network sketch is given by 4 components: 
 - influence graph
