@@ -1,4 +1,4 @@
-pub mod attractor_inference;
+pub mod inference_attractor_data;
+pub mod create_inference_formulae;
 pub mod gradual_inference_aeon;
-pub mod inference_formulae;
 pub mod utils;

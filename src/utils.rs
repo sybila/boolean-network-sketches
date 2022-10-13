@@ -49,3 +49,21 @@ pub fn check_if_result_contains_goal(
         println!("Goal network not provided.")
     }
 }
+
+
+/// Checks if `inferred_colors` contain the color of the specific network
+/// represented by `goal_aeon_string`
+/// Similar to function above, but no prints, no input checks, just return value
+pub fn check_if_result_contains_goal_unsafe(
+    graph: SymbolicAsyncGraph,
+    goal_aeon_string: String,
+    inferred_colors: GraphColors,
+) -> bool {
+    let goal_bn = BooleanNetwork::try_from(goal_aeon_string.as_str()).unwrap();
+    match graph.mk_subnetwork_colors(&goal_bn) {
+        Ok(goal_colors) =>
+            goal_colors.intersect(&inferred_colors).approx_cardinality()
+                == goal_colors.approx_cardinality(),
+        Err(_) => false
+    }
+}

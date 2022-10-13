@@ -1,4 +1,4 @@
-/// Infer Boolean networks from (full) network sketches
+/// Infer Boolean networks from (more general) network sketches
 fn main() {
     // TODO: load aeon file (influence graph + PSBN + static properties)
     // TODO: load dynamic properties (any HCTL formulae)

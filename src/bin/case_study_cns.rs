@@ -1,8 +1,8 @@
 use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
 use biodivine_lib_param_bn::BooleanNetwork;
 
-use bn_inference_tool::inference_formulae::*;
-use bn_inference_tool::utils::apply_constraints_and_restrict;
+use network_sketches::create_inference_formulae::*;
+use network_sketches::utils::apply_constraints_and_restrict;
 
 use clap::Parser;
 

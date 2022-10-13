@@ -1,6 +1,10 @@
-use bn_inference_tool::attractor_inference::*;
-
 use clap::Parser;
+
+use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
+use biodivine_lib_param_bn::BooleanNetwork;
+
+use network_sketches::inference_attractor_data::*;
+use network_sketches::utils::check_if_result_contains_goal;
 
 use std::fs::{read_to_string, File};
 use std::io::{BufRead, BufReader};
@@ -35,6 +39,8 @@ struct Arguments {
 /// The first three are given using aeon model format.
 /// Only dynamic properties allowed are attractor data.
 fn main() {
+    let start = SystemTime::now();
+
     let args = Arguments::parse();
     let goal_aeon_string: Option<String> = match args.goal_model {
         None => None,
@@ -46,13 +52,27 @@ fn main() {
     let data: Vec<String> = reader.lines().collect::<Result<_, _>>().unwrap();
     let aeon_string = read_to_string(args.model_path).unwrap();
 
-    let start = SystemTime::now();
-    perform_inference_with_attractors_specific(
+    let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
+    println!("Loaded model with {} vars.", bn.num_vars());
+
+    // Create graph object with 1 HCTL var (we dont need more)
+    let graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
+    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_vars());
+
+    let inferred_colors = perform_inference_with_attractors_specific(
         data,
-        aeon_string,
+        graph.clone(),
         args.steady_states,
         args.forbid_extra_attrs,
-        goal_aeon_string,
     );
+
+    println!(
+        "{} suitable networks found in total",
+        inferred_colors.approx_cardinality()
+    );
+
+    // check whether goal network (if supplied) is part of the solution set
+    check_if_result_contains_goal(graph, goal_aeon_string, inferred_colors);
+
     println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
 }

@@ -3,10 +3,10 @@ use biodivine_lib_param_bn::BooleanNetwork;
 
 use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe;
 
-use bn_inference_tool::inference_formulae::*;
-use bn_inference_tool::utils::{apply_constraints_and_restrict, check_if_result_contains_goal};
-
 use clap::Parser;
+
+use network_sketches::create_inference_formulae::*;
+use network_sketches::utils::{apply_constraints_and_restrict, check_if_result_contains_goal};
 
 use std::convert::TryFrom;
 use std::fs::read_to_string;
