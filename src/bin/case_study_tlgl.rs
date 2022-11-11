@@ -6,9 +6,13 @@ use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe;
 use clap::Parser;
 
 use network_sketches::create_inference_formulae::*;
-use network_sketches::utils::{apply_constraints_and_restrict, check_if_result_contains_goal};
+#[allow(unused_imports)]
+use network_sketches::utils::{
+    apply_constraints_and_restrict,
+    check_if_result_contains_goal,
+    enumerate_candidates_naively
+};
 
-use std::convert::TryFrom;
 use std::fs::read_to_string;
 use std::time::SystemTime;
 
@@ -35,6 +39,7 @@ fn case_study(basic_sketch_version: bool) {
     println!("Loaded model with {} vars.", bn.num_vars());
     let mut graph = SymbolicAsyncGraph::new(bn, 2).unwrap();
     println!("Model has {} parameters.", graph.symbolic_context().num_parameter_vars());
+    println!("----------");
 
     // define the observations
     let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
@@ -45,6 +50,8 @@ fn case_study(basic_sketch_version: bool) {
         "After applying static constraints, {} concretizations remain.",
         inferred_colors.approx_cardinality(),
     );
+    println!("----------");
+
 
     let formulae: Vec<String> = vec![
         mk_steady_state_formula_specific(healthy_attractor.to_string()),
@@ -66,7 +73,10 @@ fn case_study(basic_sketch_version: bool) {
         "{} suitable networks found in total",
         inferred_colors.approx_cardinality()
     );
-    // println!("{}", graph.pick_witness(&inferred_colors).to_string());
+    println!("----------");
+
+    //println!("{}", graph.pick_witness(&inferred_colors).to_bnet(false).unwrap());
+    //enumerate_candidates_naively(&graph, inferred_colors.clone());
 
     // check that original model is present among the results
     // currently does not work for the partially specified version due to syntax reasons

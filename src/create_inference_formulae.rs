@@ -10,6 +10,8 @@ pub fn mk_reachability_pair_formula(
 ) -> String {
     assert!(!(is_negative && is_universal));
     assert!(!to_state.is_empty() && !from_state.is_empty());
+
+    // TODO check definition and semantics of "universal reachability"
     if is_universal {
         return format!("(3{{x}}: (@{{x}}: {} & (AF ({}))))", from_state, to_state);
     }

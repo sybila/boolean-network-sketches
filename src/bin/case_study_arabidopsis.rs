@@ -1,6 +1,8 @@
 use biodivine_lib_param_bn::BooleanNetwork;
 use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
 
+#[allow(unused_imports)]
+use network_sketches::utils::enumerate_candidates_naively;
 use network_sketches::inference_attractor_data::perform_inference_with_attractors_specific;
 
 use clap::Parser;
@@ -33,7 +35,7 @@ fn case_study(fixed_point_version: bool) {
 
     let inferred_colors = perform_inference_with_attractors_specific(
         vec![observation1.to_string(), observation2.to_string()],
-        graph,
+        graph.clone(),
         fixed_point_version,
         true,
     );
@@ -42,6 +44,8 @@ fn case_study(fixed_point_version: bool) {
         "{} suitable networks found in total",
         inferred_colors.approx_cardinality()
     );
+
+    //enumerate_candidates_naively(&graph, inferred_colors.clone());
 }
 
 /// Run the case study regarding inference of A. Thaliana model

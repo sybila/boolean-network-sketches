@@ -7,6 +7,7 @@ $sFas:!Apoptosis_ & p(S1P)
 S1P -> sFas
 Apoptosis_ -| sFas
 #position:Apoptosis_:688.5554710478364,237.26364030075158
+$Apoptosis_:function(Caspase, Apoptosis_)
 Caspase -> Apoptosis_
 Apoptosis_ -> Apoptosis_
 #position:Fas:124.0746008550851,109.6075409347269

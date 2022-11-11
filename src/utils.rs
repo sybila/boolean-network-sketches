@@ -1,3 +1,7 @@
+use std::collections::HashMap;
+use std::fs::File;
+use std::io::Write;
+
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::symbolic_async_graph::{GraphColors, SymbolicAsyncGraph};
 use biodivine_lib_param_bn::BooleanNetwork;
@@ -65,5 +69,41 @@ pub fn check_if_result_contains_goal_unsafe(
             goal_colors.intersect(&inferred_colors).approx_cardinality()
                 == goal_colors.approx_cardinality(),
         Err(_) => false
+    }
+}
+
+#[allow(dead_code)]
+pub fn enumerate_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: GraphColors) {
+    // open the file for outputs
+    let mut output_file = File::create("file.txt").unwrap();
+
+    let mut update_fns: HashMap<String, HashMap<String, i32>> = HashMap::new();
+    for v in graph.as_network().variables() {
+        update_fns.insert(graph.as_network().get_variable_name(v).clone(), HashMap::new());
+    }
+
+    while !colors.is_empty() {
+        let c = colors.pick_singleton();
+        let bn = graph.pick_witness(&c);
+
+        for v in bn.variables() {
+            let var_name = bn.get_variable_name(v).as_str();
+            let update_str = format!("{:?}", bn.get_update_function(v).clone().unwrap());
+            if update_fns[var_name].contains_key(update_str.as_str()) {
+                *update_fns.get_mut(var_name).unwrap().get_mut(update_str.as_str()).unwrap() += 1;
+            } else {
+                update_fns.get_mut(var_name).unwrap().insert(update_str.clone(), 1);
+            }
+        }
+
+        write!(output_file, "{}\n", bn.to_bnet(false).unwrap()).unwrap();
+        colors = colors.minus(&c);
+    }
+    for (var_name, fn_map) in update_fns {
+        print!("{}:", var_name);
+        for (_, num) in fn_map {
+            print!("{} ", num);
+        }
+        println!()
     }
 }
