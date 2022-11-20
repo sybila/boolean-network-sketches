@@ -1,9 +1,9 @@
-use biodivine_lib_param_bn::BooleanNetwork;
 use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
+use biodivine_lib_param_bn::BooleanNetwork;
 
 #[allow(unused_imports)]
-use network_sketches::utils::enumerate_candidates_naively;
 use network_sketches::inference_attractor_data::perform_inference_with_attractors_specific;
+use network_sketches::utils::summarize_candidates_naively;
 
 use clap::Parser;
 
@@ -12,16 +12,27 @@ use std::time::SystemTime;
 
 /// Structure to collect CLI arguments
 #[derive(Parser)]
-#[clap(author="Ondrej Huvar", about="Inference case study regarding A. Thaliana.")]
+#[clap(
+    author="Ondrej Huvar",
+    about="Inference case study regarding A. Thaliana."
+)]
 struct Arguments {
     /// Consider only fixed-point attractors (simpler dynamical property)
     #[clap(short, long, takes_value = false)]
-    fixed_point_version: bool,
+    fixed_points: bool,
+
+    /// Prohibit all attractors not containing specified states
+    #[clap(short, long, takes_value = false)]
+    prohibit_extra_attrs: bool,
+
+    /// Print summarizing info regarding candidate set
+    #[clap(short, long, takes_value = false)]
+    summarize_candidates: bool,
 }
 
 /// Analysis of the A. thaliana Sepal Primordium Polarity
 /// Infers BNs from sketch including attractor data
-fn case_study(fixed_point_version: bool) {
+fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: bool) {
     let observation1 = "AGO1 & ~AGO10 & ~AGO7 & ANT & ARF4 & ~AS1 & ~AS2 & ETT & FIL & KAN1 & miR165 & miR390 & ~REV & ~TAS3siRNA & AGO1_miR165 & ~AGO7_miR390 & ~AS1_AS2 & AUXINh & ~CKh & ~GTE6 & ~IPT5";
     let observation2 = "~AGO1 & AGO10 & AGO7 & ANT & ~ARF4 & AS1 & AS2 & ~ETT & ~FIL & ~KAN1 & ~miR165 & miR390 & REV & TAS3siRNA & ~AGO1_miR165 & AGO7_miR390 & AS1_AS2 & AUXINh & CKh & GTE6 & IPT5";
 
@@ -31,27 +42,52 @@ fn case_study(fixed_point_version: bool) {
 
     // Create graph object with 1 HCTL var (we dont need more)
     let graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
-    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_vars());
+    println!(
+        "Model has {} parameters.",
+        graph.symbolic_context().num_parameter_vars()
+    );
+    println!("---------");
 
     let inferred_colors = perform_inference_with_attractors_specific(
         vec![observation1.to_string(), observation2.to_string()],
         graph.clone(),
         fixed_point_version,
-        true,
+        prohibit_extra_attrs,
     );
 
     println!(
         "{} suitable networks found in total",
         inferred_colors.approx_cardinality()
     );
+    println!("---------");
 
-    //enumerate_candidates_naively(&graph, inferred_colors.clone());
+    if summarize {
+        summarize_candidates_naively(&graph, inferred_colors.clone());
+    }
 }
 
 /// Run the case study regarding inference of A. Thaliana model
 fn main() {
     let args = Arguments::parse();
     let start = SystemTime::now();
-    case_study(args.fixed_point_version);
+
+    let attr_type = if args.fixed_points {
+        "fixed point attrs"
+    } else {
+        "complex attrs"
+    };
+
+    let attr_amount = if args.prohibit_extra_attrs {
+        "other attrs prohibited"
+    } else {
+        "other attrs allowed"
+    };
+
+    println!("MODE: {}, {}", attr_type, attr_amount);
+    case_study(
+        args.fixed_points,
+        args.prohibit_extra_attrs,
+        args.summarize_candidates
+    );
     println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
 }

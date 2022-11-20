@@ -9,7 +9,7 @@ use biodivine_aeon_server::scc::algo_interleaved_transition_guided_reduction::in
 use biodivine_aeon_server::scc::algo_saturated_reachability::{reach_bwd, reachability_step};
 use biodivine_aeon_server::GraphTaskContext;
 
-use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe;
+use biodivine_hctl_model_checker::analysis::model_check_formula;
 
 // use std::fs::{File, read_to_string};
 
@@ -36,7 +36,7 @@ pub fn parse_and_infer_gradually(
         if state_formula.is_empty() {
             continue;
         }
-        measured_attractor_states.push(model_check_formula_unsafe(state_formula, &graph));
+        measured_attractor_states.push(model_check_formula(state_formula, &graph).unwrap());
     }
 
     // and do the inference

@@ -1,12 +1,10 @@
 #[allow(unused_imports)]
 use crate::create_inference_formulae::{
-    mk_attractor_formula_specific,
-    mk_steady_state_formula_specific,
-    mk_forbid_other_attractors_formula,
-    mk_forbid_other_steady_states_formula,
+    mk_attractor_formula_specific, mk_steady_state_formula_specific,
+    mk_forbid_other_attractors_formula, mk_forbid_other_steady_states_formula,
 };
 
-use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe;
+use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe_ex;
 
 use biodivine_lib_param_bn::symbolic_async_graph::{GraphColors, SymbolicAsyncGraph};
 
@@ -41,7 +39,10 @@ pub fn perform_inference_with_attractors_specific(
         } else {
             mk_attractor_formula_specific(attractor_state)
         };
-        inferred_colors = model_check_formula_unsafe(formula, &graph).colors();
+
+        inferred_colors = model_check_formula_unsafe_ex(formula, &graph)
+            .unwrap()
+            .colors();
 
         // restrict the unit_colored_set in the graph object
         graph = SymbolicAsyncGraph::new_restrict_colors_from_existing(graph, &inferred_colors);
@@ -52,7 +53,7 @@ pub fn perform_inference_with_attractors_specific(
         inferred_colors.approx_cardinality(),
     );
 
-    // if desired, we will add the constraint which forbids any additional attractors
+    // if desired, we add the constraint which forbids any additional attractors
     // that do not correspond to the observations
     if forbid_extra_attr {
         let formula = if use_fixed_points {
@@ -60,7 +61,9 @@ pub fn perform_inference_with_attractors_specific(
         } else {
             mk_forbid_other_attractors_formula(attr_set)
         };
-        inferred_colors = model_check_formula_unsafe(formula, &graph).colors();
+        inferred_colors = model_check_formula_unsafe_ex(formula, &graph)
+            .unwrap()
+            .colors();
     }
 
     inferred_colors
@@ -68,13 +71,13 @@ pub fn perform_inference_with_attractors_specific(
 
 #[cfg(test)]
 mod tests {
-    use biodivine_lib_param_bn::BooleanNetwork;
-    use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
     use crate::inference_attractor_data::perform_inference_with_attractors_specific;
+    use crate::utils::check_if_result_contains_goal_unsafe;
+    use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
+    use biodivine_lib_param_bn::BooleanNetwork;
     use std::fs::{File, read_to_string};
     use std::io::{BufRead, BufReader};
     use std::path::Path;
-    use crate::utils::check_if_result_contains_goal_unsafe;
 
     /// Test BN inference through steady-state data
     /// Test 2 cases (with X without additional attractors)
@@ -94,7 +97,10 @@ mod tests {
             true,
             false,
         );
-        assert_eq!(inferred_colors.approx_cardinality(), two_expected_result_numbers[0]);
+        assert_eq!(
+            inferred_colors.approx_cardinality(),
+            two_expected_result_numbers[0]
+        );
 
         let inferred_colors = perform_inference_with_attractors_specific(
             observations.clone(),
@@ -102,7 +108,10 @@ mod tests {
             true,
             true,
         );
-        assert_eq!(inferred_colors.approx_cardinality(), two_expected_result_numbers[1]);
+        assert_eq!(
+            inferred_colors.approx_cardinality(),
+            two_expected_result_numbers[1]
+        );
     }
 
     #[test]

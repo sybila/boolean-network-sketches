@@ -38,10 +38,14 @@ pub fn mk_reachability_chain_formula(states_sequence: Vec<String>) -> String {
 
     // add the last state and all the closing parentheses
     formula.push_str(format!("{}", states_sequence[num_states - 1]).as_str());
-    formula.push_str((0..num_states+1).map(|_| ")").collect::<String>().as_str());
+    formula.push_str(
+        (0..num_states+1)
+            .map(|_| ")")
+            .collect::<String>()
+            .as_str(),
+    );
     formula
 }
-
 
 /// Creates the formula describing the existence of a particular trap space
 /// trap space is a part of the state space from which we cannot escape
@@ -52,7 +56,7 @@ pub fn mk_trap_space_formula(trap_space: String) -> String {
 }
 
 /// Creates the formula describing the existence of specific attractor
-/// Works only for FULLY described states (using all propositions)
+/// Works only for FULLY described state (conjunction of literals for each proposition)
 /// `attractor_state` is a formula describing state in a desired attractor
 pub fn mk_attractor_formula_specific(attractor_state: String) -> String {
     assert!(!attractor_state.is_empty());
@@ -74,7 +78,6 @@ pub fn mk_attractor_formula_nonspecific(attractor_state: String) -> String {
     assert!(!attractor_state.is_empty());
     format!("(3{{x}}: (@{{x}}: ({} & (AG EF ({} & {{x}})))))", attractor_state, attractor_state)
 }
-
 
 /// Creates the formula prohibiting all but the given attractors
 /// `attractor_state_set` is a vector of formulae, each describing a state in particular
@@ -105,7 +108,6 @@ pub fn mk_steady_state_formula_nonspecific(steady_state: String) -> String {
     assert!(!steady_state.is_empty());
     format!("(3{{x}}: (@{{x}}: ({} & (AX ({} & {{x}})))))", steady_state, steady_state)
 }
-
 
 /// Creates the formula prohibiting all but the given steady-states
 /// `steady_state_set` is a vector of formulae, each describing particular allowed fixed point

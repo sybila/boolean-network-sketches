@@ -12,7 +12,10 @@ use std::time::SystemTime;
 
 /// Structure to collect CLI arguments
 #[derive(Parser)]
-#[clap(author="Ondrej Huvar", about="Inference case study regarding CNS development.")]
+#[clap(
+    author="Ondrej Huvar",
+    about="Inference case study regarding CNS development."
+)]
 struct Arguments {
     // No arguments for now, it is used just for better help messages
 }
@@ -39,6 +42,7 @@ fn case_study() {
     "tS": {"Pax6": 1, "Tuj1": 0, "Scl": 1, "Aldh1L1": 0, "Olig2": 0, "Sox8": 0},
     "fA": {"Pax6": 1, "Tuj1": 0, "Zic1": 0, "Brn2": 0, "Aldh1L1": 1, "Sox8": 0},
      */
+
     let zero_state = "~Pax6 & ~Hes5 & ~Mash1 & ~Scl & ~Olig2 & ~Stat3 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Myt1L & ~Sox8 & ~Aldh1L1";
     let init_state = "Pax6 & ~Hes5 & ~Mash1 & ~Scl & ~Olig2 & ~Stat3 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Myt1L & ~Sox8 & ~Aldh1L1";
     let t_m = "Pax6 & ~Scl & ~Olig2 & ~Tuj1 & ~Sox8 & ~Aldh1L1";
@@ -54,17 +58,17 @@ fn case_study() {
     );
 
     /*
-     Constraints:
-     1) existential
-     - fixed points: f_a, f_ms
-     - trap spaces: f_t
-     - reachability: init -> t_m -> f_t, init -> t_o -> f_ms, init -> t_s -> f_a
-     - negative reachability: zero -/> f_t, zero -/> f_ms, zero -/> f_a
-     2) universal:
-     - fixed points must be only from: [f_a, f_ms, f_t, zero]
-     - fixed points reachable from 'init' must be only from: [f_a, f_ms, f_t]
-     (for the last one, it is enough to just prohibit reaching 'zero' fixed point from 'init'
-     */
+    Constraints:
+    1) existential
+    - fixed points: f_a, f_ms
+    - trap spaces: f_t
+    - reachability: init -> t_m -> f_t, init -> t_o -> f_ms, init -> t_s -> f_a
+    - negative reachability: zero -/> f_t, zero -/> f_ms, zero -/> f_a
+    2) universal:
+    - fixed points must be only from: [f_a, f_ms, f_t, zero]
+    - fixed points reachable from 'init' must be only from: [f_a, f_ms, f_t]
+    (for the last one, it is enough to just prohibit reaching 'zero' fixed point from 'init'
+    */
 
     // constraints from the first part of the case study
     let fixed_point_constraints: Vec<String> = vec![
@@ -72,9 +76,7 @@ fn case_study() {
         mk_steady_state_formula_nonspecific(f_ms.to_string()),
     ];
 
-    let trap_space_constraints: Vec<String> = vec![
-        mk_trap_space_formula(f_t.to_string()),
-    ];
+    let trap_space_constraints: Vec<String> = vec![mk_trap_space_formula(f_t.to_string())];
 
     let reachability_constraints: Vec<String> = vec![
         mk_reachability_chain_formula(vec![init_state.to_string(), t_m.to_string(), f_t.to_string()]),
@@ -146,7 +148,7 @@ fn case_study_manual() {
     println!("Model has {} parameters.", graph.symbolic_context().num_parameter_vars());
 
     // define the observations
-    let zero_state = "~Pax6 & ~Hes5 & ~Mash1 & ~Scl & ~Olig2 & ~Stat3 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Myt1L & ~Sox8 & ~Aldh1L1";
+    let _zero_state = "~Pax6 & ~Hes5 & ~Mash1 & ~Scl & ~Olig2 & ~Stat3 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Myt1L & ~Sox8 & ~Aldh1L1";
     let init_state = "Pax6 & ~Hes5 & ~Mash1 & ~Scl & ~Olig2 & ~Stat3 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Myt1L & ~Sox8 & ~Aldh1L1";
     let t_m = "Pax6 & ~Scl & ~Olig2 & ~Tuj1 & ~Sox8 & ~Aldh1L1";
     let f_t = "Pax6 & Zic1 & Brn2 & Tuj1 & ~Sox8 & ~Aldh1L1";
@@ -161,17 +163,17 @@ fn case_study_manual() {
     );
 
     /*
-     Constraints:
-     1) existential
-     - fixed points: f_a, f_ms
-     - trap spaces: f_t
-     - reachability: init -> t_m -> f_t, init -> t_o -> f_ms, init -> t_s -> f_a
-     - negative reachability: zero -/> f_t, zero -/> f_ms, zero -/> f_a
-     2) universal:
-     - fixed points must be only from: [f_a, f_ms, f_t, zero]
-     - fixed points reachable from 'init' must be only from: [f_a, f_ms, f_t]
-     (for the last one, it is enough to just prohibit reaching 'zero' fixed point from 'init'
-     */
+    Constraints:
+    1) existential
+    - fixed points: f_a, f_ms
+    - trap spaces: f_t
+    - reachability: init -> t_m -> f_t, init -> t_o -> f_ms, init -> t_s -> f_a
+    - negative reachability: zero -/> f_t, zero -/> f_ms, zero -/> f_a
+    2) universal:
+    - fixed points must be only from: [f_a, f_ms, f_t, zero]
+    - fixed points reachable from 'init' must be only from: [f_a, f_ms, f_t]
+    (for the last one, it is enough to just prohibit reaching 'zero' fixed point from 'init'
+    */
 
     let formula = format!(
         "(3{{x}}: (@{{x}}: ({}) & (EF (({}) & EF ({}))) \

@@ -13,7 +13,10 @@ use std::time::SystemTime;
 
 /// Structure to collect CLI arguments
 #[derive(Parser)]
-#[clap(author="Ondrej Huvar", version, about="Inference of BNs from partially defined model and attractors.")]
+#[clap(
+    author="Ondrej Huvar",
+    about="Inference of BNs from partially defined model and attractors."
+)]
 struct Arguments {
     /// Path to the file with BN model in aeon format
     model_path: String,
@@ -21,13 +24,13 @@ struct Arguments {
     /// Path to the file with attractor data
     attractor_data_path: String,
 
-    /// Forbid all attractors not containing specified states
+    /// Prohibit all attractors not containing specified states
     #[clap(short, long, takes_value = false)]
-    forbid_extra_attrs: bool,
+    prohibit_extra_attrs: bool,
 
-    /// Compute with steady state attractors only
+    /// Compute with fixed-point attractors only
     #[clap(short, long, takes_value = false)]
-    steady_states: bool,
+    fixed_points: bool,
 
     /// Goal model to check for in the resulting ensemble
     #[clap(short, long)]
@@ -46,6 +49,12 @@ fn main() {
         None => None,
         Some(file_name) => Some(read_to_string(file_name.to_string()).unwrap()),
     };
+    println!(
+        "MODE: fixed point attrs only: {}; other attrs allowed: {}; goal model supplied: {}",
+        args.fixed_points,
+        !args.prohibit_extra_attrs,
+        goal_aeon_string.is_some(),
+    );
 
     let data_file = File::open(Path::new(args.attractor_data_path.as_str())).unwrap();
     let reader = BufReader::new(&data_file);
@@ -57,19 +66,25 @@ fn main() {
 
     // Create graph object with 1 HCTL var (we dont need more)
     let graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
-    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_vars());
+    println!(
+        "Model has {} parameters.",
+        graph.symbolic_context().num_parameter_vars()
+    );
+    println!("----------");
 
     let inferred_colors = perform_inference_with_attractors_specific(
         data,
         graph.clone(),
-        args.steady_states,
-        args.forbid_extra_attrs,
+        args.fixed_points,
+        args.prohibit_extra_attrs,
     );
 
     println!(
         "{} suitable networks found in total",
         inferred_colors.approx_cardinality()
     );
+
+    println!("----------");
 
     // check whether goal network (if supplied) is part of the solution set
     check_if_result_contains_goal(graph, goal_aeon_string, inferred_colors);
