@@ -1,10 +1,10 @@
-use std::collections::HashMap;
+use biodivine_hctl_model_checker::analysis::model_check_formula;
 
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::symbolic_async_graph::{GraphColors, SymbolicAsyncGraph};
 use biodivine_lib_param_bn::{BooleanNetwork, FnUpdate};
 
-use biodivine_hctl_model_checker::analysis::model_check_formula;
+use std::collections::HashMap;
 
 /// Applies constraints given by HCTL `formulae` on the graph's colors
 /// Returns graph with colour space restricted only to the suitable colors
@@ -15,7 +15,7 @@ pub fn apply_constraints_and_restrict(
 ) -> SymbolicAsyncGraph {
     for formula in formulae {
         let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
-        graph = SymbolicAsyncGraph::new_restrict_colors_from_existing(graph, &inferred_colors);
+        graph = SymbolicAsyncGraph::with_custom_context(graph.as_network().clone(), graph.symbolic_context().clone(), inferred_colors.as_bdd().clone()).unwrap();
         if !message.is_empty() {
             println!("{}", message)
         }

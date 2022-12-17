@@ -1,6 +1,5 @@
 use clap::Parser;
 
-use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
 use biodivine_lib_param_bn::BooleanNetwork;
 
 use network_sketches::inference_attractor_data::*;
@@ -10,6 +9,7 @@ use std::fs::{read_to_string, File};
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 use std::time::SystemTime;
+use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
 
 /// Structure to collect CLI arguments
 #[derive(Parser)]
@@ -64,11 +64,11 @@ fn main() {
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
 
-    // Create graph object with 1 HCTL var (we dont need more)
-    let graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
+    // Create extended graph object with 1 HCTL var (we dont need more)
+    let graph = get_extended_symbolic_graph(&bn, 1);
     println!(
         "Model has {} parameters.",
-        graph.symbolic_context().num_parameter_vars()
+        graph.symbolic_context().num_parameter_variables()
     );
     println!("----------");
 

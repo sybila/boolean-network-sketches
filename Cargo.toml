@@ -33,15 +33,10 @@ path = "src/bin/case_study_arabidopsis.rs"
 name = "case-study-cns"
 path = "src/bin/case_study_cns.rs"
 
-[[bin]]
-name = "sketches"
-path = "src/bin/sketches.rs"
-
 [dependencies]
-biodivine-lib-bdd = "0.4.0"
-biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn", branch = "hctl-experimental" }
-biodivine-aeon-server = { git = "https://github.com/sybila/biodivine-aeon-server", branch = "hctl-experimental" }
-biodivine-hctl-model-checker = { git = "https://github.com/sybila/biodivine-hctl-model-checker", branch = "master" }
+biodivine-lib-bdd = ">=0.4.2, <1.0.0"
+biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn", branch = "dev-extended-symbolic-domain" }
+biodivine-hctl-model-checker = { git = "https://github.com/sybila/biodivine-hctl-model-checker", branch = "dev-multiple-formulae" }
 clap = { version = "3.1.6", features = ["derive"] }
 termcolor = "1.1.2"
 rand = "0.6.5"

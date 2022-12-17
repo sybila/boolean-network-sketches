@@ -1,9 +1,10 @@
-use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
-use biodivine_lib_param_bn::BooleanNetwork;
-
 #[allow(unused_imports)]
 use network_sketches::inference_attractor_data::perform_inference_with_attractors_specific;
 use network_sketches::utils::summarize_candidates_naively;
+
+use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
+
+use biodivine_lib_param_bn::BooleanNetwork;
 
 use clap::Parser;
 
@@ -41,10 +42,10 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     println!("Loaded model with {} vars.", bn.num_vars());
 
     // Create graph object with 1 HCTL var (we dont need more)
-    let graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
+    let graph = get_extended_symbolic_graph(&bn, 1);
     println!(
         "Model has {} parameters.",
-        graph.symbolic_context().num_parameter_vars()
+        graph.symbolic_context().num_parameter_variables()
     );
     println!("---------");
 

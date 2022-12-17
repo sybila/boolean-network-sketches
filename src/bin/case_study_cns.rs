@@ -1,8 +1,9 @@
-use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
-use biodivine_lib_param_bn::BooleanNetwork;
-
 use network_sketches::create_inference_formulae::*;
 use network_sketches::utils::apply_constraints_and_restrict;
+
+use biodivine_lib_param_bn::BooleanNetwork;
+
+use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
 
 use clap::Parser;
 
@@ -27,9 +28,10 @@ fn case_study() {
     let aeon_string = read_to_string("benchmark_models/CNS_development/model.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
-    let original_graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
+    let original_graph = get_extended_symbolic_graph(&bn, 1);
+
     let mut graph = original_graph.clone();
-    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_vars());
+    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_variables());
 
     // define the observations
     /*
@@ -143,9 +145,9 @@ fn case_study_manual() {
     let aeon_string = read_to_string("benchmark_models/CNS_development/model.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
-    let original_graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
+    let original_graph = get_extended_symbolic_graph(&bn, 1);
     let mut graph = original_graph.clone();
-    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_vars());
+    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_variables());
 
     // define the observations
     let _zero_state = "~Pax6 & ~Hes5 & ~Mash1 & ~Scl & ~Olig2 & ~Stat3 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Myt1L & ~Sox8 & ~Aldh1L1";

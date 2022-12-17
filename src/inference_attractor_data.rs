@@ -45,7 +45,8 @@ pub fn perform_inference_with_attractors_specific(
             .colors();
 
         // restrict the unit_colored_set in the graph object
-        graph = SymbolicAsyncGraph::new_restrict_colors_from_existing(graph, &inferred_colors);
+        // TODO: check
+        graph = SymbolicAsyncGraph::with_custom_context(graph.as_network().clone(), graph.symbolic_context().clone(), inferred_colors.as_bdd().clone()).unwrap();
         println!("attractor ensured")
     }
     println!(
@@ -73,11 +74,11 @@ pub fn perform_inference_with_attractors_specific(
 mod tests {
     use crate::inference_attractor_data::perform_inference_with_attractors_specific;
     use crate::utils::check_if_result_contains_goal_unsafe;
-    use biodivine_lib_param_bn::symbolic_async_graph::SymbolicAsyncGraph;
     use biodivine_lib_param_bn::BooleanNetwork;
     use std::fs::{File, read_to_string};
     use std::io::{BufRead, BufReader};
     use std::path::Path;
+    use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
 
     /// Test BN inference through steady-state data
     /// Test 2 cases (with X without additional attractors)
@@ -89,7 +90,7 @@ mod tests {
         let aeon_string = read_to_string(model_path).unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
         // Create graph object with 1 HCTL var (we dont need more)
-        let graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
+        let graph = get_extended_symbolic_graph(&bn, 1);
 
         let inferred_colors = perform_inference_with_attractors_specific(
             observations.clone(),
@@ -140,7 +141,7 @@ mod tests {
         let aeon_string = read_to_string(model_path).unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
         // Create graph object with 1 HCTL var (we dont need more)
-        let graph = SymbolicAsyncGraph::new(bn, 1).unwrap();
+        let graph = get_extended_symbolic_graph(&bn, 1);
 
         let goal_aeon_string = read_to_string(goal_model_path.to_string()).unwrap();
 
