@@ -33,6 +33,10 @@ path = "src/bin/case_study_arabidopsis.rs"
 name = "case-study-cns"
 path = "src/bin/case_study_cns.rs"
 
+[[bin]]
+name = "small-example"
+path = "src/bin/small_example.rs"
+
 [dependencies]
 biodivine-lib-bdd = ">=0.4.2, <1.0.0"
 biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn", branch = "dev-extended-symbolic-domain" }

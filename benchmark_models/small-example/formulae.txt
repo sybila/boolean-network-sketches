@@ -1,0 +1,9 @@
+prior knowledge formula:
+3{a}: (3{b}: (3{c}: (@{c}: ((EF {a}) & (EF {b}) & (@{a}: AG EF {a}) & (@{b}: (AG EF {b} & ~EF {a}))))))
+
+data encoding formulae (attractors 001 and 110):
+3{x}:@{x}: ~v_1 & ~v_2 & v_3 & AG EF {x}
+3{y}:@{y}: v_1 & v_2 & ~v_3 & AG EF {y}
+
+overall dynamic property combining all previous formulae:
+(3{a}: (3{b}: (3{c}: (@{c}: ((EF {a}) & (EF {b}) & (@{a}: AG EF {a}) & (@{b}: (AG EF {b} & ~EF {a}))))))) & (3{x}:@{x}: ~v_1 & ~v_2 & v_3 & AG EF {x}) & (3{y}:@{y}: v_1 & v_2 & ~v_3 & AG EF {y})
