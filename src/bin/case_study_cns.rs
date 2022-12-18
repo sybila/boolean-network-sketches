@@ -1,5 +1,5 @@
-use network_sketches::create_inference_formulae::*;
-use network_sketches::utils::apply_constraints_and_restrict;
+use boolean_network_sketches::create_inference_formulae::*;
+use boolean_network_sketches::utils::apply_constraints_and_restrict;
 
 use biodivine_lib_param_bn::BooleanNetwork;
 

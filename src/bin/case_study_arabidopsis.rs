@@ -1,6 +1,6 @@
 #[allow(unused_imports)]
-use network_sketches::inference_attractor_data::perform_inference_with_attractors_specific;
-use network_sketches::utils::summarize_candidates_naively;
+use boolean_network_sketches::inference_attractor_data::perform_inference_with_attractors_specific;
+use boolean_network_sketches::utils::summarize_candidates_naively;
 
 use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
 
@@ -35,7 +35,7 @@ struct Arguments {
 /// Infers BNs from sketch including attractor data
 fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: bool) {
     // parse BN object
-    let aeon_string = read_to_string("benchmark_models/Case_study_arabidopsis/arabidopsis.aeon").unwrap();
+    let aeon_string = read_to_string("benchmark_models/case_study_arabidopsis/arabidopsis.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
 

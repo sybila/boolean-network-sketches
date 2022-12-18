@@ -1,11 +1,11 @@
 [package]
-name = "network-sketches"
+name = "boolean-network-sketches"
 version = "0.1.0"
-authors = ["Ondrej Huvar <ohuvar@gmail.com>"]
+authors = ["Ondřej Huvar <xhuvar@fi.muni.cz>"]
 edition = "2021"
-description = "Library for Boolean network inference using network sketches."
-homepage = "https://github.com/sybila/network-sketches"
-repository = "https://github.com/sybila/network-sketches"
+description = "Framework for Boolean network inference using BN sketches."
+homepage = "https://github.com/sybila/boolean-network-sketches"
+repository = "https://github.com/sybila/boolean-network-sketches"
 readme = "README.md"
 keywords = ["inference", "boolean-network", "model-checking", "symbolic", "systems-biology"]
 categories = ["science", "simulation"]
@@ -39,7 +39,7 @@ path = "src/bin/small_example.rs"
 
 [dependencies]
 biodivine-lib-bdd = ">=0.4.2, <1.0.0"
-biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn", branch = "dev-extended-symbolic-domain" }
+biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn", branch = "master" }
 biodivine-hctl-model-checker = { git = "https://github.com/sybila/biodivine-hctl-model-checker", branch = "dev-multiple-formulae" }
 clap = { version = "3.1.6", features = ["derive"] }
 termcolor = "1.1.2"

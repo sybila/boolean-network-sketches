@@ -1,0 +1,16 @@
+Loaded model with 3 vars.
+Model has 8 parameters.
+After applying static constraints, 16 concretizations remain.
+After applying prior-knowledge-based dynamic constraints, 4 concretizations remain.
+After applying all dynamic constraints, 1 concretizations remain.
+Elapsed time: 7ms
+----------
+WITNESS:
+v_3 -| v_1
+v_1 -?? v_2
+v_2 -? v_3
+v_1 -> v_3
+v_3 -?? v_3
+$v_1: !v_3
+$v_2: v_1
+$v_3: ((v_1 & (!v_2 | v_3)) | (!v_1 & v_3))

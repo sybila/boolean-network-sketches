@@ -1,6 +1,6 @@
-use network_sketches::create_inference_formulae::*;
+use boolean_network_sketches::create_inference_formulae::*;
 #[allow(unused_imports)]
-use network_sketches::utils::{
+use boolean_network_sketches::utils::{
     apply_constraints_and_restrict, check_if_result_contains_goal, summarize_candidates_naively
 };
 
@@ -36,7 +36,7 @@ struct Arguments {
 fn case_study_part_1() {
     let start = SystemTime::now();
     let aeon_string =
-        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_unknown_updates.aeon").unwrap();
+        read_to_string("benchmark_models/case_study_TLGL/TLGL_reduced_unknown_updates.aeon").unwrap();
 
     // create the partially specified BN
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
@@ -100,7 +100,7 @@ fn case_study_part_1() {
 fn case_study_part_2(summarize_candidates: bool) {
     let start = SystemTime::now();
     let aeon_string =
-        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_partial_updates.aeon").unwrap();
+        read_to_string("benchmark_models/case_study_TLGL/TLGL_reduced_partial_updates.aeon").unwrap();
 
     // create the partially specified BN object
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
@@ -160,12 +160,12 @@ fn case_study_part_2(summarize_candidates: bool) {
 #[allow(dead_code)]
 fn case_study_original(fully_unspecified_logic: bool, summarize_candidates: bool) {
     let aeon_string = if fully_unspecified_logic {
-        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_unknown_updates.aeon").unwrap()
+        read_to_string("benchmark_models/case_study_TLGL/TLGL_reduced_unknown_updates.aeon").unwrap()
     } else {
-        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_partial_updates.aeon").unwrap()
+        read_to_string("benchmark_models/case_study_TLGL/TLGL_reduced_partial_updates.aeon").unwrap()
     };
     let goal_aeon_string =
-        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced.aeon".to_string()).unwrap();
+        read_to_string("benchmark_models/case_study_TLGL/TLGL_reduced.aeon".to_string()).unwrap();
 
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
@@ -254,7 +254,7 @@ mod tests {
     /// Use previously computed data to check results
     fn test_case_study_tlgl_small() {
         let aeon_string =
-            read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_partial_updates.aeon").unwrap();
+            read_to_string("benchmark_models/case_study_TLGL/TLGL_reduced_partial_updates.aeon").unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
         let mut graph = get_extended_symbolic_graph(&bn, 2);
 

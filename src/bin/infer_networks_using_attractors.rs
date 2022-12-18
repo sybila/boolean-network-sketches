@@ -2,8 +2,8 @@ use clap::Parser;
 
 use biodivine_lib_param_bn::BooleanNetwork;
 
-use network_sketches::inference_attractor_data::*;
-use network_sketches::utils::check_if_result_contains_goal;
+use boolean_network_sketches::inference_attractor_data::*;
+use boolean_network_sketches::utils::check_if_result_contains_goal;
 
 use std::fs::{read_to_string, File};
 use std::io::{BufRead, BufReader};

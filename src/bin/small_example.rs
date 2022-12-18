@@ -8,7 +8,7 @@ use std::time::SystemTime;
 fn main() {
     let start = SystemTime::now();
 
-    let model_name = ".\\benchmark_models\\small-example\\model-small-example.aeon";
+    let model_name = ".\\benchmark_models\\small_example\\model-small-example.aeon";
     let prior_formula = "3{a}: (3{b}: (3{c}: (@{c}: ((EF {a}) & (EF {b}) & (@{a}: AG EF {a}) & (@{b}: (AG EF {b} & ~ EF {a}))))))";
     let whole_formula = "3{a}: (3{b}: (3{c}: (@{c}: ((EF {a}) & (EF {b}) & (@{a}: AG EF {a}) & (@{b}: (AG EF {b} & ~ EF {a})))))) & (3{x}:@{x}: ~v_1 & ~v_2 & v_3 & AG EF {x}) & (3{y}:@{y}: v_1 & v_2 & ~v_3 & AG EF {y})";
 
