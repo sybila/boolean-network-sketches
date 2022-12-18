@@ -1,0 +1,57 @@
+Loaded model with 18 vars.
+Model has 56 parameters.
+----------
+After applying static constraints, 1296 concretizations remain.
+----------
+attractor ensured
+attractor ensured
+After ensuring attractor presence, 486 concretizations remain.
+378 suitable networks found in total
+Elapsed time: 810ms
+----------
+WITNESS CANDIDATE:
+
+targets,factors
+Apoptosis_, (Apoptosis_ | Caspase)
+BID_, (!Apoptosis_ & !MCL1)
+CREB, (!Apoptosis_ & IFNG_)
+CTLA4_, (!Apoptosis_ & TCR)
+Caspase, (!Apoptosis_ & (BID_ | (DISC_ | !IAP_)))
+Ceramide_, (!Apoptosis_ & (Fas | !S1P))
+DISC_, (!Apoptosis_ & (Ceramide_ | (!FLIP_ | Fas)))
+FLIP_, (!Apoptosis_ & !DISC_)
+Fas, (!Apoptosis_ & !sFas)
+GPCR_, (!Apoptosis_ & S1P)
+IAP_, (!Apoptosis_ & !BID_)
+IFNG_, (!Apoptosis_ & (!P2 | !SMAD_))
+MCL1, (!Apoptosis_ & !DISC_)
+P2, (!Apoptosis_ & (IFNG_ | P2))
+S1P, (!Apoptosis_ & !Ceramide_)
+SMAD_, (!Apoptosis_ & GPCR_)
+TCR, (!Apoptosis_ & !CTLA4_)
+sFas, (!Apoptosis_ & S1P)
+
+----------
+CANDIDATE SET SUMMARIZATION:
+
+DISC_ [7]:  54 54 54 54 54 54 54
+SMAD_ [1]:  378
+Fas [1]:  378
+sFas [1]:  378
+IFNG_ [2]:  252 126
+Ceramide_ [2]:  189 189
+GPCR_ [1]:  378
+TCR [1]:  378
+FLIP_ [1]:  378
+Caspase [9]:  42 42 42 42 42 42 42 42 42
+S1P [1]:  378
+MCL1 [1]:  378
+CTLA4_ [1]:  378
+IAP_ [1]:  378
+Apoptosis_ [1]:  378
+CREB [1]:  378
+P2 [2]:  252 126
+BID_ [1]:  378
+
+5 vars with variable fns: ["Caspase", "Ceramide_", "DISC_", "IFNG_", "P2"]
+13 vars with unique fns: ["Apoptosis_", "BID_", "CREB", "CTLA4_", "FLIP_", "Fas", "GPCR_", "IAP_", "MCL1", "S1P", "SMAD_", "TCR", "sFas"]

@@ -1,39 +1,11 @@
 Loaded model with 252 vars.
-After applying static constraints, 10239917680296513000000000000000000000000000000000000000000000000000000000 concretizations remain.
-attractor ensured
-attractor ensured
-After ensuring attractor presence, 814717713482362300000000000000 concretizations remain.
-814717713482362300000000000000 suitable networks found in total
-OK - color of goal network is included in resulting set.
-Elapsed time: 87638ms
-
-
-
------------------------------------------
-
-
-Loaded model with 252 vars.
-After applying static constraints, inf concretizations remain.
-attractor ensured
-attractor ensured
-After ensuring attractor presence, inf concretizations remain.
-inf suitable networks found in total
-OK - color of goal network is included in resulting set.
-Elapsed time: 143990ms
-
-
-
-
-
-
------------------------------------------ NEW
-
-Loaded model with 252 vars.
 Model has 356 parameters.
+----------
 After applying static constraints, 7346780631148568000000000000000 concretizations remain.
 attractor ensured
 attractor ensured
 After ensuring attractor presence, 6364982136580956000000000000 concretizations remain.
 6364982136580956000000000000 suitable networks found in total
-Goal network not provided.
-Elapsed time: 63654ms
+----------
+OK - color of goal network is included in resulting set.
+Elapsed time: 41387ms

@@ -34,14 +34,12 @@ struct Arguments {
 /// Analysis of the A. thaliana Sepal Primordium Polarity
 /// Infers BNs from sketch including attractor data
 fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: bool) {
-    let observation1 = "AGO1 & ~AGO10 & ~AGO7 & ANT & ARF4 & ~AS1 & ~AS2 & ETT & FIL & KAN1 & miR165 & miR390 & ~REV & ~TAS3siRNA & AGO1_miR165 & ~AGO7_miR390 & ~AS1_AS2 & AUXINh & ~CKh & ~GTE6 & ~IPT5";
-    let observation2 = "~AGO1 & AGO10 & AGO7 & ANT & ~ARF4 & AS1 & AS2 & ~ETT & ~FIL & ~KAN1 & ~miR165 & miR390 & REV & TAS3siRNA & ~AGO1_miR165 & AGO7_miR390 & AS1_AS2 & AUXINh & CKh & GTE6 & IPT5";
-
-    let aeon_string = read_to_string("benchmark_models/griffin_2/griffin_model2.aeon").unwrap();
+    // parse BN object
+    let aeon_string = read_to_string("benchmark_models/Case_study_arabidopsis/arabidopsis.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
 
-    // Create graph object with 1 HCTL var (we dont need more)
+    // Create extended symbolic graph object with 1 HCTL var (we dont need more)
     let graph = get_extended_symbolic_graph(&bn, 1);
     println!(
         "Model has {} parameters.",
@@ -49,6 +47,11 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     );
     println!("---------");
 
+    // define observations
+    let observation1 = "AGO1 & ~AGO10 & ~AGO7 & ANT & ARF4 & ~AS1 & ~AS2 & ETT & FIL & KAN1 & miR165 & miR390 & ~REV & ~TAS3siRNA & AGO1_miR165 & ~AGO7_miR390 & ~AS1_AS2 & AUXINh & ~CKh & ~GTE6 & ~IPT5";
+    let observation2 = "~AGO1 & AGO10 & AGO7 & ANT & ~ARF4 & AS1 & AS2 & ~ETT & ~FIL & ~KAN1 & ~miR165 & miR390 & REV & TAS3siRNA & ~AGO1_miR165 & AGO7_miR390 & AS1_AS2 & AUXINh & CKh & GTE6 & IPT5";
+
+    // perform the colored model checking
     let inferred_colors = perform_inference_with_attractors_specific(
         vec![observation1.to_string(), observation2.to_string()],
         graph.clone(),
@@ -63,6 +66,7 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     println!("---------");
 
     if summarize {
+        // summarize which update functions are unique for all candidates and which vary
         summarize_candidates_naively(&graph, inferred_colors.clone());
     }
 }

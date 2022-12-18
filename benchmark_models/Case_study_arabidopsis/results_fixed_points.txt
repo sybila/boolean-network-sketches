@@ -1,0 +1,10 @@
+Loaded model with 21 vars.
+Model has 68 parameters.
+---------
+After applying static constraints, 4761711360 concretizations remain.
+attractor ensured
+attractor ensured
+After ensuring attractor presence, 439296 concretizations remain.
+439296 suitable networks found in total
+---------
+Elapsed time: 515ms

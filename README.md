@@ -1,18 +1,35 @@
 # Boolean network inference library
 
-Small Rust library focusing on Boolean network inference through network sketches.
+Small Rust library focusing on logical model inference through Boolean network sketches.
 
-Boolean network sketch is a framework that represents a combination of prior knowledge, data, and hypotheses regarding the system.
+Boolean network sketches represent a combination of prior knowledge, data, and hypotheses regarding the system.
 Sketch is given by following components: 
 - influence graph
 - partially specified Boolean network 
-- static properties of update functions (such as monotonicity or observability)
+- static properties of update functions
 - dynamic properties of the system
 
-The first three components are all covered by the AEON model format. 
-The dynamic properties are given in a form of a HCTL formula.
+Given a sketch, we can compute all consistent candidate Boolean networks. 
+We can analyze their attractors symbolically, get witness networks, or analyze differences in a candidate set.
 
-Given a sketch, we can compute all consistent candidate Boolean networks.
+## Installing Dependencies
+
+To run the case studies, you will need the Rust compiler. We recommend following the instructions on [rustlang.org](https://www.rust-lang.org/learn/get-started) (default configuration should be sufficient) instead of using a package manager, however either method should work ok. When using the official installer, everything is stored in `~/.cargo`, so admin privilages are not necessary. Once you are done, you can uninstall the compiler by running `rustup self uninstall`. The tested version of Rust is `1.64.0` (Sep 2022).
+
+TODO
+
+## Input format
+
+The first three components of the sketch are all covered by the AEON model format. This format describes:
+- influences between variables
+- types of influences (such as monotonicity or essentiality), from which we can derive properties of update functions)
+- partially specified update functions 
+
+The dynamic properties are given in a form of a HCTL formula. Some formulae can be generated from data.
+
+## Benchmark models
+
+TODO
 
 ## Case studies
 Code regarding case studies can be found in `src/bin` folder. To run the individual case studies, first compile the code
@@ -45,6 +62,14 @@ You can specify states that must be contained in candidate's attractors, and you
   - `--prohibit-extra-attrs`: prohibit all additional attractors not containing specified states
   - `--goal-model <GOAL_MODEL>`: a goal model to check for in the resulting ensemble of candidates
   - `--fixed-points`: compute with steady state attractors only
+
+## Precomputed results
+
+TODO
+
+## Availibility, Extendability and Reusability
+
+TODO
 
 ## Tests 
 To run set of tests, run `cargo test`.

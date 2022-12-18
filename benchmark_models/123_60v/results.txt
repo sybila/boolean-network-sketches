@@ -1,5 +1,6 @@
 Loaded model with 60 vars.
 Model has 76 parameters.
+----------
 After applying static constraints, 1179648 concretizations remain.
 attractor ensured
 attractor ensured
@@ -11,5 +12,6 @@ attractor ensured
 attractor ensured
 After ensuring attractor presence, 128 concretizations remain.
 128 suitable networks found in total
-Goal network not provided.
+----------
+OK - color of goal network is included in resulting set.
 Elapsed time: 1329ms

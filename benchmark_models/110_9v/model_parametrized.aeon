@@ -1,0 +1,12 @@
+DivK -? DivL
+DivL -? CckA
+CckA -? ChpT
+ChpT -? CpdR
+CpdR -? ClpXP_RcdA
+ChpT -? CtrAb
+ClpXP_RcdA -? CtrAb
+DivJ -? DivK
+PleC -? DivK
+DivK -? DivJ
+PleC -? DivJ
+DivK -? PleC

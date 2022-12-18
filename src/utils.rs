@@ -123,7 +123,7 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
     vars_with_variable_fns.sort();
     vars_with_unique_fns.sort();
 
-    println!("----------");
+    println!();
     println!("{} vars with variable fns: {:?}", vars_with_variable_fns.len(), vars_with_variable_fns);
     println!("{} vars with unique fns: {:?}", vars_with_unique_fns.len(), vars_with_unique_fns);
 }

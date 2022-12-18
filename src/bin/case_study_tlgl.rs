@@ -30,10 +30,13 @@ struct Arguments {
     summarize_candidates: bool,
 }
 
+/// First part of the case study regarding the initial version of the sketch
+/// Analyses model with fully unspecified update logic and experimental data
+/// At the end, analyses candidates by computing attractors and checking for unwanted patterns
 fn case_study_part_1() {
     let start = SystemTime::now();
     let aeon_string =
-        read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced_no_updates.aeon").unwrap();
+        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_unknown_updates.aeon").unwrap();
 
     // create the partially specified BN
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
@@ -63,11 +66,15 @@ fn case_study_part_1() {
     println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
     println!("----------");
 
+    // analyse candidates
+
+    // compute attractors symbolically
     let attrs_all_candidates = model_check_formula("!{x}: AG EF {x}".to_string(), &graph).unwrap();
     println!("Attractors for all candidates computed");
     println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
     println!("----------");
 
+    // check for candidates without attractor for programmed cell death
     let programmed_cell_death_formula = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
     let pcd = model_check_formula(programmed_cell_death_formula.to_string(), &graph).unwrap();
     let colors_not_pcd = graph.mk_unit_colors().minus(&attrs_all_candidates.intersect(&pcd).colors());
@@ -75,6 +82,7 @@ fn case_study_part_1() {
     println!("{}", graph.pick_witness(&colors_not_pcd).to_bnet(false).unwrap());
     println!("----------");
 
+    // check for candidates with unwanted attractor states
     let unwanted_state_formula = "Apoptosis_ & (S1P | sFas | Fas | Ceramide_ | Caspase  | MCL1 | BID_ | DISC_  | FLIP_ | CTLA4_ | TCR | IFNG_ | CREB  | P2 | SMAD_ | GPCR_ | IAP_)";
     let unwanted_states = model_check_formula(unwanted_state_formula.to_string(), &graph).unwrap();
     let colors_with_unwanted_states = attrs_all_candidates.intersect(&unwanted_states).colors();
@@ -85,11 +93,16 @@ fn case_study_part_1() {
     println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
 }
 
+/// Second part of the case study regarding the refined version of the sketch
+/// Extends previous sketch with partially specified update logic and hypotheses regarding
+/// additional attractors
+/// At the end, prints a witness candidate, and summarizes all candidates
 fn case_study_part_2(summarize_candidates: bool) {
+    let start = SystemTime::now();
     let aeon_string =
-        read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced_partial_updates.aeon").unwrap();
+        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_partial_updates.aeon").unwrap();
 
-    // create the partially specified BN
+    // create the partially specified BN object
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
     let mut graph = get_extended_symbolic_graph(&bn, 2);
@@ -104,10 +117,8 @@ fn case_study_part_2(summarize_candidates: bool) {
     println!("----------");
 
     // define both observations and corresponding properties
-
     let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
     let healthy_attractor = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
-
     let formulae: Vec<String> = vec![
         mk_steady_state_formula_specific(healthy_attractor.to_string()),
         mk_attractor_formula_nonspecific(diseased_attractor.to_string()),
@@ -128,9 +139,16 @@ fn case_study_part_2(summarize_candidates: bool) {
         "{} suitable networks found in total",
         inferred_colors.approx_cardinality()
     );
+    println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
     println!("----------");
 
+    // print a withess network
+    println!("WITNESS CANDIDATE:\n");
     println!("{}", graph.pick_witness(&inferred_colors).to_bnet(false).unwrap());
+    println!("----------");
+
+    // summarize differences and similarities between candidates
+    println!("CANDIDATE SET SUMMARIZATION:\n");
     if summarize_candidates {
         summarize_candidates_naively(&graph, inferred_colors.clone());
     }
@@ -142,12 +160,12 @@ fn case_study_part_2(summarize_candidates: bool) {
 #[allow(dead_code)]
 fn case_study_original(fully_unspecified_logic: bool, summarize_candidates: bool) {
     let aeon_string = if fully_unspecified_logic {
-        read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced_no_updates.aeon").unwrap()
+        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_unknown_updates.aeon").unwrap()
     } else {
-        read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced_partial_updates.aeon").unwrap()
+        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_partial_updates.aeon").unwrap()
     };
     let goal_aeon_string =
-        read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced.aeon".to_string()).unwrap();
+        read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced.aeon".to_string()).unwrap();
 
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
@@ -219,8 +237,6 @@ fn main() {
     } else {
         case_study_part_1()
     }
-
-    //case_study_original(args.fully_unspecified_logic, args.summarize_candidates);
 }
 
 #[cfg(test)]
@@ -238,7 +254,7 @@ mod tests {
     /// Use previously computed data to check results
     fn test_case_study_tlgl_small() {
         let aeon_string =
-            read_to_string("benchmark_models/TLGL_reduced/TLGL_reduced_partial_updates.aeon").unwrap();
+            read_to_string("benchmark_models/Case_study_TLGL/TLGL_reduced_partial_updates.aeon").unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
         let mut graph = get_extended_symbolic_graph(&bn, 2);
 
