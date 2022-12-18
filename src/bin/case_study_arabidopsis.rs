@@ -37,12 +37,12 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     // parse BN object
     let aeon_string = read_to_string("benchmark_models/case_study_arabidopsis/arabidopsis.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded model with {} vars.", bn.num_vars());
+    println!("Loaded BN model with {} variables.", bn.num_vars());
 
     // Create extended symbolic graph object with 1 HCTL var (we dont need more)
     let graph = get_extended_symbolic_graph(&bn, 1);
     println!(
-        "Model has {} parameters.",
+        "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
     );
     println!("---------");
@@ -60,7 +60,7 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     );
 
     println!(
-        "{} suitable networks found in total",
+        "{} consistent networks found in total",
         inferred_colors.approx_cardinality()
     );
     println!("---------");

@@ -47,10 +47,10 @@ pub fn perform_inference_with_attractors_specific(
         // restrict the unit_colored_set in the graph object
         // TODO: check
         graph = SymbolicAsyncGraph::with_custom_context(graph.as_network().clone(), graph.symbolic_context().clone(), inferred_colors.as_bdd().clone()).unwrap();
-        println!("attractor ensured")
+        println!("attractor property ensured")
     }
     println!(
-        "After ensuring attractor presence, {} concretizations remain.",
+        "After ensuring all properties regarding attractor presence, {} concretizations remain.",
         inferred_colors.approx_cardinality(),
     );
 
@@ -125,7 +125,7 @@ mod tests {
 
         test_inference_with_steady_state_data(
             observations,
-            "benchmark_models/griffin_2/griffin_model2.aeon",
+            "benchmark_models/case_study_arabidopsis/arabidopsis.aeon",
             vec![439296., 48352.],
         );
     }
@@ -178,9 +178,9 @@ mod tests {
     /// Test if inferred colors include the color of goal network [model id 110]
     fn test_inferred_colors_contain_goal_110() {
         check_inferred_colors_contain_goal(
-            "benchmark_models/110_9v/steady_states.txt",
-            "benchmark_models/110_9v/110_parametrized.aeon",
-            "benchmark_models/110_9v/110.aeon",
+            "benchmark_models/110_9v/attractor_states.txt",
+            "benchmark_models/110_9v/model_parametrized.aeon",
+            "benchmark_models/110_9v/model_concrete.aeon",
         );
     }
 
@@ -188,19 +188,19 @@ mod tests {
     /// Test if inferred colors include the color of goal network [model id 123]
     fn test_inferred_colors_contain_goal_123() {
         check_inferred_colors_contain_goal(
-            "benchmark_models/123_60v/steady_states.txt",
+            "benchmark_models/123_60v/attractor_states.txt",
             "benchmark_models/123_60v/model_parametrized.aeon",
-            "benchmark_models/123_60v/model.aeon",
+            "benchmark_models/123_60v/model_concrete.aeon",
         );
     }
 
     #[test]
-    /// Test if inferred colors include the color of goal network [model id 1n33]
-    fn test_inferred_colors_contain_goal_133() {
+    /// Test if inferred colors include the color of goal network [model id 115]
+    fn test_inferred_colors_contain_goal_115() {
         check_inferred_colors_contain_goal(
-            "benchmark_models/133_9v/steady_states.txt",
-            "benchmark_models/133_9v/133_parametrized.aeon",
-            "benchmark_models/133_9v/133.aeon",
+            "benchmark_models/115_35v/attractor_states.txt",
+            "benchmark_models/115_35v/model_parametrized.aeon",
+            "benchmark_models/115_35v/model_concrete.aeon",
         );
     }
 }

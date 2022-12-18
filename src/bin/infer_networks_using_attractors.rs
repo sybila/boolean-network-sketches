@@ -62,12 +62,12 @@ fn main() {
     let aeon_string = read_to_string(args.model_path).unwrap();
 
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded model with {} vars.", bn.num_vars());
+    println!("Loaded BN model with {} variables.", bn.num_vars());
 
     // Create extended graph object with 1 HCTL var (we dont need more)
     let graph = get_extended_symbolic_graph(&bn, 1);
     println!(
-        "Model has {} parameters.",
+        "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
     );
     println!("----------");
@@ -78,13 +78,12 @@ fn main() {
         args.fixed_points,
         args.prohibit_extra_attrs,
     );
+    println!("----------");
 
     println!(
-        "{} suitable networks found in total",
+        "{} consistent networks found in total",
         inferred_colors.approx_cardinality()
     );
-
-    println!("----------");
 
     // check whether goal network (if supplied) is part of the solution set
     check_if_result_contains_goal(graph, goal_aeon_string, inferred_colors);

@@ -15,7 +15,12 @@ pub fn apply_constraints_and_restrict(
 ) -> SymbolicAsyncGraph {
     for formula in formulae {
         let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
-        graph = SymbolicAsyncGraph::with_custom_context(graph.as_network().clone(), graph.symbolic_context().clone(), inferred_colors.as_bdd().clone()).unwrap();
+        graph = SymbolicAsyncGraph::with_custom_context(
+            graph.as_network().clone(),
+            graph.symbolic_context().clone(),
+            inferred_colors.as_bdd().clone()
+        ).unwrap();
+
         if !message.is_empty() {
             println!("{}", message)
         }
@@ -40,9 +45,9 @@ pub fn check_if_result_contains_goal(
                 if goal_colors.intersect(&inferred_colors).approx_cardinality()
                     == goal_colors.approx_cardinality()
                 {
-                    println!("OK - color of goal network is included in resulting set.")
+                    println!("OK - goal network is included in the candidate set.")
                 } else {
-                    println!("NOK - color of goal network is NOT included in resulting set.")
+                    println!("NOK - goal network is NOT included in the candidate set.")
                 }
             }
             Err(e) => println!("{}", e),
@@ -124,6 +129,6 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
     vars_with_unique_fns.sort();
 
     println!();
-    println!("{} vars with variable fns: {:?}", vars_with_variable_fns.len(), vars_with_variable_fns);
-    println!("{} vars with unique fns: {:?}", vars_with_unique_fns.len(), vars_with_unique_fns);
+    println!("{} vars with different possible update fns: {:?}", vars_with_variable_fns.len(), vars_with_variable_fns);
+    println!("{} vars with only one possible update fn: {:?}", vars_with_unique_fns.len(), vars_with_unique_fns);
 }

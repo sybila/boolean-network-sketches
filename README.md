@@ -50,15 +50,34 @@ The sub-folders with models used for scalability evaluation contain four files e
 - `attractor_states.txt` - collection of encoded synthetic attractor data
 - `results.txt` - resulting output from the corresponding binary
 
-## Binaries for experiments
+## Binaries and scripts for experiments
 
-To re-run any binaries regarding experiments or case studies, compile the code first:
+You can either use the prepared Bash script to re-run all the experiments at once, or run them individually using compiled binaries.
+
+### All-encompassing script
+
+The following Bash script runs all the experiments, one after another. 
+```
+./run_benchmarks_scalability_unix.sh
+```
+
+The script prints the results and all the relevant progress on the standard output. The experiments are run in the following order:
+- the first case study (two versions of the sketch)
+- the second case study (two versions of the sketch)
+- scalability benchmarks (several sketches, one after another, from the smallest)
+
+The script should work on classical Unix-based systems, and we have also tested it on Windows Subsystem for Linux (WSL).
+
+### Individual binaries
+
+To directly re-run individual experiments or case studies, compile the code first:
 ```
 cargo build --release
 ```
 
 Code regarding the two case studies from the paper can be found in `src/bin` folder (particularly, `case_study_arabidopsis.rs` and `case_study_tlgl.rs`). 
-The resulting binaries will be in `target/release/` folder and can be run as follows. Note that on Windows, the path is `target\release\` and binaries have `.exe` suffix. 
+The resulting binaries will be in `target/release` folder and can be run as follows. 
+Note that on Windows, the path is usually `target\release` and binaries have `.exe` suffix. 
 ```
 ./target/release/case-study-tlgl [--refined-sketch] 
 ./target/release/case-study-arabidopsis [--fixed-points] [--prohibit-extra-attrs]
@@ -73,7 +92,7 @@ To run the experiments regarding scalability, use the following binary.
 It is a general method for inference using network sketches with attractor data, so you can choose arbitrary model. 
 
 ````
-.\target\release\inference-with-attractors [OPTIONS] <MODEL_PATH> <ATTRACTOR_DATA_PATH>
+./target/release/inference-with-attractors [OPTIONS] <MODEL_PATH> <ATTRACTOR_DATA_PATH>
 ````
 - `MODEL_PATH` is a path to the file with BN model in aeon format
 - `ATTRACTOR_DATA_PATH` is a path to the file with attractor data (one encoded state per line)
