@@ -14,8 +14,8 @@ use std::time::SystemTime;
 /// Structure to collect CLI arguments
 #[derive(Parser)]
 #[clap(
-    author="Ondrej Huvar",
-    about="Inference case study regarding A. Thaliana."
+    author = "Ondřej Huvar",
+    about = "Inference case study regarding A. Thaliana."
 )]
 struct Arguments {
     /// Consider only fixed-point attractors (simpler dynamical property)
@@ -35,7 +35,8 @@ struct Arguments {
 /// Infers BNs from sketch including attractor data
 fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: bool) {
     // parse BN object
-    let aeon_string = read_to_string("benchmark_models/case_study_arabidopsis/arabidopsis.aeon").unwrap();
+    let aeon_string =
+        read_to_string("benchmark_models/case_study_arabidopsis/arabidopsis.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded BN model with {} variables.", bn.num_vars());
 
@@ -92,7 +93,7 @@ fn main() {
     case_study(
         args.fixed_points,
         args.prohibit_extra_attrs,
-        args.summarize_candidates
+        args.summarize_candidates,
     );
     println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
 }

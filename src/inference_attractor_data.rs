@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 use crate::create_inference_formulae::{
-    mk_attractor_formula_specific, mk_steady_state_formula_specific,
-    mk_forbid_other_attractors_formula, mk_forbid_other_steady_states_formula,
+    mk_attractor_formula_specific, mk_forbid_other_attractors_formula,
+    mk_forbid_other_steady_states_formula, mk_steady_state_formula_specific,
 };
 
 use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe_ex;
@@ -46,7 +46,12 @@ pub fn perform_inference_with_attractors_specific(
 
         // restrict the unit_colored_set in the graph object
         // TODO: check
-        graph = SymbolicAsyncGraph::with_custom_context(graph.as_network().clone(), graph.symbolic_context().clone(), inferred_colors.as_bdd().clone()).unwrap();
+        graph = SymbolicAsyncGraph::with_custom_context(
+            graph.as_network().clone(),
+            graph.symbolic_context().clone(),
+            inferred_colors.as_bdd().clone(),
+        )
+        .unwrap();
         println!("attractor property ensured")
     }
     println!(
@@ -74,11 +79,11 @@ pub fn perform_inference_with_attractors_specific(
 mod tests {
     use crate::inference_attractor_data::perform_inference_with_attractors_specific;
     use crate::utils::check_if_result_contains_goal_unsafe;
+    use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
     use biodivine_lib_param_bn::BooleanNetwork;
-    use std::fs::{File, read_to_string};
+    use std::fs::{read_to_string, File};
     use std::io::{BufRead, BufReader};
     use std::path::Path;
-    use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
 
     /// Test BN inference through steady-state data
     /// Test 2 cases (with X without additional attractors)

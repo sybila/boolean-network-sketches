@@ -18,8 +18,9 @@ pub fn apply_constraints_and_restrict(
         graph = SymbolicAsyncGraph::with_custom_context(
             graph.as_network().clone(),
             graph.symbolic_context().clone(),
-            inferred_colors.as_bdd().clone()
-        ).unwrap();
+            inferred_colors.as_bdd().clone(),
+        )
+        .unwrap();
 
         if !message.is_empty() {
             println!("{}", message)
@@ -81,7 +82,7 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
     for v in graph.as_network().variables() {
         update_fns.insert(
             graph.as_network().get_variable_name(v).clone(),
-            HashMap::new()
+            HashMap::new(),
         );
     }
 
@@ -99,9 +100,16 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
             // let update_str = format!("{:?}", bn.get_update_function(v).clone().unwrap());
             let update_fn = bn.get_update_function(v).clone().unwrap();
             if update_fns[var_name].contains_key(&update_fn) {
-                *update_fns.get_mut(var_name).unwrap().get_mut(&update_fn).unwrap() += 1;
+                *update_fns
+                    .get_mut(var_name)
+                    .unwrap()
+                    .get_mut(&update_fn)
+                    .unwrap() += 1;
             } else {
-                update_fns.get_mut(var_name).unwrap().insert(update_fn.clone(), 1);
+                update_fns
+                    .get_mut(var_name)
+                    .unwrap()
+                    .insert(update_fn.clone(), 1);
             }
         }
         colors = colors.minus(&c);
@@ -129,6 +137,14 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
     vars_with_unique_fns.sort();
 
     println!();
-    println!("{} vars with different possible update fns: {:?}", vars_with_variable_fns.len(), vars_with_variable_fns);
-    println!("{} vars with only one possible update fn: {:?}", vars_with_unique_fns.len(), vars_with_unique_fns);
+    println!(
+        "{} vars with different possible update fns: {:?}",
+        vars_with_variable_fns.len(),
+        vars_with_variable_fns
+    );
+    println!(
+        "{} vars with only one possible update fn: {:?}",
+        vars_with_unique_fns.len(),
+        vars_with_unique_fns
+    );
 }

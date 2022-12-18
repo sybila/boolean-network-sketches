@@ -14,8 +14,8 @@ use std::time::SystemTime;
 /// Structure to collect CLI arguments
 #[derive(Parser)]
 #[clap(
-    author="Ondrej Huvar",
-    about="Inference case study regarding CNS development."
+    author = "Ondřej Huvar",
+    about = "Inference case study regarding CNS development."
 )]
 struct Arguments {
     // No arguments for now, it is used just for better help messages
@@ -31,7 +31,10 @@ fn case_study() {
     let original_graph = get_extended_symbolic_graph(&bn, 1);
 
     let mut graph = original_graph.clone();
-    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_variables());
+    println!(
+        "Model has {} parameters.",
+        graph.symbolic_context().num_parameter_variables()
+    );
 
     // define the observations
     /*
@@ -81,9 +84,21 @@ fn case_study() {
     let trap_space_constraints: Vec<String> = vec![mk_trap_space_formula(f_t.to_string())];
 
     let reachability_constraints: Vec<String> = vec![
-        mk_reachability_chain_formula(vec![init_state.to_string(), t_m.to_string(), f_t.to_string()]),
-        mk_reachability_chain_formula(vec![init_state.to_string(), t_o.to_string(), f_ms.to_string()]),
-        mk_reachability_chain_formula(vec![init_state.to_string(), t_s.to_string(), f_a.to_string()]),
+        mk_reachability_chain_formula(vec![
+            init_state.to_string(),
+            t_m.to_string(),
+            f_t.to_string(),
+        ]),
+        mk_reachability_chain_formula(vec![
+            init_state.to_string(),
+            t_o.to_string(),
+            f_ms.to_string(),
+        ]),
+        mk_reachability_chain_formula(vec![
+            init_state.to_string(),
+            t_s.to_string(),
+            f_a.to_string(),
+        ]),
     ];
 
     let negative_reachability_constraints: Vec<String> = vec![
@@ -93,49 +108,89 @@ fn case_study() {
     ];
 
     // constraints from the second part of the case study
-    let universal_fps = vec![f_a.to_string(), f_ms.to_string(), f_t.to_string(), zero_state.to_string()];
+    let universal_fps = vec![
+        f_a.to_string(),
+        f_ms.to_string(),
+        f_t.to_string(),
+        zero_state.to_string(),
+    ];
     let universal_constraints: Vec<String> = vec![
         mk_forbid_other_steady_states_formula(universal_fps),
         // any fixed point reachable from "init" must be one of {f_a, f_ms, f_t}
         // if we use previous constraint, we can just prohibit reaching the zero fixed point
-        format!("3{{x}}:@{{x}}:(({}) & ~EF(({}) & AX {}))", init_state, zero_state, zero_state),
+        format!(
+            "3{{x}}:@{{x}}:(({}) & ~EF(({}) & AX {}))",
+            init_state, zero_state, zero_state
+        ),
     ];
 
-    graph = apply_constraints_and_restrict(fixed_point_constraints.clone(), graph, "fixed point ensured");
-    graph = apply_constraints_and_restrict(trap_space_constraints.clone(), graph, "trap space ensured");
-    graph = apply_constraints_and_restrict(reachability_constraints.clone(), graph, "reachability ensured");
-    graph = apply_constraints_and_restrict(negative_reachability_constraints.clone(), graph, "non-reachability ensured");
+    graph = apply_constraints_and_restrict(
+        fixed_point_constraints.clone(),
+        graph,
+        "fixed point ensured",
+    );
+    graph =
+        apply_constraints_and_restrict(trap_space_constraints.clone(), graph, "trap space ensured");
+    graph = apply_constraints_and_restrict(
+        reachability_constraints.clone(),
+        graph,
+        "reachability ensured",
+    );
+    graph = apply_constraints_and_restrict(
+        negative_reachability_constraints.clone(),
+        graph,
+        "non-reachability ensured",
+    );
     println!(
         "After the first set of constraints, {} concretizations remain.",
         graph.unit_colors().approx_cardinality(),
     );
 
-    graph = apply_constraints_and_restrict(universal_constraints, graph, "universal constraint ensured");
+    graph = apply_constraints_and_restrict(
+        universal_constraints,
+        graph,
+        "universal constraint ensured",
+    );
     println!(
         "After the second set of constraints, {} concretizations remain.",
         graph.unit_colors().approx_cardinality(),
     );
 
-
     println!("-----------------------------------------");
     let mut graph = original_graph.clone();
     graph = apply_constraints_and_restrict(fixed_point_constraints, graph, "constraint ensured");
-    println!("Fixed point constraints alone: {} consistent", graph.unit_colors().approx_cardinality());
+    println!(
+        "Fixed point constraints alone: {} consistent",
+        graph.unit_colors().approx_cardinality()
+    );
 
     println!("-----------------------------------------");
     let mut graph = original_graph.clone();
     graph = apply_constraints_and_restrict(trap_space_constraints, graph, "constraint ensured");
-    println!("Trap space constraints alone: {} consistent", graph.unit_colors().approx_cardinality());
+    println!(
+        "Trap space constraints alone: {} consistent",
+        graph.unit_colors().approx_cardinality()
+    );
 
     println!("-----------------------------------------");
     let mut graph = original_graph.clone();
     graph = apply_constraints_and_restrict(reachability_constraints, graph, "constraint ensured");
-    println!("Reachability constraints alone: {} consistent", graph.unit_colors().approx_cardinality());
+    println!(
+        "Reachability constraints alone: {} consistent",
+        graph.unit_colors().approx_cardinality()
+    );
 
     println!("-----------------------------------------");
     let mut graph = original_graph.clone();
-    graph = apply_constraints_and_restrict(negative_reachability_constraints, graph, "constraint ensured");
-    println!("Negative reachability constraints alone: {} consistent", graph.unit_colors().approx_cardinality());
+    graph = apply_constraints_and_restrict(
+        negative_reachability_constraints,
+        graph,
+        "constraint ensured",
+    );
+    println!(
+        "Negative reachability constraints alone: {} consistent",
+        graph.unit_colors().approx_cardinality()
+    );
 }
 
 /// Analysis of the central nervous system (CNS) development
@@ -147,7 +202,10 @@ fn case_study_manual() {
     println!("Loaded model with {} vars.", bn.num_vars());
     let original_graph = get_extended_symbolic_graph(&bn, 1);
     let mut graph = original_graph.clone();
-    println!("Model has {} parameters.", graph.symbolic_context().num_parameter_variables());
+    println!(
+        "Model has {} parameters.",
+        graph.symbolic_context().num_parameter_variables()
+    );
 
     // define the observations
     let _zero_state = "~Pax6 & ~Hes5 & ~Mash1 & ~Scl & ~Olig2 & ~Stat3 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Myt1L & ~Sox8 & ~Aldh1L1";
@@ -181,8 +239,11 @@ fn case_study_manual() {
         "(3{{x}}: (@{{x}}: ({}) & (EF (({}) & EF ({}))) \
                                 & (EF (({}) & EF ({}))) \
                                 & (EF (({}) & EF ({}))) \
-        ))", init_state, t_m, f_t, t_o, f_ms, t_s, f_a);
-    graph = apply_constraints_and_restrict(vec![formula.clone()], graph, "non-reachability ensured");
+        ))",
+        init_state, t_m, f_t, t_o, f_ms, t_s, f_a
+    );
+    graph =
+        apply_constraints_and_restrict(vec![formula.clone()], graph, "non-reachability ensured");
     println!(
         "After the first set of constraints, {} concretizations remain.",
         graph.unit_colors().approx_cardinality(),

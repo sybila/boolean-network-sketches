@@ -33,7 +33,6 @@ fn main() {
         intermediate_result.colors().approx_cardinality(),
     );
 
-
     let result = model_check_formula(whole_formula.to_string(), &graph).unwrap();
     let res_color = result.colors();
 

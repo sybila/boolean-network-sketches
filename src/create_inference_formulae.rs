@@ -39,7 +39,7 @@ pub fn mk_reachability_chain_formula(states_sequence: Vec<String>) -> String {
     // add the last state and all the closing parentheses
     formula.push_str(format!("{}", states_sequence[num_states - 1]).as_str());
     formula.push_str(
-        (0..num_states+1)
+        (0..num_states + 1)
             .map(|_| ")")
             .collect::<String>()
             .as_str(),
@@ -60,7 +60,10 @@ pub fn mk_trap_space_formula(trap_space: String) -> String {
 /// `attractor_state` is a formula describing state in a desired attractor
 pub fn mk_attractor_formula_specific(attractor_state: String) -> String {
     assert!(!attractor_state.is_empty());
-    format!("(3{{x}}: (@{{x}}: ({} & (AG EF ({})))))", attractor_state, attractor_state)
+    format!(
+        "(3{{x}}: (@{{x}}: ({} & (AG EF ({})))))",
+        attractor_state, attractor_state
+    )
 }
 
 /// Creates the formula describing the existence of attractor
@@ -68,7 +71,10 @@ pub fn mk_attractor_formula_specific(attractor_state: String) -> String {
 /// `attractor_state` is a formula describing state in a desired attractor
 pub fn mk_attractor_formula_nonspecific_aeon(attractor_state: String) -> String {
     assert!(!attractor_state.is_empty());
-    format!("(3{{x}}: (@{{x}}: ({} & (!{{y}}: AG EF {{y}}))))", attractor_state)
+    format!(
+        "(3{{x}}: (@{{x}}: ({} & (!{{y}}: AG EF {{y}}))))",
+        attractor_state
+    )
 }
 
 /// Creates the formula describing the existence of attractor
@@ -76,7 +82,10 @@ pub fn mk_attractor_formula_nonspecific_aeon(attractor_state: String) -> String 
 /// `attractor_state` is a formula describing state in a desired attractor
 pub fn mk_attractor_formula_nonspecific(attractor_state: String) -> String {
     assert!(!attractor_state.is_empty());
-    format!("(3{{x}}: (@{{x}}: ({} & (AG EF ({} & {{x}})))))", attractor_state, attractor_state)
+    format!(
+        "(3{{x}}: (@{{x}}: ({} & (AG EF ({} & {{x}})))))",
+        attractor_state, attractor_state
+    )
 }
 
 /// Creates the formula prohibiting all but the given attractors
@@ -98,7 +107,10 @@ pub fn mk_forbid_other_attractors_formula(attractor_state_set: Vec<String>) -> S
 /// `steady_state` is a formula describing particular desired fixed point
 pub fn mk_steady_state_formula_specific(steady_state: String) -> String {
     assert!(!steady_state.is_empty());
-    format!("(3{{x}}: (@{{x}}: ({} & (AX ({})))))", steady_state, steady_state)
+    format!(
+        "(3{{x}}: (@{{x}}: ({} & (AX ({})))))",
+        steady_state, steady_state
+    )
 }
 
 /// Creates the formula describing the existence of specific steady-state
@@ -106,7 +118,10 @@ pub fn mk_steady_state_formula_specific(steady_state: String) -> String {
 /// `steady_state` is a formula describing particular desired fixed point
 pub fn mk_steady_state_formula_nonspecific(steady_state: String) -> String {
     assert!(!steady_state.is_empty());
-    format!("(3{{x}}: (@{{x}}: ({} & (AX ({} & {{x}})))))", steady_state, steady_state)
+    format!(
+        "(3{{x}}: (@{{x}}: ({} & (AX ({} & {{x}})))))",
+        steady_state, steady_state
+    )
 }
 
 /// Creates the formula prohibiting all but the given steady-states

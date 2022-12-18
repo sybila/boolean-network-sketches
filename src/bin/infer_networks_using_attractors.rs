@@ -5,17 +5,17 @@ use biodivine_lib_param_bn::BooleanNetwork;
 use boolean_network_sketches::inference_attractor_data::*;
 use boolean_network_sketches::utils::check_if_result_contains_goal;
 
+use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
 use std::fs::{read_to_string, File};
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 use std::time::SystemTime;
-use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
 
 /// Structure to collect CLI arguments
 #[derive(Parser)]
 #[clap(
-    author="Ondrej Huvar",
-    about="Inference of BNs from partially defined model and attractors."
+    author = "Ondřej Huvar",
+    about = "Inference of BNs from partially defined model and attractors."
 )]
 struct Arguments {
     /// Path to the file with BN model in aeon format
