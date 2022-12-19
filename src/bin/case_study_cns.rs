@@ -58,7 +58,7 @@ fn case_study() {
     let f_a = "Pax6 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Sox8 & Aldh1L1";
 
     println!(
-        "After applying static constraints, {} concretizations remain.",
+        "After applying update function properties, {} concretizations remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
 
@@ -218,7 +218,7 @@ fn case_study_manual() {
     let f_a = "Pax6 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Sox8 & Aldh1L1";
 
     println!(
-        "After applying static constraints, {} concretizations remain.",
+        "After applying update function properties, {} concretizations remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
 

@@ -20,7 +20,7 @@ pub fn perform_inference_with_attractors_specific(
 ) -> GraphColors {
     let mut inferred_colors = graph.mk_unit_colors();
     println!(
-        "After applying static constraints, {} concretizations remain.",
+        "After applying update function properties, {} concretizations remain.",
         inferred_colors.approx_cardinality(),
     );
 

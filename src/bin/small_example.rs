@@ -23,7 +23,7 @@ fn main() {
     );
 
     println!(
-        "After applying static constraints, {} concretizations remain.",
+        "After applying update function properties, {} concretizations remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
 

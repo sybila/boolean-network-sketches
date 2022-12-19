@@ -49,9 +49,9 @@ fn case_study_part_1() {
     );
     println!("----------");
 
-    // apply static constraints
+    // apply update function properties
     println!(
-        "After applying static constraints, {} concretizations remain.",
+        "After applying update function properties, {} concretizations remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
     println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
@@ -137,9 +137,9 @@ fn case_study_part_2(summarize_candidates: bool) {
     );
     println!("----------");
 
-    // apply static constraints
+    // apply update function properties
     println!(
-        "After applying static constraints, {} concretizations remain.",
+        "After applying update function properties, {} concretizations remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
     println!("----------");
