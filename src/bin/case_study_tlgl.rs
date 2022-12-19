@@ -21,11 +21,11 @@ use std::time::SystemTime;
     about = "Inference case study regarding T-LGL model."
 )]
 struct Arguments {
-    /// Use the refined variant of the sketch
+    /// Use the refined variant of the sketch with additional dynamic properties
     #[clap(short, long, takes_value = false)]
     refined_sketch: bool,
 
-    /// Print summarizing info regarding candidate set
+    /// Print summarizing info regarding candidates' update functions (may take a long time)
     #[clap(short, long, takes_value = false)]
     summarize_candidates: bool,
 }
@@ -88,7 +88,7 @@ fn case_study_part_1() {
         .mk_unit_colors()
         .minus(&attrs_all_candidates.intersect(&pcd).colors());
     println!(
-        "There are {} candidates without programmed cell death attractor, such as:\n",
+        "{} candidates do not exhibit programmed cell death attractor, such as:\n",
         colors_not_pcd.approx_cardinality()
     );
     print!(
@@ -102,7 +102,7 @@ fn case_study_part_1() {
     let unwanted_states = model_check_formula(unwanted_state_formula.to_string(), &graph).unwrap();
     let colors_with_unwanted_states = attrs_all_candidates.intersect(&unwanted_states).colors();
     println!(
-        "There are {} candidates with unwanted states in attractors, such as:\n",
+        "{} candidates have unwanted states in attractors, such as:\n",
         colors_with_unwanted_states.approx_cardinality()
     );
     print!(

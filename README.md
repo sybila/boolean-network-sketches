@@ -14,24 +14,25 @@ Sketch is given by following components:
 - dynamic properties of the system
 
 Given a sketch, all consistent Boolean network candidates can be computed. 
-We can then analyze their attractors symbolically, get witness networks, or analyze differences in a candidate set.
+We can then analyze their attractors symbolically, obtain witness networks, or analyze between candidates.
 
 ## Requirements and Dependencies
 
 We recommend to run the benchmarks on a machine with at least 16GB RAM. 
-Otherwise, the largest models (100+ variables) may take a long time to evaluate (however, it should be fine to run the code regarding case studies or smaller benchmarks). 
-The acquired computation times were acquired on a standard laptop with an 11th Gen Intel i5 CPU and 16GB RAM.
+Otherwise, the largest benchmarks (models with 100+ variables) may take a long time to evaluate (however, it should be fine to run the code regarding case studies or smaller benchmarks). 
+All displayed computation times were acquired on a standard laptop with an 11th Gen Intel i5 CPU and 16GB RAM.
 
-To run the case studies and experiments, you will need the Rust compiler. 
+To run the experiments, you will need the Rust compiler. 
 We recommend following the instructions on [rustlang.org](https://www.rust-lang.org/learn/get-started) (default configuration should be sufficient) instead of using a package manager, however either method should work ok. 
 When using the official installer, everything is stored in `~/.cargo`, so admin privilages are not necessary. 
-Once you are done, you can uninstall the compiler by running `rustup self uninstall`. 
+Once you are done with the experiments, you can uninstall the compiler by running `rustup self uninstall`. 
 The tested version of Rust is `1.64.0` (Sep 2022).
+Rust will automatically download and cache all other libraries necessary to compile the project. 
+You should therefore have internet access while running the commands for the first time. 
+You can force rust do download all dependencies by running `cargo fetch`.
 
-Rust will automatically download and cache all other libraries necessary to compile the project. You should therefore have internet access while running the commands for the first time. You can force rust do download all dependencies by running `cargo fetch`.
-
-Moreover, if you want to use the wrapper bash scripts, you will need a Unix-based system with Bash. 
-On Windows, it should be sufficient to use WSL. 
+Moreover, for convenience, we have prepared Bash scripts to wrap all the commands needed. If you want to use them, you will need a Unix-based system with Bash. 
+On Windows, it should be sufficient to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install). 
 However, these scripts are generally not needed, as you can run the Rust code directly.
 
 
@@ -42,35 +43,37 @@ The first three components of the sketch are all covered by the intuitive aeon m
 - types of influences (such as monotonicity or essentiality), from which we can derive properties of update functions
 - partially specified update functions 
 
-The dynamic properties are given in a form of a HCTL formula (formulae format is described in detail [here](https://github.com/sybila/biodivine-hctl-model-checker)). Some formulae can be (partially) generated from data.
+The dynamic properties are given in a form of a HCTL formula (formulae format is described in detail [here](https://github.com/sybila/biodivine-hctl-model-checker)). Formulae used in experiments are (partially) generated from data on the run.
 
 ## Benchmark Models and Pre-Computed Results
 
 All the models used for the evaluation (and some more) are in the `benchmark_models` directory. 
 Each model has its own subdirectory.
 
-Models used for the case studies are in the sub-folders `case_study_arabidopsis` and `case_study_TLGL`.
-These sub-folders contain all the model variants in aeon format, metadata, encoded attractor states. They also contain files with the raw outputs from corresponding binaries and summarization of update functions of resulting candidates.
+Models used for the case studies are in the sub-folders `case_study_TLGL` and `case_study_arabidopsis`.
+These sub-folders contain all the model variants in aeon format, metadata, encoded attractor states. 
+They also contain files with the raw outputs from corresponding binaries and summarization of update functions of resulting candidates.
 
-The running example from the paper is in `small_example` subdirectory. There is the starting aeon model, the formulae, and the results (including the single consistent network).
+The running example from the paper is in the `small_example` subdirectory. 
+There is the starting aeon model, the HCTL formulae used, and the results (including the single consistent network).
 
 The sub-folders with models used for scalability evaluation contain four files each:
 - `model_concrete.aeon` - a fully specified model with which we started
-- `model_parametrized.aeon` - parametrized version of the same model used for the sketch
-- `attractor_states.txt` - collection of encoded synthetic attractor data
+- `model_parametrized.aeon` - a parametrized version of the same model used for the sketch
+- `attractor_states.txt` - a collection of encoded synthetic attractor data
 - `results.txt` - resulting output from the corresponding binary (see below)
-- `metadata.txt` - links to source of the model and a publication
+- `metadata.txt` - links to the model's source and publication
 
 ## Binaries and scripts for experiments
 
-You can either use prepared Bash wrapper scripts to re-run the experiments, or run them directly using compiled Rust binaries.
+You can either use prepared Bash wrapper scripts to re-run the experiments, or run them directly by compiling and executing the Rust programmes.
 
 ### Bash scripts
 
-We have prepared four Bash scripts which encompass the compilation and execution of the underlying rust code.
-Scripts `run_case_study_1.sh` and `run_case_study_2.sh` run the corresponding case studies - for each case study, two computations are executed, corresponding to 2 sketch versions from the paper.
-To execute the evaluation of all scalability benchmarks, one by one, use `run_scalability_benchmarks.sh`.
-The all-encompassing script `run_all_experiments.sh` runs all these experiments, one after another. Scripts are executed as usual:
+We have prepared four Bash scripts which encompass the compilation and execution of the underlying Rust code.
+Scripts `run_case_study_1.sh` and `run_case_study_2.sh` run the corresponding case studies - for each case study, two computations are executed, corresponding to the two respective sketch variants from the paper.
+To execute the evaluation of all scalability benchmarks one by one, use `run_scalability_benchmarks.sh`.
+The all-encompassing script `run_all_experiments.sh` runs all these experiments (both case studies and all benchmarks), one after another. Scripts are executed as usual:
 
 ```
 ./run_case_study_1.sh
@@ -79,29 +82,26 @@ The all-encompassing script `run_all_experiments.sh` runs all these experiments,
 ./run_all_experiments.sh
 ```
 
-The script prints the results and all the relevant progress on the standard output. The experiments are run in the following order:
-- the first case study (two versions of the sketch)
-- the second case study (two versions of the sketch)
-- scalability benchmarks (several sketches, one after another, from the smallest)
+Each script prints the result summarization and all the relevant progress on the standard output.
 
-The script should work on classical Unix-based systems, and we have also tested it on Windows Subsystem for Linux (WSL).
+The scripts should work on any classical Unix-based system, and we have also tested them on Windows Subsystem for Linux (WSL).
 
 ### Individual binaries
 
-To directly re-run individual experiments or case studies, compile the code first:
+To directly re-run individual benchmarks or case studies, compile the code first (on Windows, we recommend Powershell 5+ to run the experiments):
 ```
 cargo build --release
 ```
 
-Code regarding the two case studies from the paper can be found in `src/bin` folder (particularly, `case_study_arabidopsis.rs` and `case_study_tlgl.rs`). 
-The resulting binaries will be in `target/release` folder and can be run as shown below. 
+The Rust code regarding the two case studies from the paper can be found in `src/bin` folder (particularly, `case_study_arabidopsis.rs` and `case_study_tlgl.rs`). 
+The resulting binaries will be in `target/release` folder and can be executed as shown below. 
 Note that on Windows, the path is usually `target\release` and binaries have `.exe` suffix. 
 ```
 ./target/release/case-study-tlgl [--refined-sketch] 
 ./target/release/case-study-arabidopsis [--fixed-points] [--prohibit-extra-attrs]
 ```
 
-To see other existing options for each of these binaries, run 
+To see detailed options for each of these binaries, run 
 ```
 ./target/release/<CASE-STUDY-NAME> -h
 ```

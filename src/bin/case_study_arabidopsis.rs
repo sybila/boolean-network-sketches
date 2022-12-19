@@ -18,15 +18,15 @@ use std::time::SystemTime;
     about = "Inference case study regarding A. Thaliana."
 )]
 struct Arguments {
-    /// Consider only fixed-point attractors (simpler dynamical property)
+    /// Consider only fixed-point attractors (simpler dynamic properties)
     #[clap(short, long, takes_value = false)]
     fixed_points: bool,
 
-    /// Prohibit all attractors not containing specified states
+    /// Add property prohibiting all attractors not containing desired attractor states
     #[clap(short, long, takes_value = false)]
     prohibit_extra_attrs: bool,
 
-    /// Print summarizing info regarding candidate set
+    /// Print summarizing info regarding candidates' update functions (may take a long time)
     #[clap(short, long, takes_value = false)]
     summarize_candidates: bool,
 }

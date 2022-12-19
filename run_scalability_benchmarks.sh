@@ -20,12 +20,13 @@ echo
 # run computation for each scalability benchmark, from smallest to largest
 for model in  celldivb_9v eprotein_35v nsp4_60v etc_84v interferon1_121v nsp9_252v macrophage_321v
 do
-    echo "============================="
+    echo "=========================="
     echo "Model ${model}"
-    echo "============================="
+    echo "=========================="
     echo
 
     MODEL_DIR="${BENCH_DIR}/${model}"
     ./target/release/inference-with-attractors "${MODEL_DIR}/${MODEL_FILE}" "${MODEL_DIR}/${ATTRACTORS_FILE}" -g "${MODEL_DIR}/${GOAL_MODEL_FILE}" -p
-    echo
+    echo " "
+
 done

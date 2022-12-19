@@ -15,7 +15,7 @@ use std::time::SystemTime;
 #[derive(Parser)]
 #[clap(
     author = "Ondřej Huvar",
-    about = "Inference case study regarding CNS development."
+    about = "Deprecated inference case study regarding CNS development."
 )]
 struct Arguments {
     // No arguments for now, it is used just for better help messages
