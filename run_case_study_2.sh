@@ -5,9 +5,16 @@ cargo build --release
 
 # second case study only
 
-echo ">>>>>>>>>> CASE STUDY 2, SKETCH WITH FIXED-POINT PROPERTIES ONLY"
+echo
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+echo ">>>>>>>>>> CASE STUDY 2, VARIANT OF THE SKETCH WITH FIXED-POINT PROPERTIES ONLY"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 ./target/release/case-study-arabidopsis -f
+echo
 
-echo ">>>>>>>>>> CASE STUDY 2, SKETCH WITH COMPLEX PROPERTIES"
+echo
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+echo ">>>>>>>>>> CASE STUDY 2, VARIANT OF THE SKETCH WITH COMPLEX PROPERTIES"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 ./target/release/case-study-arabidopsis -p
 echo

@@ -5,9 +5,15 @@ cargo build --release
 
 # first case study only
 
-echo ">>>>>>>>>> CASE STUDY 1, INITIAL VERSION OF THE SKETCH"
+echo
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+echo ">>>>>>>>>> CASE STUDY 1, INITIAL VARIANT OF THE SKETCH"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 ./target/release/case-study-tlgl
+echo
 
-echo ">>>>>>>>>> CASE STUDY 1, REFINED VERSION OF THE SKETCH"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+echo ">>>>>>>>>> CASE STUDY 1, REFINED VARIANT OF THE SKETCH"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 ./target/release/case-study-tlgl -r
 echo

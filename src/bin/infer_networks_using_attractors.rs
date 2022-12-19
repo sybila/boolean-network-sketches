@@ -62,7 +62,7 @@ fn main() {
     let aeon_string = read_to_string(args.model_path).unwrap();
 
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded BN model with {} variables.", bn.num_vars());
+    println!("Loaded BN model with {} components.", bn.num_vars());
 
     // Create extended graph object with 1 HCTL var (we dont need more)
     let graph = get_extended_symbolic_graph(&bn, 1);

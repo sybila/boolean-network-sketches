@@ -180,32 +180,32 @@ mod tests {
     }
 
     #[test]
-    /// Test if inferred colors include the color of goal network [model id 110]
-    fn test_inferred_colors_contain_goal_110() {
+    /// Test if inferred colors include the color of goal network [model celldivb_9v]
+    fn test_inferred_colors_contain_goal_celldivb() {
         check_inferred_colors_contain_goal(
-            "benchmark_models/110_9v/attractor_states.txt",
-            "benchmark_models/110_9v/model_parametrized.aeon",
-            "benchmark_models/110_9v/model_concrete.aeon",
+            "benchmark_models/celldivb_9v/attractor_states.txt",
+            "benchmark_models/celldivb_9v/model_parametrized.aeon",
+            "benchmark_models/celldivb_9v/model_concrete.aeon",
         );
     }
 
     #[test]
-    /// Test if inferred colors include the color of goal network [model id 123]
-    fn test_inferred_colors_contain_goal_123() {
+    /// Test if inferred colors include the color of goal network [model nsp4_60v]
+    fn test_inferred_colors_contain_goal_nsp4() {
         check_inferred_colors_contain_goal(
-            "benchmark_models/123_60v/attractor_states.txt",
-            "benchmark_models/123_60v/model_parametrized.aeon",
-            "benchmark_models/123_60v/model_concrete.aeon",
+            "benchmark_models/nsp4_60v/attractor_states.txt",
+            "benchmark_models/nsp4_60v/model_parametrized.aeon",
+            "benchmark_models/nsp4_60v/model_concrete.aeon",
         );
     }
 
     #[test]
-    /// Test if inferred colors include the color of goal network [model id 115]
-    fn test_inferred_colors_contain_goal_115() {
+    /// Test if inferred colors include the color of goal network [model eprotein_35v]
+    fn test_inferred_colors_contain_goal_eprotein() {
         check_inferred_colors_contain_goal(
-            "benchmark_models/115_35v/attractor_states.txt",
-            "benchmark_models/115_35v/model_parametrized.aeon",
-            "benchmark_models/115_35v/model_concrete.aeon",
+            "benchmark_models/eprotein_35v/attractor_states.txt",
+            "benchmark_models/eprotein_35v/model_parametrized.aeon",
+            "benchmark_models/eprotein_35v/model_concrete.aeon",
         );
     }
 }

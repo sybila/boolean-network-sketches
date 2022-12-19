@@ -12,10 +12,12 @@ MODEL_FILE="model_parametrized.aeon"
 GOAL_MODEL_FILE="model_concrete.aeon"
 ATTRACTORS_FILE="attractor_states.txt"
 
+echo
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 echo ">>>>>>>>>> START SCALABILITY BENCHMARKS RUN"
-
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 # run computation for each scalability benchmark, from smallest to largest
-for model in  110_9v 115_35v 123_60v 114_84v 118_121v 124_252v 001_321v
+for model in  celldivb_9v eprotein_35v nsp4_60v etc_84v interferon1_121v nsp9_252v macrophage_321v
 do
     echo "==============================="
     echo ${model}

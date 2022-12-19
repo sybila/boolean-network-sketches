@@ -138,12 +138,12 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
 
     println!();
     println!(
-        "{} vars with different possible update fns: {:?}",
+        "{} variables with different possible update fns: {:?}",
         vars_with_variable_fns.len(),
         vars_with_variable_fns
     );
     println!(
-        "{} vars with only one possible update fn: {:?}",
+        "{} variables with only one possible update fn: {:?}",
         vars_with_unique_fns.len(),
         vars_with_unique_fns
     );

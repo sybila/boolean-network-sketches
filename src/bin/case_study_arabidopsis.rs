@@ -38,7 +38,7 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     let aeon_string =
         read_to_string("benchmark_models/case_study_arabidopsis/arabidopsis.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded BN model with {} variables.", bn.num_vars());
+    println!("Loaded BN model with {} components.", bn.num_vars());
 
     // Create extended symbolic graph object with 1 HCTL var (we dont need more)
     let graph = get_extended_symbolic_graph(&bn, 1);

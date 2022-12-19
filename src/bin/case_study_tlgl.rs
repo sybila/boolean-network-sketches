@@ -41,7 +41,7 @@ fn case_study_part_1() {
 
     // create the partially specified BN
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded BN model with {} variables.", bn.num_vars());
+    println!("Loaded BN model with {} components.", bn.num_vars());
     let mut graph = get_extended_symbolic_graph(&bn, 2);
     println!(
         "Model has {} symbolic parameters.",
@@ -129,7 +129,7 @@ fn case_study_part_2(summarize_candidates: bool) {
 
     // create the partially specified BN object
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded BN model with {} variables.", bn.num_vars());
+    println!("Loaded BN model with {} components.", bn.num_vars());
     let mut graph = get_extended_symbolic_graph(&bn, 2);
     println!(
         "Model has {} symbolic parameters.",

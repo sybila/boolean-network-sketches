@@ -27,7 +27,7 @@ struct Arguments {
 fn case_study() {
     let aeon_string = read_to_string("benchmark_models/CNS_development/model.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded model with {} vars.", bn.num_vars());
+    println!("Loaded model with {} components.", bn.num_vars());
     let original_graph = get_extended_symbolic_graph(&bn, 1);
 
     let mut graph = original_graph.clone();
@@ -199,7 +199,7 @@ fn case_study() {
 fn case_study_manual() {
     let aeon_string = read_to_string("benchmark_models/CNS_development/model.aeon").unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded model with {} vars.", bn.num_vars());
+    println!("Loaded model with {} components.", bn.num_vars());
     let original_graph = get_extended_symbolic_graph(&bn, 1);
     let mut graph = original_graph.clone();
     println!(
