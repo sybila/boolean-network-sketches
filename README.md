@@ -16,7 +16,11 @@ Sketch is given by following components:
 Given a sketch, all consistent Boolean network candidates can be computed. 
 We can then analyze their attractors symbolically, get witness networks, or analyze differences in a candidate set.
 
-## Installing Dependencies
+## Requirements and Dependencies
+
+We recommend to run the benchmarks on a machine with at least 16GB RAM. 
+Otherwise, the largest models (100+ variables) may take a long time to evaluate (however, it should be fine to run the code regarding case studies or smaller benchmarks). 
+The acquired computation times were acquired on a standard laptop with an 11th Gen Intel i5 CPU and 16GB RAM.
 
 To run the case studies and experiments, you will need the Rust compiler. 
 We recommend following the instructions on [rustlang.org](https://www.rust-lang.org/learn/get-started) (default configuration should be sufficient) instead of using a package manager, however either method should work ok. 
@@ -55,6 +59,7 @@ The sub-folders with models used for scalability evaluation contain four files e
 - `model_parametrized.aeon` - parametrized version of the same model used for the sketch
 - `attractor_states.txt` - collection of encoded synthetic attractor data
 - `results.txt` - resulting output from the corresponding binary (see below)
+- `metadata.txt` - links to source of the model and a publication
 
 ## Binaries and scripts for experiments
 
