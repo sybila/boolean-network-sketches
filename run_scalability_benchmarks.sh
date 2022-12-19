@@ -16,12 +16,13 @@ echo
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 echo ">>>>>>>>>> START SCALABILITY BENCHMARKS RUN"
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+echo
 # run computation for each scalability benchmark, from smallest to largest
 for model in  celldivb_9v eprotein_35v nsp4_60v etc_84v interferon1_121v nsp9_252v macrophage_321v
 do
-    echo "==============================="
-    echo ${model}
-    echo "==============================="
+    echo "============================="
+    echo "Model ${model}"
+    echo "============================="
     echo
 
     MODEL_DIR="${BENCH_DIR}/${model}"
