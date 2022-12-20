@@ -95,5 +95,8 @@ fn main() {
         args.prohibit_extra_attrs,
         args.summarize_candidates,
     );
-    println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
+    println!(
+        "Elapsed time from the start of this computation: {}ms",
+        start.elapsed().unwrap().as_millis()
+    );
 }

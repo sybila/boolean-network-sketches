@@ -114,10 +114,11 @@ It is a general method for inference using network sketches with attractor data,
 ````
 - `MODEL_PATH` is a path to the file with a model in aeon format
 - `ATTRACTOR_DATA_PATH` is a path to the file with attractor data (one encoded state per line)
-- most important `OPTIONS` are
-  - `--prohibit-extra-attrs`: add property prohibiting all additional attractors not containing any specified attractor state
-  - `--fixed-points`: use properties with fixed-point attractors only (instead of general attractors)
-  - `--goal-model <GOAL_MODEL>`: a fully specified BN model to look for in the resulting set of candidates
+
+You do not need to add any options to replicate the experimental results, but if you would like to know more, use
+````
+./target/release/inference-with-attractors -h
+````
 
 
 ## Reusability

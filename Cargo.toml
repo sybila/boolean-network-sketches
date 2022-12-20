@@ -19,7 +19,7 @@ opt-level = 3
 
 [[bin]]
 name = "inference-with-attractors"
-path = "src/bin/infer_networks_using_attractors.rs"
+path = "src/bin/bn_inference_with_attractors.rs"
 
 [[bin]]
 name = "case-study-tlgl"

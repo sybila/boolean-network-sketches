@@ -54,7 +54,10 @@ fn case_study_part_1() {
         "After applying update function properties, {} concretizations remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
-    println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
+    println!(
+        "Elapsed time from the start of this computation: {}ms",
+        start.elapsed().unwrap().as_millis()
+    );
     println!("----------");
 
     // define data observation and corresponding dynamic property
@@ -69,7 +72,10 @@ fn case_study_part_1() {
         "{} consistent networks found in total.",
         graph.mk_unit_colors().approx_cardinality(), // graph has restricted unit colors to satisfying ones
     );
-    println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
+    println!(
+        "Elapsed time from the start of this computation: {}ms",
+        start.elapsed().unwrap().as_millis()
+    );
     println!("----------");
 
     // analyse candidates
@@ -78,7 +84,10 @@ fn case_study_part_1() {
     // compute attractors symbolically
     let attrs_all_candidates = model_check_formula("!{x}: AG EF {x}".to_string(), &graph).unwrap();
     println!("Attractors for all candidates computed");
-    println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
+    println!(
+        "Elapsed time from the start of this computation: {}ms",
+        start.elapsed().unwrap().as_millis()
+    );
     println!("----------");
 
     // check for candidates without attractor for programmed cell death
@@ -114,7 +123,10 @@ fn case_study_part_1() {
     );
     println!("----------");
 
-    println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
+    println!(
+        "Elapsed time from the start of this computation: {}ms",
+        start.elapsed().unwrap().as_millis()
+    );
 }
 
 /// Second part of the case study regarding the refined version of the sketch
@@ -170,7 +182,10 @@ fn case_study_part_2(summarize_candidates: bool) {
         "{} consistent networks found in total",
         inferred_colors.approx_cardinality()
     );
-    println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
+    println!(
+        "Elapsed time from the start of this computation: {}ms",
+        start.elapsed().unwrap().as_millis()
+    );
     println!("----------");
 
     // print a withess network

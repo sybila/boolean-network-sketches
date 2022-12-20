@@ -26,7 +26,7 @@ struct Arguments {
 
     /// Prohibit all attractors not containing specified states
     #[clap(short, long, takes_value = false)]
-    prohibit_extra_attrs: bool,
+    allow_extra_attrs: bool,
 
     /// Compute with fixed-point attractors only
     #[clap(short, long, takes_value = false)]
@@ -52,7 +52,7 @@ fn main() {
     println!(
         "MODE: fixed point attrs only: {}; other attrs allowed: {}; goal model supplied: {}",
         args.fixed_points,
-        !args.prohibit_extra_attrs,
+        args.allow_extra_attrs,
         goal_aeon_string.is_some(),
     );
 
@@ -76,7 +76,7 @@ fn main() {
         data,
         graph.clone(),
         args.fixed_points,
-        args.prohibit_extra_attrs,
+        !args.allow_extra_attrs,
     );
     println!("----------");
 

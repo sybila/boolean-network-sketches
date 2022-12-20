@@ -1,0 +1,51 @@
+Loaded model with 18 vars.
+Model has 108 parameters.
+----------
+After applying static constraints, 77611696128 concretizations remain.
+Elapsed time: 9ms
+----------
+attractor ensured
+After ensuring attractor presence, 9167155200 concretizations remain.
+Elapsed time: 500122ms
+----------
+Attractors for all candidates computed
+Elapsed time: 525544ms
+----------
+There are 9109070208 colors without programmed cell death attractor, such as:
+
+targets,factors
+Apoptosis_, (Apoptosis_ | Caspase)
+BID_, (!Apoptosis_ & !MCL1)
+CREB, (!Apoptosis_ | IFNG_)
+CTLA4_, (!Apoptosis_ | TCR)
+Caspase, ((Apoptosis_ & (BID_ | !IAP_)) | (!Apoptosis_ & (BID_ | (DISC_ | !IAP_))))
+Ceramide_, ((Apoptosis_ & !S1P) | (!Apoptosis_ & (Fas | !S1P)))
+DISC_, ((Apoptosis_ & (Ceramide_ | !FLIP_)) | (!Apoptosis_ & (Ceramide_ | (!FLIP_ | Fas))))
+FLIP_, (!Apoptosis_ | !DISC_)
+Fas, (!Apoptosis_ & !sFas)
+GPCR_, (!Apoptosis_ | S1P)
+IAP_, (!Apoptosis_ | !BID_)
+IFNG_, ((Apoptosis_ & !SMAD_) | (!Apoptosis_ & (!P2 | !SMAD_)))
+MCL1, (!Apoptosis_ | !DISC_)
+P2, (!Apoptosis_ | (IFNG_ | P2))
+S1P, (!Apoptosis_ | !Ceramide_)
+SMAD_, (!Apoptosis_ | GPCR_)
+TCR, (!Apoptosis_ | !CTLA4_)
+sFas, (!Apoptosis_ | S1P)
+
+----------
+There are 4848993536 colors with unwanted states in attractors, such as:
+
+targets,factors
+Apoptosis_, (Apoptosis_ | Caspase)
+BID_, (!Apoptosis_ & !MCL1)
+CREB, (!Apoptosis_ | IFNG_)
+CTLA4_, (!Apoptosis_ | TCR)
+Caspase, ((Apoptosis_ & (BID_ | !IAP_)) | (!Apoptosis_ & (BID_ | (DISC_ | !IAP_))))
+S1P, (!Apoptosis_ | !Ceramide_)
+SMAD_, (!Apoptosis_ | GPCR_)
+TCR, (!Apoptosis_ | !CTLA4_)
+sFas, (!Apoptosis_ | S1P)
+
+----------
+Elapsed time: 525888ms

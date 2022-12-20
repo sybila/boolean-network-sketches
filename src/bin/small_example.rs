@@ -41,7 +41,10 @@ fn main() {
         res_color.approx_cardinality(),
     );
 
-    println!("Elapsed time: {}ms", start.elapsed().unwrap().as_millis());
+    println!(
+        "Elapsed time from the start of this computation: {}ms",
+        start.elapsed().unwrap().as_millis()
+    );
     println!("----------");
 
     let witness_bn = graph.pick_witness(&res_color);
