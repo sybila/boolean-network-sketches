@@ -23,13 +23,13 @@ fn main() {
     );
 
     println!(
-        "After applying update function properties, {} concretizations remain.",
+        "After applying update function properties, {} candidates remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
 
     let intermediate_result = model_check_formula(prior_formula.to_string(), &graph).unwrap();
     println!(
-        "After applying prior-knowledge-based dynamic constraints, {} concretizations remain.",
+        "After applying prior-knowledge-based dynamic constraints, {} candidates remain.",
         intermediate_result.colors().approx_cardinality(),
     );
 
@@ -37,7 +37,7 @@ fn main() {
     let res_color = result.colors();
 
     println!(
-        "After applying all dynamic constraints, {} concretizations remain.",
+        "After applying all dynamic constraints, {} candidates remain.",
         res_color.approx_cardinality(),
     );
 
@@ -45,7 +45,7 @@ fn main() {
         "Elapsed time from the start of this computation: {}ms",
         start.elapsed().unwrap().as_millis()
     );
-    println!("----------");
+    println!("-------");
 
     let witness_bn = graph.pick_witness(&res_color);
     println!("WITNESS:");

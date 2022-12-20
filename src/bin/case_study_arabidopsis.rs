@@ -18,13 +18,9 @@ use std::time::SystemTime;
     about = "Inference case study regarding A. Thaliana."
 )]
 struct Arguments {
-    /// Consider only fixed-point attractors (simpler dynamic properties)
+    /// Use the modified variant of the sketch with complex dynamic properties
     #[clap(short, long, takes_value = false)]
-    fixed_points: bool,
-
-    /// Add property prohibiting all attractors not containing desired attractor states
-    #[clap(short, long, takes_value = false)]
-    prohibit_extra_attrs: bool,
+    modified_sketch_variant: bool,
 
     /// Print summarizing info regarding candidates' update functions (may take a long time)
     #[clap(short, long, takes_value = false)]
@@ -46,7 +42,7 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
     );
-    println!("---------");
+    println!("-------");
 
     // define observations
     let observation1 = "AGO1 & ~AGO10 & ~AGO7 & ANT & ARF4 & ~AS1 & ~AS2 & ETT & FIL & KAN1 & miR165 & miR390 & ~REV & ~TAS3siRNA & AGO1_miR165 & ~AGO7_miR390 & ~AS1_AS2 & AUXINh & ~CKh & ~GTE6 & ~IPT5";
@@ -61,10 +57,10 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     );
 
     println!(
-        "{} consistent networks found in total",
+        "{} consistent candidate networks found in total",
         inferred_colors.approx_cardinality()
     );
-    println!("---------");
+    println!("-------");
 
     if summarize {
         // summarize which update functions are unique for all candidates and which vary
@@ -77,24 +73,20 @@ fn main() {
     let args = Arguments::parse();
     let start = SystemTime::now();
 
-    let attr_type = if args.fixed_points {
-        "fixed point attrs"
+    let sketch_mode = if args.modified_sketch_variant {
+        "modified variant of the sketch with complex properties"
     } else {
-        "complex attrs"
+        "initial variant of the sketch with fixed-point properties"
     };
+    println!("MODE: {}", sketch_mode);
 
-    let attr_amount = if args.prohibit_extra_attrs {
-        "other attrs prohibited"
+    // run the variant of the case study specified by the user
+    if args.modified_sketch_variant {
+        case_study(false, true, args.summarize_candidates);
     } else {
-        "other attrs allowed"
-    };
+        case_study(true, false, args.summarize_candidates);
+    }
 
-    println!("MODE: {}, {}", attr_type, attr_amount);
-    case_study(
-        args.fixed_points,
-        args.prohibit_extra_attrs,
-        args.summarize_candidates,
-    );
     println!(
         "Elapsed time from the start of this computation: {}ms",
         start.elapsed().unwrap().as_millis()

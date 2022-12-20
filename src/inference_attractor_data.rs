@@ -20,7 +20,7 @@ pub fn perform_inference_with_attractors_specific(
 ) -> GraphColors {
     let mut inferred_colors = graph.mk_unit_colors();
     println!(
-        "After applying update function properties, {} concretizations remain.",
+        "After applying update function properties, {} candidates remain.",
         inferred_colors.approx_cardinality(),
     );
 
@@ -29,6 +29,7 @@ pub fn perform_inference_with_attractors_specific(
     // we will evaluate each conjunct only on colors where previous conjuncts hold
 
     // first we evaluate the parts that ensure attractor(s) existence
+    println!("Computing candidates with desired attractors...");
     for attractor_state in attr_set.clone() {
         if attractor_state.is_empty() {
             continue;
@@ -52,16 +53,17 @@ pub fn perform_inference_with_attractors_specific(
             inferred_colors.as_bdd().clone(),
         )
         .unwrap();
-        println!("attractor property ensured")
+        // println!("attractor property ensured")
     }
     println!(
-        "After ensuring all properties regarding attractor presence, {} concretizations remain.",
+        "After ensuring all properties regarding attractor presence, {} candidates remain.",
         inferred_colors.approx_cardinality(),
     );
 
     // if desired, we add the constraint which forbids any additional attractors
     // that do not correspond to the observations
     if forbid_extra_attr {
+        println!("Computing candidates with no additional unwanted attractors...");
         let formula = if use_fixed_points {
             mk_forbid_other_steady_states_formula(attr_set)
         } else {

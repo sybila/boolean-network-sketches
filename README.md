@@ -88,22 +88,21 @@ The scripts should work on any classical Unix-based system, and we have also tes
 
 ### Individual binaries
 
-To directly re-run individual benchmarks or case studies, compile the code first (on Windows, we recommend Powershell 5+ to run the experiments):
+To directly re-run individual benchmarks or case studies, compile the code first (on Windows, we recommend using Powershell 5+ to run the experiments):
 ```
 cargo build --release
 ```
 
 The Rust code regarding the two case studies from the paper can be found in `src/bin` folder (particularly, `case_study_arabidopsis.rs` and `case_study_tlgl.rs`). 
-The resulting binaries will be in `target/release` folder and can be executed as shown below. 
+The resulting binaries will be in `target/release`. 
 Note that on Windows, the path is usually `target\release` and binaries have `.exe` suffix. 
-```
-./target/release/case-study-tlgl [--refined-sketch] 
-./target/release/case-study-arabidopsis [--fixed-points] [--prohibit-extra-attrs]
-```
 
-To see detailed options for each of these binaries, run 
+Each case study consists of two parts - initial version of the sketch, and refined (modified) variant of the sketch. 
+To re-run the desired variant, execute one of following binaries either with or without the option:
+
 ```
-./target/release/<CASE-STUDY-NAME> -h
+./target/release/case-study-tlgl [--refined-sketch-variant] 
+./target/release/case-study-arabidopsis [--modified-sketch-variant]
 ```
 
 To run the experiments regarding scalability, use the following binary.
@@ -112,10 +111,10 @@ It is a general method for inference using network sketches with attractor data,
 ````
 ./target/release/inference-with-attractors [OPTIONS] <MODEL_PATH> <ATTRACTOR_DATA_PATH>
 ````
-- `MODEL_PATH` is a path to the file with a model in aeon format
-- `ATTRACTOR_DATA_PATH` is a path to the file with attractor data (one encoded state per line)
+- `MODEL_PATH` is a path to a file with a model in aeon format
+- `ATTRACTOR_DATA_PATH` is a path to a file with attractor data (one encoded state per line)
 
-You do not need to add any options to replicate the experimental results, but if you would like to know more, use
+You do not need to add any options to replicate the experimental results, but if you want to know more, use
 ````
 ./target/release/inference-with-attractors -h
 ````

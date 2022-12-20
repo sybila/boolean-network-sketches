@@ -10,7 +10,7 @@ echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 echo ">>>>>>>>>> CASE STUDY 2, VARIANT OF THE SKETCH WITH FIXED-POINT PROPERTIES ONLY"
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 echo
-./target/release/case-study-arabidopsis -f
+./target/release/case-study-arabidopsis
 echo
 
 echo
@@ -18,5 +18,5 @@ echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 echo ">>>>>>>>>> CASE STUDY 2, VARIANT OF THE SKETCH WITH COMPLEX PROPERTIES"
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 echo
-./target/release/case-study-arabidopsis -p
+./target/release/case-study-arabidopsis -m
 echo

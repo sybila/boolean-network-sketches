@@ -21,11 +21,11 @@ use std::time::SystemTime;
     about = "Inference case study regarding T-LGL model."
 )]
 struct Arguments {
-    /// Use the refined variant of the sketch with additional dynamic properties
+    /// Use the refined variant of the sketch with additional dynamic properties and partially defined update logic
     #[clap(short, long, takes_value = false)]
-    refined_sketch: bool,
+    refined_sketch_variant: bool,
 
-    /// Print summarizing info regarding candidates' update functions (may take a long time)
+    /// Print summarizing info regarding candidates' update functions (experimental feature - may take a long time)
     #[clap(short, long, takes_value = false)]
     summarize_candidates: bool,
 }
@@ -47,18 +47,18 @@ fn case_study_part_1() {
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
     );
-    println!("----------");
+    println!("-------");
 
     // apply update function properties
     println!(
-        "After applying update function properties, {} concretizations remain.",
+        "After applying update function properties, {} candidates remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
     println!(
         "Elapsed time from the start of this computation: {}ms",
         start.elapsed().unwrap().as_millis()
     );
-    println!("----------");
+    println!("-------");
 
     // define data observation and corresponding dynamic property
     let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
@@ -69,14 +69,14 @@ fn case_study_part_1() {
     // apply dynamic constraints
     graph = apply_constraints_and_restrict(formulae, graph, "attractor property ensured");
     println!(
-        "{} consistent networks found in total.",
+        "{} consistent candidate networks found in total.",
         graph.mk_unit_colors().approx_cardinality(), // graph has restricted unit colors to satisfying ones
     );
     println!(
         "Elapsed time from the start of this computation: {}ms",
         start.elapsed().unwrap().as_millis()
     );
-    println!("----------");
+    println!("-------");
 
     // analyse candidates
     println!("Analysing candidate set...");
@@ -88,7 +88,7 @@ fn case_study_part_1() {
         "Elapsed time from the start of this computation: {}ms",
         start.elapsed().unwrap().as_millis()
     );
-    println!("----------");
+    println!("-------");
 
     // check for candidates without attractor for programmed cell death
     let programmed_cell_death_formula = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
@@ -104,7 +104,7 @@ fn case_study_part_1() {
         "{}",
         graph.pick_witness(&colors_not_pcd).to_bnet(false).unwrap()
     );
-    println!("----------");
+    println!("-------");
 
     // check for candidates with unwanted attractor states
     let unwanted_state_formula = "Apoptosis_ & (S1P | sFas | Fas | Ceramide_ | Caspase  | MCL1 | BID_ | DISC_  | FLIP_ | CTLA4_ | TCR | IFNG_ | CREB  | P2 | SMAD_ | GPCR_ | IAP_)";
@@ -121,7 +121,7 @@ fn case_study_part_1() {
             .to_bnet(false)
             .unwrap()
     );
-    println!("----------");
+    println!("-------");
 
     println!(
         "Elapsed time from the start of this computation: {}ms",
@@ -147,14 +147,14 @@ fn case_study_part_2(summarize_candidates: bool) {
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
     );
-    println!("----------");
+    println!("-------");
 
     // apply update function properties
     println!(
-        "After applying update function properties, {} concretizations remain.",
+        "After applying update function properties, {} candidates remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
-    println!("----------");
+    println!("-------");
 
     // define both observations and corresponding properties
     let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
@@ -167,7 +167,7 @@ fn case_study_part_2(summarize_candidates: bool) {
     // first ensure attractor existence
     graph = apply_constraints_and_restrict(formulae, graph, "attractor property ensured");
     println!(
-        "After ensuring both properties regarding attractor presence, {} concretizations remain.",
+        "After ensuring both properties regarding attractor presence, {} candidates remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
 
@@ -179,14 +179,14 @@ fn case_study_part_2(summarize_candidates: bool) {
     let formula = mk_forbid_other_attractors_formula(attr_set);
     let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
     println!(
-        "{} consistent networks found in total",
+        "{} consistent candidate networks found in total",
         inferred_colors.approx_cardinality()
     );
     println!(
         "Elapsed time from the start of this computation: {}ms",
         start.elapsed().unwrap().as_millis()
     );
-    println!("----------");
+    println!("-------");
 
     // print a withess network
     println!("ONE OF THE CANDIDATE NETWORKS:\n");
@@ -207,14 +207,14 @@ fn case_study_part_2(summarize_candidates: bool) {
 fn main() {
     let args = Arguments::parse();
 
-    let refined_sketch = if args.refined_sketch {
+    let sketch_mode = if args.refined_sketch_variant {
         "refined variant of the sketch"
     } else {
         "initial variant of the sketch"
     };
-    println!("MODE: {}", refined_sketch);
+    println!("MODE: {}", sketch_mode);
 
-    if args.refined_sketch {
+    if args.refined_sketch_variant {
         case_study_part_2(true);
     } else {
         case_study_part_1()

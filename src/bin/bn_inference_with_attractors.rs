@@ -18,21 +18,21 @@ use std::time::SystemTime;
     about = "Inference of BNs from partially defined model and attractors."
 )]
 struct Arguments {
-    /// Path to the file with BN model in aeon format
+    /// Path to a file with a model in aeon format
     model_path: String,
 
-    /// Path to the file with attractor data
+    /// Path to a file with attractor data (one encoded state per line)
     attractor_data_path: String,
 
-    /// Prohibit all attractors not containing specified states
+    /// Allow attractors not containing specified states (otherwise, a property prohibiting these attractors is used)
     #[clap(short, long, takes_value = false)]
     allow_extra_attrs: bool,
 
-    /// Compute with fixed-point attractors only
+    /// In dynamic properties, address fixed-point attractors only (instead of general attractors)
     #[clap(short, long, takes_value = false)]
     fixed_points: bool,
 
-    /// Goal model to check for in the resulting ensemble
+    /// Path to a fully specified BN model to look for in the resulting set of candidates
     #[clap(short, long)]
     goal_model: Option<String>,
 }
@@ -70,7 +70,7 @@ fn main() {
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
     );
-    println!("----------");
+    println!("-------");
 
     let inferred_colors = perform_inference_with_attractors_specific(
         data,
@@ -78,10 +78,10 @@ fn main() {
         args.fixed_points,
         !args.allow_extra_attrs,
     );
-    println!("----------");
+    println!("-------");
 
     println!(
-        "{} consistent networks found in total",
+        "{} consistent candidate networks found in total",
         inferred_colors.approx_cardinality()
     );
 

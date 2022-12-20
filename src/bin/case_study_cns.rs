@@ -58,7 +58,7 @@ fn case_study() {
     let f_a = "Pax6 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Sox8 & Aldh1L1";
 
     println!(
-        "After applying update function properties, {} concretizations remain.",
+        "After applying update function properties, {} candidates remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
 
@@ -142,7 +142,7 @@ fn case_study() {
         "non-reachability ensured",
     );
     println!(
-        "After the first set of constraints, {} concretizations remain.",
+        "After the first set of constraints, {} candidates remain.",
         graph.unit_colors().approx_cardinality(),
     );
 
@@ -152,11 +152,11 @@ fn case_study() {
         "universal constraint ensured",
     );
     println!(
-        "After the second set of constraints, {} concretizations remain.",
+        "After the second set of constraints, {} candidates remain.",
         graph.unit_colors().approx_cardinality(),
     );
 
-    println!("-----------------------------------------");
+    println!("------------------------");
     let mut graph = original_graph.clone();
     graph = apply_constraints_and_restrict(fixed_point_constraints, graph, "constraint ensured");
     println!(
@@ -164,7 +164,7 @@ fn case_study() {
         graph.unit_colors().approx_cardinality()
     );
 
-    println!("-----------------------------------------");
+    println!("------------------------");
     let mut graph = original_graph.clone();
     graph = apply_constraints_and_restrict(trap_space_constraints, graph, "constraint ensured");
     println!(
@@ -218,7 +218,7 @@ fn case_study_manual() {
     let f_a = "Pax6 & ~Zic1 & ~Brn2 & ~Tuj1 & ~Sox8 & Aldh1L1";
 
     println!(
-        "After applying update function properties, {} concretizations remain.",
+        "After applying update function properties, {} candidates remain.",
         graph.mk_unit_colors().approx_cardinality(),
     );
 
@@ -245,7 +245,7 @@ fn case_study_manual() {
     graph =
         apply_constraints_and_restrict(vec![formula.clone()], graph, "non-reachability ensured");
     println!(
-        "After the first set of constraints, {} concretizations remain.",
+        "After the first set of constraints, {} candidates remain.",
         graph.unit_colors().approx_cardinality(),
     );
 }
