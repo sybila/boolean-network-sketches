@@ -4,7 +4,9 @@ use boolean_network_sketches::utils::{
     apply_constraints_and_restrict, check_if_result_contains_goal, summarize_candidates_naively,
 };
 
-use biodivine_hctl_model_checker::analysis::{get_extended_symbolic_graph, model_check_formula};
+use biodivine_hctl_model_checker::model_checking::{
+    get_extended_symbolic_graph, model_check_formula,
+};
 
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::BooleanNetwork;
@@ -14,25 +16,25 @@ use clap::Parser;
 use std::fs::read_to_string;
 use std::time::SystemTime;
 
-/// Structure to collect CLI arguments
+/// Structure to collect CLI arguments.
 #[derive(Parser)]
 #[clap(
     author = "Ondřej Huvar",
     about = "Inference case study regarding T-LGL model."
 )]
 struct Arguments {
-    /// Use the refined variant of the sketch with additional dynamic properties and partially defined update logic
+    /// Use the refined variant of the sketch with additional dynamic properties and partially defined update logic.
     #[clap(short, long, takes_value = false)]
     refined_sketch_variant: bool,
 
-    /// Print summarizing info regarding candidates' update functions (experimental feature - may take a long time)
+    /// Print summarizing info regarding candidates' update functions (experimental feature - may take a long time).
     #[clap(short, long, takes_value = false)]
     summarize_candidates: bool,
 }
 
-/// First part of the case study regarding the initial version of the sketch
-/// Analyses model with fully unspecified update logic and experimental data
-/// At the end, analyses candidates by computing attractors and checking for unwanted patterns
+/// First part of the case study regarding the initial version of the sketch.
+/// Analyses model with fully unspecified update logic and experimental data.
+/// At the end, analyses candidates by computing attractors and checking for unwanted patterns.
 fn case_study_part_1() {
     let start = SystemTime::now();
     let aeon_string =
@@ -129,10 +131,10 @@ fn case_study_part_1() {
     );
 }
 
-/// Second part of the case study regarding the refined version of the sketch
+/// Second part of the case study regarding the refined version of the sketch.
 /// Extends previous sketch with partially specified update logic and hypotheses regarding
-/// additional attractors
-/// At the end, prints a witness candidate, and summarizes all candidates
+/// additional attractors.
+/// At the end, prints a witness candidate, and summarizes all candidates.
 fn case_study_part_2(summarize_candidates: bool) {
     let start = SystemTime::now();
     let aeon_string =
@@ -203,7 +205,7 @@ fn case_study_part_2(summarize_candidates: bool) {
     }
 }
 
-/// Run the case study regarding inference of T-LGL model
+/// Run the case study regarding inference of T-LGL model.
 fn main() {
     let args = Arguments::parse();
 
@@ -223,7 +225,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use biodivine_hctl_model_checker::analysis::{
+    use biodivine_hctl_model_checker::model_checking::{
         get_extended_symbolic_graph, model_check_formula,
     };
 
@@ -235,8 +237,8 @@ mod tests {
     use std::fs::read_to_string;
 
     #[test]
-    /// Test BN inference of partially defined tlgl model
-    /// Use previously computed data to check results
+    /// Test BN inference of partially defined tlgl model.
+    /// Use previously computed data to check results.
     fn test_case_study_tlgl_small() {
         let aeon_string =
             read_to_string("benchmark_models/case_study_TLGL/TLGL_reduced_partial_updates.aeon")

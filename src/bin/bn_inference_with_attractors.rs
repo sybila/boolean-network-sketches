@@ -5,7 +5,7 @@ use biodivine_lib_param_bn::BooleanNetwork;
 use boolean_network_sketches::inference_attractor_data::*;
 use boolean_network_sketches::utils::check_if_result_contains_goal;
 
-use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
+use biodivine_hctl_model_checker::model_checking::get_extended_symbolic_graph;
 use std::fs::{read_to_string, File};
 use std::io::{BufRead, BufReader};
 use std::path::Path;
@@ -21,18 +21,18 @@ struct Arguments {
     /// Path to a file with a model in aeon format
     model_path: String,
 
-    /// Path to a file with attractor data (one encoded state per line)
+    /// Path to a file with attractor data (one encoded state per line).
     attractor_data_path: String,
 
-    /// Allow attractors not containing specified states (otherwise, a property prohibiting these attractors is used)
+    /// Allow attractors not containing specified states (otherwise, a property prohibiting these attractors is used).
     #[clap(short, long, takes_value = false)]
     allow_extra_attrs: bool,
 
-    /// In dynamic properties, address fixed-point attractors only (instead of general attractors)
+    /// In dynamic properties, address fixed-point attractors only (instead of general attractors).
     #[clap(short, long, takes_value = false)]
     fixed_points: bool,
 
-    /// Path to a fully specified BN model to look for in the resulting set of candidates
+    /// Path to a fully specified BN model to look for in the resulting set of candidates.
     #[clap(short, long)]
     goal_model: Option<String>,
 }

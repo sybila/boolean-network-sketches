@@ -1,10 +1,9 @@
-Loaded model with 21 vars.
-Model has 68 parameters.
----------
-After applying static constraints, 4761711360 concretizations remain.
-attractor ensured
-attractor ensured
-After ensuring attractor presence, 439296 concretizations remain.
-439296 suitable networks found in total
----------
-Elapsed time: 515ms
+Loaded BN model with 21 components.
+Model has 68 symbolic parameters.
+-------
+After applying update function properties, 4761711360 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 439296 candidates remain.
+439296 consistent candidate networks found in total
+-------
+Elapsed time from the start of this computation: 439ms

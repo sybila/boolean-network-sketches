@@ -2,7 +2,7 @@
 use boolean_network_sketches::inference_attractor_data::perform_inference_with_attractors_specific;
 use boolean_network_sketches::utils::summarize_candidates_naively;
 
-use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
+use biodivine_hctl_model_checker::model_checking::get_extended_symbolic_graph;
 
 use biodivine_lib_param_bn::BooleanNetwork;
 
@@ -11,24 +11,24 @@ use clap::Parser;
 use std::fs::read_to_string;
 use std::time::SystemTime;
 
-/// Structure to collect CLI arguments
+/// Structure to collect CLI arguments.
 #[derive(Parser)]
 #[clap(
     author = "Ondřej Huvar",
     about = "Inference case study regarding A. Thaliana."
 )]
 struct Arguments {
-    /// Use the modified variant of the sketch with complex dynamic properties
+    /// Use the modified variant of the sketch with complex dynamic properties.
     #[clap(short, long, takes_value = false)]
     modified_sketch_variant: bool,
 
-    /// Print summarizing info regarding candidates' update functions (may take a long time)
+    /// Print summarizing info regarding candidates' update functions (may take a long time).
     #[clap(short, long, takes_value = false)]
     summarize_candidates: bool,
 }
 
-/// Analysis of the A. thaliana Sepal Primordium Polarity
-/// Infers BNs from sketch including attractor data
+/// Analysis of the A. thaliana Sepal Primordium Polarity.
+/// Infers BNs from sketch containing attractor data.
 fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: bool) {
     // parse BN object
     let aeon_string =
@@ -68,7 +68,7 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     }
 }
 
-/// Run the case study regarding inference of A. Thaliana model
+/// Run the case study regarding inference of A. Thaliana model.
 fn main() {
     let args = Arguments::parse();
     let start = SystemTime::now();

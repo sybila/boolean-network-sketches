@@ -5,18 +5,18 @@
 MODE: initial variant of the sketch
 Loaded BN model with 18 components.
 Model has 108 symbolic parameters.
-----------
-After applying update function properties, 77611696128 concretizations remain.
-Elapsed time: 34ms
-----------
+-------
+After applying update function properties, 77611696128 candidates remain.
+Elapsed time from the start of this computation: 24ms
+-------
 attractor property ensured
-9167155200 consistent networks found in total.
-Elapsed time: 445535ms
-----------
+9167155200 consistent candidate networks found in total.
+Elapsed time from the start of this computation: 390830ms
+-------
 Analysing candidate set...
 Attractors for all candidates computed
-Elapsed time: 466190ms
-----------
+Elapsed time from the start of this computation: 409765ms
+-------
 9109070208 candidates do not exhibit programmed cell death attractor, such as:
 
 targets,factors
@@ -38,7 +38,7 @@ S1P, (!Apoptosis_ | !Ceramide_)
 SMAD_, (!Apoptosis_ | GPCR_)
 TCR, (!Apoptosis_ | !CTLA4_)
 sFas, (!Apoptosis_ | S1P)
-----------
+-------
 4848993536 candidates have unwanted states in attractors, such as:
 
 targets,factors
@@ -60,8 +60,8 @@ S1P, (!Apoptosis_ | !Ceramide_)
 SMAD_, (!Apoptosis_ | GPCR_)
 TCR, (!Apoptosis_ | !CTLA4_)
 sFas, (!Apoptosis_ | S1P)
-----------
-Elapsed time: 466337ms
+-------
+Elapsed time from the start of this computation: 409908ms
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 >>>>>>>>>> CASE STUDY 1, REFINED VARIANT OF THE SKETCH
@@ -70,15 +70,15 @@ Elapsed time: 466337ms
 MODE: refined variant of the sketch
 Loaded BN model with 18 components.
 Model has 56 symbolic parameters.
-----------
-After applying update function properties, 1296 concretizations remain.
-----------
+-------
+After applying update function properties, 1296 candidates remain.
+-------
 attractor property ensured
 attractor property ensured
-After ensuring both properties regarding attractor presence, 486 concretizations remain.
-378 consistent networks found in total
-Elapsed time: 710ms
-----------
+After ensuring both properties regarding attractor presence, 486 candidates remain.
+378 consistent candidate networks found in total
+Elapsed time from the start of this computation: 652ms
+-------
 ONE OF THE CANDIDATE NETWORKS:
 
 targets,factors
@@ -103,24 +103,24 @@ sFas, (!Apoptosis_ & S1P)
 ----------
 SUMMARIZATION OF CANDIDATES' UPDATE FUNCTIONS:
 
-SMAD_ [1]:  378
-BID_ [1]:  378
-CTLA4_ [1]:  378
-IFNG_ [2]:  126 252
-Apoptosis_ [1]:  378
-MCL1 [1]:  378
 sFas [1]:  378
-DISC_ [7]:  54 54 54 54 54 54 54
-FLIP_ [1]:  378
-TCR [1]:  378
-CREB [1]:  378
-Fas [1]:  378
-S1P [1]:  378
-P2 [2]:  126 252
-IAP_ [1]:  378
-Caspase [9]:  42 42 42 42 42 42 42 42 42
-Ceramide_ [2]:  189 189
+CTLA4_ [1]:  378
+BID_ [1]:  378
 GPCR_ [1]:  378
+P2 [2]:  252 126
+Fas [1]:  378
+IAP_ [1]:  378
+Apoptosis_ [1]:  378
+TCR [1]:  378
+DISC_ [7]:  54 54 54 54 54 54 54
+Caspase [9]:  42 42 42 42 42 42 42 42 42
+FLIP_ [1]:  378
+IFNG_ [2]:  252 126
+Ceramide_ [2]:  189 189
+CREB [1]:  378
+SMAD_ [1]:  378
+MCL1 [1]:  378
+S1P [1]:  378
 
 5 variables with different possible update fns: ["Caspase", "Ceramide_", "DISC_", "IFNG_", "P2"]
 13 variables with only one possible update fn: ["Apoptosis_", "BID_", "CREB", "CTLA4_", "FLIP_", "Fas", "GPCR_", "IAP_", "MCL1", "S1P", "SMAD_", "TCR", "sFas"]
@@ -130,33 +130,32 @@ GPCR_ [1]:  378
 >>>>>>>>>> CASE STUDY 2, VARIANT OF THE SKETCH WITH FIXED-POINT PROPERTIES ONLY
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-MODE: fixed point attrs, other attrs allowed
+MODE: initial variant of the sketch with fixed-point properties
 Loaded BN model with 21 components.
 Model has 68 symbolic parameters.
----------
-After applying update function properties, 4761711360 concretizations remain.
-attractor property ensured
-attractor property ensured
-After ensuring all properties regarding attractor presence, 439296 concretizations remain.
-439296 consistent networks found in total
----------
-Elapsed time: 477ms
+-------
+After applying update function properties, 4761711360 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 439296 candidates remain.
+439296 consistent candidate networks found in total
+-------
+Elapsed time from the start of this computation: 439ms
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 >>>>>>>>>> CASE STUDY 2, VARIANT OF THE SKETCH WITH COMPLEX PROPERTIES
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-MODE: complex attrs, other attrs prohibited
+MODE: modified variant of the sketch with complex properties
 Loaded BN model with 21 components.
 Model has 68 symbolic parameters.
----------
-After applying update function properties, 4761711360 concretizations remain.
-attractor property ensured
-attractor property ensured
-After ensuring all properties regarding attractor presence, 439296 concretizations remain.
-48352 consistent networks found in total
----------
-Elapsed time: 55048ms
+-------
+After applying update function properties, 4761711360 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 439296 candidates remain.
+Computing candidates with no additional unwanted attractors...
+48352 consistent candidate networks found in total
+-------
+Elapsed time from the start of this computation: 48705ms
 
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -170,15 +169,15 @@ Model celldivb_9v
 MODE: fixed point attrs only: false; other attrs allowed: false; goal model supplied: true
 Loaded BN model with 9 components.
 Model has 24 symbolic parameters.
-----------
-After applying update function properties, 64000 concretizations remain.
-attractor property ensured
-attractor property ensured
-After ensuring all properties regarding attractor presence, 14088 concretizations remain.
-----------
-14088 consistent networks found in total
+-------
+After applying update function properties, 64000 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 14088 candidates remain.
+Computing candidates with no additional unwanted attractors...
+-------
+14088 consistent candidate networks found in total
 OK - goal network is included in the candidate set.
-Elapsed time: 196ms
+Elapsed time: 189ms
 
 ==========================
 Model eprotein_35v
@@ -187,21 +186,15 @@ Model eprotein_35v
 MODE: fixed point attrs only: false; other attrs allowed: false; goal model supplied: true
 Loaded BN model with 35 components.
 Model has 74 symbolic parameters.
-----------
-After applying update function properties, 944784 concretizations remain.
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-After ensuring all properties regarding attractor presence, 1008 concretizations remain.
-----------
-196 consistent networks found in total
+-------
+After applying update function properties, 944784 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 1008 candidates remain.
+Computing candidates with no additional unwanted attractors...
+-------
+196 consistent candidate networks found in total
 OK - goal network is included in the candidate set.
-Elapsed time: 870ms
+Elapsed time: 499ms
 
 ==========================
 Model nsp4_60v
@@ -210,21 +203,13 @@ Model nsp4_60v
 MODE: fixed point attrs only: false; other attrs allowed: false; goal model supplied: true
 Loaded BN model with 60 components.
 Model has 76 symbolic parameters.
-----------
-After applying update function properties, 1179648 concretizations remain.
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-After ensuring all properties regarding attractor presence, 128 concretizations remain.
-----------
-128 consistent networks found in total
+-------
+After applying update function properties, 1179648 candidates remain.
+Computing candidates with desired attractors...
+-------
+128 consistent candidate networks found in total
 OK - goal network is included in the candidate set.
-Elapsed time: 1162ms
+Elapsed time: 918ms
 
 ==========================
 Model etc_84v
@@ -233,29 +218,15 @@ Model etc_84v
 MODE: fixed point attrs only: false; other attrs allowed: false; goal model supplied: true
 Loaded BN model with 84 components.
 Model has 72 symbolic parameters.
-----------
-After applying update function properties, 242337096 concretizations remain.
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-attractor property ensured
-After ensuring all properties regarding attractor presence, 3167262 concretizations remain.
-----------
-1262142 consistent networks found in total
+-------
+After applying update function properties, 242337096 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 3167262 candidates remain.
+Computing candidates with no additional unwanted attractors...
+-------
+1262142 consistent candidate networks found in total
 OK - goal network is included in the candidate set.
-Elapsed time: 193949ms
+Elapsed time: 186458ms
 
 ==========================
 Model interferon1_121v
@@ -264,15 +235,15 @@ Model interferon1_121v
 MODE: fixed point attrs only: false; other attrs allowed: false; goal model supplied: true
 Loaded BN model with 121 components.
 Model has 103 symbolic parameters.
-----------
-After applying update function properties, 53378248050663950000000 concretizations remain.
-attractor property ensured
-attractor property ensured
-After ensuring all properties regarding attractor presence, 682290 concretizations remain.
-----------
-682290 consistent networks found in total
+-------
+After applying update function properties, 53378248050663950000000 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 682290 candidates remain.
+Computing candidates with no additional unwanted attractors...
+-------
+682290 consistent candidate networks found in total
 OK - goal network is included in the candidate set.
-Elapsed time: 57518ms
+Elapsed time: 58326ms
 
 ==========================
 Model nsp9_252v
@@ -281,18 +252,29 @@ Model nsp9_252v
 MODE: fixed point attrs only: false; other attrs allowed: false; goal model supplied: true
 Loaded BN model with 252 components.
 Model has 356 symbolic parameters.
-----------
-After applying update function properties, 7346780631148568000000000000000 concretizations remain.
-attractor property ensured
-attractor property ensured
-After ensuring all properties regarding attractor presence, 6364982136580956000000000000 concretizations remain.
-Model has 104 symbolic parameters.
-----------
-After applying update function properties, 9973140848784 concretizations remain.
-attractor property ensured
-After ensuring all properties regarding attractor presence, 787353224904 concretizations remain.
-----------
-787353224904 consistent networks found in total
+-------
+After applying update function properties, 7346780631148568000000000000000 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 6364982136580956000000000000 candidates remain.
+Computing candidates with no additional unwanted attractors...
+-------
+6364982136580956000000000000 consistent candidate networks found in total
 OK - goal network is included in the candidate set.
-Elapsed time: 225750ms
+Elapsed time: 39313ms
 
+==========================
+Model macrophage_321v
+==========================
+
+MODE: fixed point attrs only: false; other attrs allowed: false; goal model supplied: true
+Loaded BN model with 321 components.
+Model has 104 symbolic parameters.
+-------
+After applying update function properties, 9973140848784 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 787353224904 candidates remain.
+Computing candidates with no additional unwanted attractors...
+-------
+787353224904 consistent candidate networks found in total
+OK - goal network is included in the candidate set.
+Elapsed time: 239819ms

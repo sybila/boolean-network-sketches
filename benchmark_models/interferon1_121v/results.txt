@@ -1,11 +1,11 @@
-Loaded model with 121 vars.
-Model has 103 parameters.
-----------
-After applying static constraints, 53378248050663950000000 concretizations remain.
-attractor ensured
-attractor ensured
-After ensuring attractor presence, 682290 concretizations remain.
-682290 suitable networks found in total
-----------
-OK - color of goal network is included in resulting set.
-Elapsed time: 64538ms
+Loaded BN model with 121 components.
+Model has 103 symbolic parameters.
+-------
+After applying update function properties, 53378248050663950000000 candidates remain.
+Computing candidates with desired attractors...
+After ensuring all properties regarding attractor presence, 682290 candidates remain.
+Computing candidates with no additional unwanted attractors...
+-------
+682290 consistent candidate networks found in total
+OK - goal network is included in the candidate set.
+Elapsed time: 58326ms

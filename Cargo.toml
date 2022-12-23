@@ -30,17 +30,13 @@ name = "case-study-arabidopsis"
 path = "src/bin/case_study_arabidopsis.rs"
 
 [[bin]]
-name = "case-study-cns"
-path = "src/bin/case_study_cns.rs"
-
-[[bin]]
 name = "small-example"
 path = "src/bin/small_example.rs"
 
 [dependencies]
 biodivine-lib-bdd = ">=0.4.2, <1.0.0"
 biodivine-lib-param-bn = "0.4.2"
-biodivine-hctl-model-checker = { git = "https://github.com/sybila/biodivine-hctl-model-checker", rev = "916953f" }
+biodivine-hctl-model-checker = "0.1.0"
 clap = { version = "3.1.6", features = ["derive"] }
 termcolor = "1.1.2"
 rand = "0.6.5"

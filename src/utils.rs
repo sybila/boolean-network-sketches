@@ -1,4 +1,7 @@
-use biodivine_hctl_model_checker::analysis::model_check_formula;
+//! Contains several useful utilities for either the inference procedure or for post-processing
+//! the results.
+
+use biodivine_hctl_model_checker::model_checking::model_check_formula;
 
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::symbolic_async_graph::{GraphColors, SymbolicAsyncGraph};
@@ -6,8 +9,8 @@ use biodivine_lib_param_bn::{BooleanNetwork, FnUpdate};
 
 use std::collections::HashMap;
 
-/// Applies constraints given by HCTL `formulae` on the graph's colors
-/// Returns graph with colour space restricted only to the suitable colors
+/// Apply properties (constraints) given by HCTL `formulae` on the graph's colors.
+/// Returns a graph with colour space restricted only to the suitable colors.
 pub fn apply_constraints_and_restrict(
     formulae: Vec<String>,
     mut graph: SymbolicAsyncGraph,
@@ -29,20 +32,20 @@ pub fn apply_constraints_and_restrict(
     graph
 }
 
-/// checks if `inferred_colors` contain the color of the specific network
-/// represented by `goal_aeon_string`
+/// Check if `inferred_colors` contain the color of the specific network
+/// represented by `goal_aeon_string`.
 pub fn check_if_result_contains_goal(
     graph: SymbolicAsyncGraph,
     goal_aeon_string: Option<String>,
     inferred_colors: GraphColors,
 ) {
-    // if the goal network was supplied, lets check whether it is part of the solution set
+    // if the goal network was supplied, check whether it is part of the solution set
     if let Some(goal_model) = goal_aeon_string {
         let goal_bn = BooleanNetwork::try_from(goal_model.as_str()).unwrap();
         match graph.mk_subnetwork_colors(&goal_bn) {
             Ok(goal_colors) => {
                 // we will need intersection of goal colors with the ones from the result
-                // if the goal is subset of result, it went well
+                // if the goal is subset of result, it is ok
                 if goal_colors.intersect(&inferred_colors).approx_cardinality()
                     == goal_colors.approx_cardinality()
                 {
@@ -58,9 +61,11 @@ pub fn check_if_result_contains_goal(
     }
 }
 
-/// Checks if `inferred_colors` contain the color of the specific network
-/// represented by `goal_aeon_string`
-/// Similar to function above, but no prints, no input checks, just return value
+/// Check if the resulting set `inferred_colors` contain the color of the specific network
+/// represented by `goal_aeon_string`.
+///
+/// This is an unsafe version of function `check_if_result_contains_goal`, - there are no input
+/// validity checks, just returns a value (and also no prints).
 pub fn check_if_result_contains_goal_unsafe(
     graph: SymbolicAsyncGraph,
     goal_aeon_string: String,
@@ -76,6 +81,11 @@ pub fn check_if_result_contains_goal_unsafe(
     }
 }
 
+/// Naively go through all candidates given by their `colors` and summarize their update fns.
+/// For each variable, compute how many variants of its update function are present between the
+/// candidates.
+///
+/// Note that this could be done symbolically to scale significantly better if needed.
 pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: GraphColors) {
     // prepare the map for capturing update fn variants <VarName: <UpdateFn: Count>>
     let mut update_fns: HashMap<String, HashMap<FnUpdate, i32>> = HashMap::new();
@@ -86,9 +96,9 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
         );
     }
 
-    // iterate through candidates (colors) - that cant be done directly for now, so its hacked
-    // for a bit and save different possible update fns
+    // iterate through candidates (colors)
     while !colors.is_empty() {
+        // progress print after each 100 000 candidates searched
         if colors.approx_cardinality().round() % 100000. < 0.0000001 {
             println!("{}", colors.approx_cardinality().round())
         }

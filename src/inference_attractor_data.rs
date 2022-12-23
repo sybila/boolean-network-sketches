@@ -1,17 +1,24 @@
-#[allow(unused_imports)]
+//! Contains functionality regarding the inference process from a sketch that contains
+//! attractor data.
+
 use crate::create_inference_formulae::{
     mk_attractor_formula_specific, mk_forbid_other_attractors_formula,
     mk_forbid_other_steady_states_formula, mk_steady_state_formula_specific,
 };
 
-use biodivine_hctl_model_checker::analysis::model_check_formula_unsafe_ex;
+use biodivine_hctl_model_checker::model_checking::model_check_formula_unsafe_ex;
 
 use biodivine_lib_param_bn::symbolic_async_graph::{GraphColors, SymbolicAsyncGraph};
 
-/// Optimised version for inference through the attractor data - after evaluating each dynamical
-/// constraint (attractor presence), restricts the colour set only to satisfying colours
-/// If `forbid_extra_attr` is true, adds constraint on absence of all additional attractors
-/// Works only when attractor states are FULLY SPECIFIED - by all propositions TODO: add check
+/// Optimised variant for inference through the attractor data - after evaluating each dynamical
+/// property (expressing attractor presence), the set of valid colours is restricted only to
+/// remaining satisfying colours (effectively prunes the colour space).
+///
+/// This optimised version works only when the attractor states are FULLY SPECIFIED - i.e., each
+/// state is specified by a conjunction of literals for each propositions.
+///
+/// If `forbid_extra_attr` is true, absence of all additional attractors (not containing any
+/// specified state) is required.
 pub fn perform_inference_with_attractors_specific(
     attr_set: Vec<String>,
     mut graph: SymbolicAsyncGraph,
@@ -24,28 +31,30 @@ pub fn perform_inference_with_attractors_specific(
         inferred_colors.approx_cardinality(),
     );
 
-    // whole constraint formula is just a conjunction of smaller formulas
+    // the whole set of dynamic properties is evaluated as just a conjunction of individual formulae
     // "exists attractor_1" & ... & "exists attractor_n" & "NOT exists any other attractor"
-    // we will evaluate each conjunct only on colors where previous conjuncts hold
+    // we will thus evaluate each conjunct only on colors where all previous conjuncts hold
 
-    // first we evaluate the parts that ensure attractor(s) existence
+    // first, evaluate the properties that ensure attractor(s) existence
     println!("Computing candidates with desired attractors...");
     for attractor_state in attr_set.clone() {
         if attractor_state.is_empty() {
             continue;
         }
 
+        // automatically generate the formula
         let formula = if use_fixed_points {
             mk_steady_state_formula_specific(attractor_state)
         } else {
             mk_attractor_formula_specific(attractor_state)
         };
 
+        // compute satisfying colours
         inferred_colors = model_check_formula_unsafe_ex(formula, &graph)
             .unwrap()
             .colors();
 
-        // restrict the unit_colored_set in the graph object
+        // restrict the valid colors (unit_colored_set in the graph object)
         // TODO: check
         graph = SymbolicAsyncGraph::with_custom_context(
             graph.as_network().clone(),
@@ -53,15 +62,14 @@ pub fn perform_inference_with_attractors_specific(
             inferred_colors.as_bdd().clone(),
         )
         .unwrap();
-        // println!("attractor property ensured")
     }
     println!(
         "After ensuring all properties regarding attractor presence, {} candidates remain.",
         inferred_colors.approx_cardinality(),
     );
 
-    // if desired, we add the constraint which forbids any additional attractors
-    // that do not correspond to the observations
+    // if desired, add the property which forbids any additional attractors that do not correspond
+    // to any of the observations
     if forbid_extra_attr {
         println!("Computing candidates with no additional unwanted attractors...");
         let formula = if use_fixed_points {
@@ -81,14 +89,14 @@ pub fn perform_inference_with_attractors_specific(
 mod tests {
     use crate::inference_attractor_data::perform_inference_with_attractors_specific;
     use crate::utils::check_if_result_contains_goal_unsafe;
-    use biodivine_hctl_model_checker::analysis::get_extended_symbolic_graph;
+    use biodivine_hctl_model_checker::model_checking::get_extended_symbolic_graph;
     use biodivine_lib_param_bn::BooleanNetwork;
     use std::fs::{read_to_string, File};
     use std::io::{BufRead, BufReader};
     use std::path::Path;
 
-    /// Test BN inference through steady-state data
-    /// Test 2 cases (with X without additional attractors)
+    /// Test BN inference through steady-state data.
+    /// Test 2 cases (with X without additional attractors).
     fn test_inference_with_steady_state_data(
         observations: Vec<String>,
         model_path: &str,
@@ -123,8 +131,8 @@ mod tests {
     }
 
     #[test]
-    /// Test BN inference of arabidopsis model through attractor data
-    /// Use data from Griffin tool (or similar pre-computed) to check results
+    /// Test BN inference of arabidopsis model through attractor data.
+    /// Use data from Griffin tool (or similar pre-computed) to check results.
     fn test_case_study_arabidopsis() {
         let observation1 = "AGO1 & ~AGO10 & ~AGO7 & ANT & ARF4 & ~AS1 & ~AS2 & ETT & FIL & KAN1 & miR165 & miR390 & ~REV & ~TAS3siRNA & AGO1_miR165 & ~AGO7_miR390 & ~AS1_AS2 & AUXINh & ~CKh & ~GTE6 & ~IPT5";
         let observation2 = "~AGO1 & AGO10 & AGO7 & ANT & ~ARF4 & AS1 & AS2 & ~ETT & ~FIL & ~KAN1 & ~miR165 & miR390 & REV & TAS3siRNA & ~AGO1_miR165 & AGO7_miR390 & AS1_AS2 & AUXINh & CKh & GTE6 & IPT5";
@@ -137,9 +145,9 @@ mod tests {
         );
     }
 
-    /// Test if inferred colors include the color of goal network
+    /// Test if inferred colors include the color of goal network.
     /// As a test data use concrete model and try to infer it back from its steady-state data and
-    /// partially defined model that was created by erasing some concrete model's update functions
+    /// partially defined model that was created by erasing some concrete model's update functions.
     fn check_inferred_colors_contain_goal(
         attractor_data_path: &str,
         model_path: &str,
@@ -182,7 +190,7 @@ mod tests {
     }
 
     #[test]
-    /// Test if inferred colors include the color of goal network [model celldivb_9v]
+    /// Test if inferred colors include the color of goal network [model celldivb_9v].
     fn test_inferred_colors_contain_goal_celldivb() {
         check_inferred_colors_contain_goal(
             "benchmark_models/celldivb_9v/attractor_states.txt",
@@ -192,7 +200,17 @@ mod tests {
     }
 
     #[test]
-    /// Test if inferred colors include the color of goal network [model nsp4_60v]
+    /// Test if inferred colors include the color of goal network [model eprotein_35v].
+    fn test_inferred_colors_contain_goal_eprotein() {
+        check_inferred_colors_contain_goal(
+            "benchmark_models/eprotein_35v/attractor_states.txt",
+            "benchmark_models/eprotein_35v/model_parametrized.aeon",
+            "benchmark_models/eprotein_35v/model_concrete.aeon",
+        );
+    }
+
+    #[test]
+    /// Test if inferred colors include the color of goal network [model nsp4_60v].
     fn test_inferred_colors_contain_goal_nsp4() {
         check_inferred_colors_contain_goal(
             "benchmark_models/nsp4_60v/attractor_states.txt",
@@ -202,12 +220,12 @@ mod tests {
     }
 
     #[test]
-    /// Test if inferred colors include the color of goal network [model eprotein_35v]
-    fn test_inferred_colors_contain_goal_eprotein() {
+    /// Test if inferred colors include the color of goal network [model etc_84v].
+    fn test_inferred_colors_contain_goal_etc() {
         check_inferred_colors_contain_goal(
-            "benchmark_models/eprotein_35v/attractor_states.txt",
-            "benchmark_models/eprotein_35v/model_parametrized.aeon",
-            "benchmark_models/eprotein_35v/model_concrete.aeon",
+            "benchmark_models/etc_84v/attractor_states.txt",
+            "benchmark_models/etc_84v/model_parametrized.aeon",
+            "benchmark_models/etc_84v/model_concrete.aeon",
         );
     }
 }

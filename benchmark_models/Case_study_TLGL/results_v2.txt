@@ -1,15 +1,15 @@
-Loaded model with 18 vars.
-Model has 56 parameters.
-----------
-After applying static constraints, 1296 concretizations remain.
-----------
-attractor ensured
-attractor ensured
-After ensuring attractor presence, 486 concretizations remain.
-378 suitable networks found in total
-Elapsed time: 810ms
-----------
-WITNESS CANDIDATE:
+Loaded BN model with 18 components.
+Model has 56 symbolic parameters.
+-------
+After applying update function properties, 1296 candidates remain.
+-------
+attractor property ensured
+attractor property ensured
+After ensuring both properties regarding attractor presence, 486 candidates remain.
+378 consistent candidate networks found in total
+Elapsed time from the start of this computation: 652ms
+-------
+ONE OF THE CANDIDATE NETWORKS:
 
 targets,factors
 Apoptosis_, (Apoptosis_ | Caspase)
@@ -30,9 +30,8 @@ S1P, (!Apoptosis_ & !Ceramide_)
 SMAD_, (!Apoptosis_ & GPCR_)
 TCR, (!Apoptosis_ & !CTLA4_)
 sFas, (!Apoptosis_ & S1P)
-
 ----------
-CANDIDATE SET SUMMARIZATION:
+SUMMARIZATION OF CANDIDATES' UPDATE FUNCTIONS:
 
 DISC_ [7]:  54 54 54 54 54 54 54
 SMAD_ [1]:  378

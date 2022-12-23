@@ -1,17 +1,18 @@
-Loaded model with 18 vars.
-Model has 108 parameters.
-----------
-After applying static constraints, 77611696128 concretizations remain.
-Elapsed time: 9ms
-----------
-attractor ensured
-After ensuring attractor presence, 9167155200 concretizations remain.
-Elapsed time: 500122ms
-----------
+Loaded BN model with 18 components.
+Model has 108 symbolic parameters.
+-------
+After applying update function properties, 77611696128 candidates remain.
+Elapsed time from the start of this computation: 35ms
+-------
+attractor property ensured
+9167155200 consistent candidate networks found in total.
+Elapsed time from the start of this computation: 403372ms
+-------
+Analysing candidate set...
 Attractors for all candidates computed
-Elapsed time: 525544ms
-----------
-There are 9109070208 colors without programmed cell death attractor, such as:
+Elapsed time from the start of this computation: 423960ms
+-------
+9109070208 candidates do not exhibit programmed cell death attractor, such as:
 
 targets,factors
 Apoptosis_, (Apoptosis_ | Caspase)
@@ -34,7 +35,7 @@ TCR, (!Apoptosis_ | !CTLA4_)
 sFas, (!Apoptosis_ | S1P)
 
 ----------
-There are 4848993536 colors with unwanted states in attractors, such as:
+4848993536 candidates have unwanted states in attractors, such as:
 
 targets,factors
 Apoptosis_, (Apoptosis_ | Caspase)
@@ -48,4 +49,4 @@ TCR, (!Apoptosis_ | !CTLA4_)
 sFas, (!Apoptosis_ | S1P)
 
 ----------
-Elapsed time: 525888ms
+Elapsed time from the start of this computation: 424124ms

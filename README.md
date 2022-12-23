@@ -97,7 +97,8 @@ The Rust code regarding the two case studies from the paper can be found in `src
 The resulting binaries will be in `target/release`. 
 Note that on Windows, the path is usually `target\release` and binaries have `.exe` suffix. 
 
-Each case study consists of two parts - initial version of the sketch, and refined (modified) variant of the sketch. 
+Each case study consists of two parts - one regarding the initial version of the sketch, and the other regarding the refined (modified) variant of the sketch. 
+You can choose the desired variant using an option, as shown below.
 To re-run the desired variant, execute one of following binaries either with or without the option:
 
 ```
