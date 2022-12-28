@@ -4,18 +4,6 @@ This is a small Rust library focusing on logical model inference through Boolean
 It contains the high-level implementation of the framework, as well as benchmark models and data used for experiments and case studies. 
 This readme describes the repository contents and also contains instructions on how to replicate the main experimental results of the paper.
 
-## Boolean Network Sketches
-
-A Boolean network sketch represents a combination of prior knowledge, data, and hypotheses regarding the modelled system.
-Sketch is given by following components: 
-- influence graph
-- partially specified Boolean network 
-- static properties of update functions
-- dynamic properties of the system
-
-Given a sketch, all consistent Boolean network candidates can be computed. 
-We can then analyze their attractors symbolically, obtain witness networks, or analyze between candidates.
-
 ## Requirements and Dependencies
 
 We recommend to run the benchmarks on a machine with at least 16GB RAM. 
@@ -32,20 +20,27 @@ You should therefore have internet access while running the commands for the fir
 You can force rust do download all dependencies by running `cargo fetch`.
 
 Moreover, for convenience, we have prepared Bash scripts to wrap all the commands needed. If you want to use them, you will need a Unix-based system with Bash. 
-On Windows, it should be sufficient to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install). 
-However, these scripts are generally not needed, as you can run the Rust code directly.
-
+On Windows, it should be sufficient to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) (we have tested the Ubuntu-20.04 WSL). 
+However, note that these scripts are not needed, as you can execute the Rust code directly (as described below).
 
 ## Sketch Format
 
-The first three components of the sketch are all covered by the intuitive aeon model format (details [here](https://biodivine.fi.muni.cz/aeon/aeon-manual.pdf)). This format describes:
-- influences between variables
-- types of influences (such as monotonicity or essentiality), from which we can derive properties of update functions
+Boolean network sketch represents a combination of prior knowledge, experimental data, and hypotheses regarding the modelled system.
+BN sketch is given by following components:
+- influence graph
+- partially specified Boolean network
+- properties of update functions
+- dynamic properties of the system
+
+The first three components of the sketch are all covered by the intuitive aeon model format (details [here](https://biodivine.fi.muni.cz/aeon/aeon-manual.pdf)). 
+This format allows description of:
+- possible influences between variables
+- kinds of influences (such as inhibiting/activating or observable/non-observable), from which we can derive update function properties
 - partially specified update functions 
 
 The dynamic properties are given in a form of a HCTL formula (formulae format is described in detail [here](https://github.com/sybila/biodivine-hctl-model-checker)). Formulae used in experiments are (partially) generated from data on the run.
 
-## Benchmark Models and Pre-Computed Results
+## Benchmark Models and Pre-Computed Raw Results
 
 All the models used for the evaluation (and some more) are in the `benchmark_models` directory. 
 Each model has its own subdirectory.
@@ -62,13 +57,13 @@ The sub-folders with models used for scalability evaluation contain four files e
 - `model_parametrized.aeon` - a parametrized version of the same model used for the sketch
 - `attractor_states.txt` - a collection of encoded synthetic attractor data
 - `results.txt` - resulting output from the corresponding binary (see below)
-- `metadata.txt` - links to the model's source and publication
+- `metadata.txt` - links to the model's original source and publication
 
 ## Binaries and scripts for experiments
 
-You can either use prepared Bash wrapper scripts to re-run the experiments, or run them directly by compiling and executing the Rust programmes.
+You can either use prepared Bash wrapper scripts to re-run the experiments, or run them directly by compiling and executing the Rust binaries.
 
-### Bash scripts
+### Bash wrapper scripts
 
 We have prepared four Bash scripts which encompass the compilation and execution of the underlying Rust code.
 Scripts `run_case_study_1.sh` and `run_case_study_2.sh` run the corresponding case studies - for each case study, two computations are executed, corresponding to the two respective sketch variants from the paper.
@@ -84,7 +79,13 @@ The all-encompassing script `run_all_experiments.sh` runs all these experiments 
 
 Each script prints the result summarization and all the relevant progress on the standard output.
 
-The scripts should work on any classical Unix-based system, and we have also tested them on Windows Subsystem for Linux (WSL).
+The scripts should work on any classical Unix-based system, and we have also tested them on Windows Subsystem for Linux (WSL), particularly on Ubuntu-20.04 WSL.
+If you have a Unix-based system but have a problem running Bash scripts, you can try the Python version of the same script.
+You will need a Python 3 (we have used Python 3.10).
+```
+python3 run_all_experiments.py
+```
+
 
 ### Individual binaries
 
@@ -107,7 +108,7 @@ To re-run the desired variant, execute one of following binaries either with or 
 ```
 
 To run the experiments regarding scalability, use the following binary.
-It is a general method for inference using network sketches with attractor data, so you can choose arbitrary model. 
+It is a general method for the inference using network sketches with attractor data, so you can choose an arbitrary model. 
 
 ````
 ./target/release/inference-with-attractors [OPTIONS] <MODEL_PATH> <ATTRACTOR_DATA_PATH>
@@ -115,13 +116,15 @@ It is a general method for inference using network sketches with attractor data,
 - `MODEL_PATH` is a path to a file with a model in aeon format
 - `ATTRACTOR_DATA_PATH` is a path to a file with attractor data (one encoded state per line)
 
-You do not need to add any options to replicate the experimental results, but if you want to know more, use
+You do not need to add any options to replicate the experimental results, but if you want to know more, use:
 ````
 ./target/release/inference-with-attractors -h
 ````
 
 
-## Reusability
+## Availability
+
+This artifact is available on [Github](https://github.com/sybila/boolean-network-sketches) and also at [zenodo](10.5281/zenodo.7490408).
 
 The implementation is based mainly on two of our Rust libraries: 
 - [biodivine-hctl-model-checker](https://github.com/sybila/biodivine-hctl-model-checker) for the underlying symbolic coloured model checking

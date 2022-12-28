@@ -18,7 +18,7 @@ use std::time::SystemTime;
     about = "Inference of BNs from partially defined model and attractors."
 )]
 struct Arguments {
-    /// Path to a file with a model in aeon format
+    /// Path to a file with a model in aeon format.
     model_path: String,
 
     /// Path to a file with attractor data (one encoded state per line).
