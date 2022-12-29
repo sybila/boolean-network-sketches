@@ -11,7 +11,7 @@ use std::time::SystemTime;
 fn main() {
     let start = SystemTime::now();
 
-    let model_name = "benchmark_models\\small_example\\model-small-example.aeon";
+    let model_name = "benchmark_models/small_example/model-small-example.aeon";
 
     let aeon_string = read_to_string(model_name).unwrap();
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
@@ -71,10 +71,8 @@ mod tests {
     /// Test BN inference regarding the small example from the paper.
     /// Use results computed by enumeration to check the results.
     fn test_small_example() {
-        let model_name = "benchmark_models\\small_example\\model-small-example.aeon";
-        let goal_model_name = "benchmark_models\\small_example\\resulting-BN.aeon";
+        let model_name = "benchmark_models/small_example/model-small-example.aeon";
         let aeon_string = read_to_string(model_name).unwrap();
-        let goal_aeon_string = read_to_string(goal_model_name).unwrap();
 
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
         let graph = get_extended_symbolic_graph(&bn, 3);

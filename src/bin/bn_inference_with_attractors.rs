@@ -47,7 +47,7 @@ fn main() {
     let args = Arguments::parse();
     let goal_aeon_string: Option<String> = match args.goal_model {
         None => None,
-        Some(file_name) => Some(read_to_string(file_name.to_string()).unwrap()),
+        Some(file_name) => Some(read_to_string(file_name).unwrap()),
     };
     println!(
         "MODE: fixed point attrs only: {}; other attrs allowed: {}; goal model supplied: {}",

@@ -4,6 +4,27 @@
 //! Many properties can be encoded in more than a one way, so we include more variants. Some of
 //! them are created in a way that model-checking computation can be optimised.
 
+/// Encode boolean vector as a (partial) state observation.
+/// Using 0/1 encoding of an observation and proposition names, creates a conjunction of literals
+/// describing the observation.
+pub fn encode_binary_vector(values: Vec<bool>, prop_names: Vec<&str>) -> String {
+    let mut formula = String::new();
+    formula.push('(');
+
+    for (i, prop) in prop_names.iter().enumerate() {
+        if !values[i] {
+            formula.push('~');
+        }
+        formula.push_str(prop);
+        if i != values.len() - 1 {
+            formula.push_str(" & ");
+        }
+    }
+
+    formula.push(')');
+    formula
+}
+
 /// Create a formula describing the existence of a attractor containing specific state.
 ///
 /// Works only for FULLY described state (conjunction of literals for each proposition).
@@ -181,4 +202,21 @@ pub fn mk_reachability_chain_formula(states_sequence: Vec<String>) -> String {
             .as_str(),
     );
     formula
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::create_inference_formulae::encode_binary_vector;
+
+    #[test]
+    /// Test encoding of Boolean vector to formula.
+    fn test_observation_encoding() {
+        let values = vec![false, true, false, true];
+        let prop_names = vec!["A", "B", "C", "D"];
+
+        assert_eq!(
+            encode_binary_vector(values, prop_names),
+            "(~A & B & ~C & D)".to_string()
+        );
+    }
 }

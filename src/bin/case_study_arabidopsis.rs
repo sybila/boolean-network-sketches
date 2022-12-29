@@ -64,7 +64,7 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
 
     if summarize {
         // summarize which update functions are unique for all candidates and which vary
-        summarize_candidates_naively(&graph, inferred_colors.clone());
+        summarize_candidates_naively(&graph, inferred_colors);
     }
 }
 

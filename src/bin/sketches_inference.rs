@@ -17,10 +17,7 @@ use std::time::SystemTime;
 
 /// Structure to collect CLI arguments.
 #[derive(Parser)]
-#[clap(
-author = "Ondřej Huvar",
-about = "Inference through BN sketches."
-)]
+#[clap(author = "Ondřej Huvar", about = "Inference through BN sketches.")]
 struct Arguments {
     /// Path to a file with a model in aeon format.
     model_path: String,
@@ -77,12 +74,15 @@ fn main() {
 
     if args.print_witness {
         println!("-------");
-        println!("witness network:\n", );
-        print!("{}",
-               graph.pick_witness(&graph.mk_unit_colors()).to_bnet(false).unwrap()
+        println!("witness network:\n",);
+        print!(
+            "{}",
+            graph
+                .pick_witness(&graph.mk_unit_colors())
+                .to_bnet(false)
+                .unwrap()
         );
         println!("-------");
-
     }
 
     println!(

@@ -7,7 +7,7 @@ This readme describes the repository contents and also contains instructions on 
 ## Requirements and Dependencies
 
 We recommend to run the benchmarks on a machine with at least 16GB RAM. 
-Otherwise, the largest benchmarks (models with 100+ variables) may take a long time to evaluate (however, it should be fine to run the code regarding case studies or smaller benchmarks). 
+Otherwise, the largest benchmarks (models with 100+ variables) may take a long time to evaluate (however, even with less memory, it should be fine to run the code regarding both case studies or smaller benchmarks). 
 All displayed computation times were acquired on a standard laptop with an 11th Gen Intel i5 CPU and 16GB RAM.
 
 To run the experiments, you will need the Rust compiler. 
@@ -38,7 +38,8 @@ This format allows description of:
 - kinds of influences (such as inhibiting/activating or observable/non-observable), from which we can derive update function properties
 - partially specified update functions 
 
-The dynamic properties are given in a form of a HCTL formula (formulae format is described in detail [here](https://github.com/sybila/biodivine-hctl-model-checker)). Formulae used in experiments are (partially) generated from data on the run.
+The dynamic properties are given in a form of HCTL formulae (our formulae format is described in detail [here](https://github.com/sybila/biodivine-hctl-model-checker)). 
+Several types of formulae can be generated from data on the run (via utilities in `src/create_inference_formulae.rs`).
 
 ## Benchmark Models and Pre-Computed Raw Results
 
@@ -68,7 +69,9 @@ You can either use prepared Bash wrapper scripts to re-run the experiments, or r
 We have prepared four Bash scripts which encompass the compilation and execution of the underlying Rust code.
 Scripts `run_case_study_1.sh` and `run_case_study_2.sh` run the corresponding case studies - for each case study, two computations are executed, corresponding to the two respective sketch variants from the paper.
 To execute the evaluation of all scalability benchmarks one by one, use `run_scalability_benchmarks.sh`.
-The all-encompassing script `run_all_experiments.sh` runs all these experiments (both case studies and all benchmarks), one after another. Scripts are executed as usual:
+The all-encompassing script `run_all_experiments.sh` runs all these experiments (both case studies and all benchmarks), one after another.
+Each script prints the result summarization and all the relevant progress on the standard output.
+Scripts are executed as usual:
 
 ```
 ./run_case_study_1.sh
@@ -77,10 +80,8 @@ The all-encompassing script `run_all_experiments.sh` runs all these experiments 
 ./run_all_experiments.sh
 ```
 
-Each script prints the result summarization and all the relevant progress on the standard output.
-
 The scripts should work on any classical Unix-based system, and we have also tested them on Windows Subsystem for Linux (WSL), particularly on Ubuntu-20.04 WSL.
-If you have a Unix-based system but have a problem running Bash scripts, you can try the Python version of the same script.
+If you have a Unix-based system but have a problem running Bash scripts, you can try the Python version of the encompassing script.
 You will need a Python 3 (we have used Python 3.10).
 ```
 python3 run_all_experiments.py
@@ -95,8 +96,8 @@ cargo build --release
 ```
 
 The Rust code regarding the two case studies from the paper can be found in `src/bin` folder (particularly, `case_study_arabidopsis.rs` and `case_study_tlgl.rs`). 
-The resulting binaries will be in `target/release`. 
-Note that on Windows, the path is usually `target\release` and binaries have `.exe` suffix. 
+The resulting binaries will be in `target/release/`. 
+Note that on Windows, the path is usually `target\release\` and binaries have `.exe` suffix. 
 
 Each case study consists of two parts - one regarding the initial version of the sketch, and the other regarding the refined (modified) variant of the sketch. 
 You can choose the desired variant using an option, as shown below.
@@ -113,7 +114,7 @@ It is a general method for the inference using network sketches with attractor d
 ````
 ./target/release/inference-with-attractors [OPTIONS] <MODEL_PATH> <ATTRACTOR_DATA_PATH>
 ````
-- `MODEL_PATH` is a path to a file with a model in aeon format
+- `MODEL_PATH` is a path to a file with a parametrized model in aeon format
 - `ATTRACTOR_DATA_PATH` is a path to a file with attractor data (one encoded state per line)
 
 You do not need to add any options to replicate the experimental results, but if you want to know more, use:
@@ -124,7 +125,7 @@ You do not need to add any options to replicate the experimental results, but if
 
 ## Availability
 
-This artifact is available on [Github](https://github.com/sybila/boolean-network-sketches) and also at [zenodo](10.5281/zenodo.7490408).
+This artifact is available on [Github](https://github.com/sybila/boolean-network-sketches) and also at [zenodo](https://doi.org/10.5281/zenodo.7490408).
 
 The implementation is based mainly on two of our Rust libraries: 
 - [biodivine-hctl-model-checker](https://github.com/sybila/biodivine-hctl-model-checker) for the underlying symbolic coloured model checking

@@ -201,7 +201,7 @@ fn case_study_part_2(summarize_candidates: bool) {
     // summarize differences and similarities between candidates
     println!("SUMMARIZATION OF CANDIDATES' UPDATE FUNCTIONS:\n");
     if summarize_candidates {
-        summarize_candidates_naively(&graph, inferred_colors.clone());
+        summarize_candidates_naively(&graph, inferred_colors);
     }
 }
 
