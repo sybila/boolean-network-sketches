@@ -3,6 +3,7 @@
 This is a small Rust library focusing on logical model inference through Boolean network sketches. 
 It contains the high-level implementation of the framework, as well as benchmark models and data used for experiments and case studies. 
 This readme describes the repository contents and also contains instructions on how to replicate the main experimental results of the paper.
+The whole repository is available at [github](https://github.com/sybila/boolean-network-sketches), as well as at [zenodo](https://doi.org/10.5281/zenodo.7490408).
 
 ## Requirements and Dependencies
 
@@ -47,7 +48,7 @@ All the models used for the evaluation (and some more) are in the `benchmark_mod
 Each model has its own subdirectory.
 
 Models used for the case studies are in the sub-folders `case_study_TLGL` and `case_study_arabidopsis`.
-These sub-folders contain all the model variants in aeon format, metadata, encoded attractor states. 
+These sub-folders contain all the model variants in aeon format, encoded attractor states, and metadata. 
 They also contain files with the raw outputs from corresponding binaries and summarization of update functions of resulting candidates.
 
 The running example from the paper is in the `small_example` subdirectory. 
@@ -55,7 +56,7 @@ There is the starting aeon model, the HCTL formulae used, and the results (inclu
 
 The sub-folders with models used for scalability evaluation contain four files each:
 - `model_concrete.aeon` - a fully specified model with which we started
-- `model_parametrized.aeon` - a parametrized version of the same model used for the sketch
+- `model_parametrized.aeon` - a parametrized version of the same model, used for the sketch
 - `attractor_states.txt` - a collection of encoded synthetic attractor data
 - `results.txt` - resulting output from the corresponding binary (see below)
 - `metadata.txt` - links to the model's original source and publication
@@ -71,22 +72,22 @@ Scripts `run_case_study_1.sh` and `run_case_study_2.sh` run the corresponding ca
 To execute the evaluation of all scalability benchmarks one by one, use `run_scalability_benchmarks.sh`.
 The all-encompassing script `run_all_experiments.sh` runs all these experiments (both case studies and all benchmarks), one after another.
 Each script prints the result summarization and all the relevant progress on the standard output.
-Scripts are executed as usual:
+Scripts can be executed for example as:
 
 ```
-./run_case_study_1.sh
-./run_case_study_2.sh
-./run_benchmarks_scalability_unix.sh
-./run_all_experiments.sh
+bash ./run_case_study_1.sh
+bash ./run_case_study_2.sh
+bash ./run_scalability_benchmarks.sh
+bash ./run_all_experiments.sh
 ```
 
 The scripts should work on any classical Unix-based system, and we have also tested them on Windows Subsystem for Linux (WSL), particularly on Ubuntu-20.04 WSL.
 If you have a Unix-based system but have a problem running Bash scripts, you can try the Python version of the encompassing script.
-You will need a Python 3 (we have used Python 3.10).
+You will need a Python 3 (we have used Python 3.8 and 3.10).
+
 ```
 python3 run_all_experiments.py
 ```
-
 
 ### Individual binaries
 
@@ -95,7 +96,7 @@ To directly re-run individual benchmarks or case studies, compile the code first
 cargo build --release
 ```
 
-The Rust code regarding the two case studies from the paper can be found in `src/bin` folder (particularly, `case_study_arabidopsis.rs` and `case_study_tlgl.rs`). 
+The Rust code regarding the two case studies from the paper can be found in `src/bin/` folder (particularly, `case_study_arabidopsis.rs` and `case_study_tlgl.rs`). 
 The resulting binaries will be in `target/release/`. 
 Note that on Windows, the path is usually `target\release\` and binaries have `.exe` suffix. 
 
@@ -125,7 +126,7 @@ You do not need to add any options to replicate the experimental results, but if
 
 ## Availability
 
-This artifact is available on [Github](https://github.com/sybila/boolean-network-sketches) and also at [zenodo](https://doi.org/10.5281/zenodo.7490408).
+This repository is available on [Github](https://github.com/sybila/boolean-network-sketches) and also at [zenodo](https://doi.org/10.5281/zenodo.7490408).
 
 The implementation is based mainly on two of our Rust libraries: 
 - [biodivine-hctl-model-checker](https://github.com/sybila/biodivine-hctl-model-checker) for the underlying symbolic coloured model checking
@@ -135,7 +136,7 @@ The implementation itself is fairly minimal (includes i.e., high-level framework
 
 Everything is open-source and available with the permissive MIT License.
 
-To visualize and modify the BN models (aeon files) included in this repository, you can use the online interface of our tool [AEON](https://biodivine.fi.muni.cz/aeon). This tool can also be used to further analyse the attractors of Boolean network models.
+To visualize and modify the partially specified BN models (aeon files) included in this repository, you can use the online interface of our tool [AEON](https://biodivine.fi.muni.cz/aeon). This tool can also be used to further analyse the attractors of Boolean network models.
 
 
 ## Tests 
