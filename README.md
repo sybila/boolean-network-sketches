@@ -5,6 +5,7 @@ It contains the high-level implementation of the framework, as well as benchmark
 This readme describes the repository contents and also contains instructions on how to replicate the main experimental results of the paper.
 The whole repository is available at [github](https://github.com/sybila/boolean-network-sketches), as well as at [zenodo](https://doi.org/10.5281/zenodo.7490408).
 
+
 ## Requirements and Dependencies
 
 We recommend to run the benchmarks on a machine with at least 16GB RAM. 
@@ -22,13 +23,14 @@ You can force rust do download all dependencies by running `cargo fetch`.
 
 To successfully compile and run the binaries, on some systems, you will also need to get the Z3 library (for the purposes of linking).
 We recommend downloading the Z3 release directly from [their GitHub](https://github.com/Z3Prover/z3/releases) (we have used z3-4.11.0).
-The binaries will look for the relevant `z3.ddl` or `libz3.so` (or some other similar version your system requires), or it can also be linked statically. 
-The easiest way should be to just add `-L path_to_z3/bin` to the environment variable `RUSTFLAGS`.
+The binaries will look for the relevant `z3.dll` or `libz3.so` (or some other similar version your system requires), and potentially for `z3.h`. 
+The easiest way should be to just add `-L path_to_z3/bin` to the env variable `RUSTFLAGS`, and add `path_to_z3/include` to the env variable `CPATH`.
 Some systems, such as Ubuntu 20.04.5 LTS, should not require this step.
 
 Moreover, for convenience, we have prepared Bash scripts to wrap all the commands needed. If you want to use them, you will need a Unix-based system with Bash. 
 On Windows, it should be sufficient to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) (we have tested the Ubuntu-20.04 WSL). 
 However, note that these scripts are not needed, as you can execute the Rust code directly (as described below).
+
 
 ## Sketch Format
 
@@ -47,6 +49,7 @@ This format allows description of:
 
 The dynamic properties are given in a form of HCTL formulae (our formulae format is described in detail [here](https://github.com/sybila/biodivine-hctl-model-checker)). 
 Several types of formulae can be generated from data on the run (via utilities in `src/create_inference_formulae.rs`).
+
 
 ## Benchmark Models and Pre-Computed Raw Results
 
@@ -67,11 +70,12 @@ The sub-folders with models used for scalability evaluation contain four files e
 - `results.txt` - resulting output from the corresponding binary (see below)
 - `metadata.txt` - links to the model's original source and publication
 
-## Binaries and scripts for experiments
+
+## Binaries and Scripts Regarding Experiments
 
 You can either use prepared Bash wrapper scripts to re-run the experiments, or run them directly by compiling and executing the Rust binaries.
 
-### Bash wrapper scripts
+### Bash Wrapper Scripts
 
 We have prepared four Bash scripts which encompass the compilation and execution of the underlying Rust code.
 Scripts `run_case_study_1.sh` and `run_case_study_2.sh` run the corresponding case studies - for each case study, two computations are executed, corresponding to the two respective sketch variants from the paper.
@@ -95,7 +99,7 @@ You will need a Python 3 (we have used Python 3.8 and 3.10).
 python3 run_all_experiments.py
 ```
 
-### Individual binaries
+### Individual Binaries
 
 To directly re-run individual benchmarks or case studies, compile the code first (on Windows, we recommend using Powershell 5+ to run the experiments):
 ```
