@@ -20,6 +20,12 @@ Rust will automatically download and cache all other libraries necessary to comp
 You should therefore have internet access while running the commands for the first time. 
 You can force rust do download all dependencies by running `cargo fetch`.
 
+To successfully compile and run the binaries, on some systems, you will also need to get the Z3 library (for the purposes of linking).
+We recommend downloading the Z3 release directly from [their GitHub](https://github.com/Z3Prover/z3/releases) (we have used z3-4.11.0).
+The binaries will look for the relevant `z3.ddl` or `libz3.so` (or some other similar version your system requires), or it can also be linked statically. 
+The easiest way should be to just add `-L path_to_z3/bin` to the environment variable `RUSTFLAGS`.
+Some systems, such as Ubuntu 20.04.5 LTS, should not require this step.
+
 Moreover, for convenience, we have prepared Bash scripts to wrap all the commands needed. If you want to use them, you will need a Unix-based system with Bash. 
 On Windows, it should be sufficient to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) (we have tested the Ubuntu-20.04 WSL). 
 However, note that these scripts are not needed, as you can execute the Rust code directly (as described below).
