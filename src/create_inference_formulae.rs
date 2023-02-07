@@ -128,34 +128,16 @@ pub fn mk_steady_state_formula_combined(steady_state_set: Vec<String>) -> String
     formula
 }
 
-/// Create a formula describing the existence of a particular trap space (trap space is a part of
-/// the state space from which we cannot escape).
-///
-/// Param `trap_space` is a formula describing desired values of (some) propositions in a trap
-/// space.
-pub fn mk_trap_space_formula(trap_space: String) -> String {
-    assert!(!trap_space.is_empty());
-    format!("(3{{x}}: (@{{x}}: {trap_space} & (AG ({trap_space}))))")
-}
-
 /// Create a formula describing the (non)existence of reachability between two (partial) states.
 ///
 /// `from_state` and `to_state` are both formulae describing particular states.
-/// `is_universal` is true iff we want all paths from `from_state` to reach `to_state`.
 /// `is_negative` is true iff we want to non-existence of path from `from_state` to `to_state`
 pub fn mk_reachability_pair_formula(
     from_state: String,
     to_state: String,
-    is_universal: bool,
     is_negative: bool,
 ) -> String {
-    assert!(!(is_negative && is_universal));
     assert!(!to_state.is_empty() && !from_state.is_empty());
-
-    // TODO check the definition and semantics of "universal reachability"
-    if is_universal {
-        return format!("(3{{x}}: (@{{x}}: {from_state} & (AF ({to_state}))))");
-    }
     if is_negative {
         return format!("(3{{x}}: (@{{x}}: {from_state} & (~EF ({to_state}))))");
     }
@@ -191,7 +173,14 @@ pub fn mk_reachability_chain_formula(states_sequence: Vec<String>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use crate::create_inference_formulae::encode_binary_vector;
+    use crate::create_inference_formulae::{
+        encode_binary_vector, mk_attractor_formula_nonspecific,
+        mk_attractor_formula_nonspecific_aeon, mk_attractor_formula_specific,
+        mk_forbid_other_attractors_formula, mk_forbid_other_steady_states_formula,
+        mk_reachability_chain_formula, mk_reachability_pair_formula,
+        mk_steady_state_formula_combined, mk_steady_state_formula_nonspecific,
+        mk_steady_state_formula_specific,
+    };
 
     #[test]
     /// Test encoding of Boolean vector to formula.
@@ -202,6 +191,75 @@ mod tests {
         assert_eq!(
             encode_binary_vector(values, prop_names),
             "(~A & B & ~C & D)".to_string()
+        );
+    }
+
+    #[test]
+    /// Test generating of different kinds of general attractor formulae.
+    fn test_attractor_encodings() {
+        let attr_states = vec!["a & b & ~c".to_string(), "a & b & c".to_string()];
+
+        assert_eq!(
+            mk_attractor_formula_specific(attr_states[0].clone()),
+            "(3{x}: (@{x}: (a & b & ~c & (AG EF (a & b & ~c)))))".to_string(),
+        );
+        assert_eq!(
+            mk_attractor_formula_nonspecific_aeon(attr_states[0].clone()),
+            "(3{x}: (@{x}: (a & b & ~c & (!{y}: AG EF {y}))))".to_string(),
+        );
+        assert_eq!(
+            mk_attractor_formula_nonspecific(attr_states[0].clone()),
+            "(3{x}: (@{x}: (a & b & ~c & (AG EF (a & b & ~c & {x})))))".to_string(),
+        );
+        assert_eq!(
+            mk_forbid_other_attractors_formula(attr_states.clone()),
+            "~(3{x}: (@{x}: ~(AG EF ((a & b & ~c) | (a & b & c) | false ))))".to_string(),
+        );
+    }
+
+    #[test]
+    /// Test generating of different kinds of steady state formulae.
+    fn test_steady_state_encodings() {
+        let attr_states = vec!["a & b & ~c".to_string(), "a & b & c".to_string()];
+
+        assert_eq!(
+            mk_steady_state_formula_specific(attr_states[0].clone()),
+            "(3{x}: (@{x}: (a & b & ~c & (AX (a & b & ~c)))))".to_string(),
+        );
+        assert_eq!(
+            mk_steady_state_formula_nonspecific(attr_states[0].clone()),
+            "(3{x}: (@{x}: (a & b & ~c & (AX (a & b & ~c & {x})))))".to_string(),
+        );
+        assert_eq!(
+            mk_forbid_other_steady_states_formula(attr_states.clone()),
+            "~(3{x}: (@{x}: ~(a & b & ~c) & ~(a & b & c) & (AX {x})))".to_string(),
+        );
+        assert_eq!(
+            mk_steady_state_formula_combined(attr_states.clone()),
+            "(3{x}: (@{x}: a & b & ~c & (AX {x}))) & (3{x}: (@{x}: a & b & c & (AX {x}))) & ~(3{x}: (@{x}: ~( a & b & ~c )  & ~( a & b & c )  & (AX {x})))".to_string(),
+        );
+    }
+
+    #[test]
+    /// Test generating reachability formulae.
+    fn test_reachability_encoding() {
+        let states = vec![
+            "a & b & ~c".to_string(),
+            "a & b & c".to_string(),
+            "~a & b & c".to_string(),
+        ];
+
+        assert_eq!(
+            mk_reachability_pair_formula(states[0].clone(), states[1].clone(), true),
+            "(3{x}: (@{x}: a & b & ~c & (~EF (a & b & c))))".to_string(),
+        );
+        assert_eq!(
+            mk_reachability_pair_formula(states[0].clone(), states[1].clone(), false),
+            "(3{x}: (@{x}: a & b & ~c & (EF (a & b & c))))".to_string(),
+        );
+        assert_eq!(
+            mk_reachability_chain_formula(states),
+            "(3{x}: (@{x}: (a & b & ~c) & EF ((a & b & c) & EF (~a & b & c))))".to_string(),
         );
     }
 }
