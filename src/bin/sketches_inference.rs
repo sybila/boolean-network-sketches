@@ -26,7 +26,7 @@ struct Arguments {
     formulae_path: String,
 
     /// Print a consistent network at the end (if there is some).
-    #[clap(short, long, takes_value = false)]
+    #[clap(short, long, num_args = 0)]
     print_witness: bool,
 }
 

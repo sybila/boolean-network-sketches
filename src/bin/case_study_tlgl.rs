@@ -24,11 +24,11 @@ use std::time::SystemTime;
 )]
 struct Arguments {
     /// Use the refined variant of the sketch with additional dynamic properties and partially defined update logic.
-    #[clap(short, long, takes_value = false)]
+    #[clap(short, long, num_args = 0)]
     refined_sketch_variant: bool,
 
     /// Print summarizing info regarding candidates' update functions (experimental feature - may take a long time).
-    #[clap(short, long, takes_value = false)]
+    #[clap(short, long, num_args = 0)]
     summarize_candidates: bool,
 }
 
@@ -214,7 +214,7 @@ fn main() {
     } else {
         "initial variant of the sketch"
     };
-    println!("MODE: {}", sketch_mode);
+    println!("MODE: {sketch_mode}");
 
     if args.refined_sketch_variant {
         case_study_part_2(true);

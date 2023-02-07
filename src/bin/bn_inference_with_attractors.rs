@@ -25,11 +25,11 @@ struct Arguments {
     attractor_data_path: String,
 
     /// Allow attractors not containing specified states (otherwise, a property prohibiting these attractors is used).
-    #[clap(short, long, takes_value = false)]
+    #[clap(short, long, num_args = 0)]
     allow_extra_attrs: bool,
 
     /// In dynamic properties, address fixed-point attractors only (instead of general attractors).
-    #[clap(short, long, takes_value = false)]
+    #[clap(short, long, num_args = 0)]
     fixed_points: bool,
 
     /// Path to a fully specified BN model to look for in the resulting set of candidates.
@@ -45,10 +45,9 @@ fn main() {
     let start = SystemTime::now();
 
     let args = Arguments::parse();
-    let goal_aeon_string: Option<String> = match args.goal_model {
-        None => None,
-        Some(file_name) => Some(read_to_string(file_name).unwrap()),
-    };
+    let goal_aeon_string: Option<String> = args
+        .goal_model
+        .map(|file_name| read_to_string(file_name).unwrap());
     println!(
         "MODE: fixed point attrs only: {}; other attrs allowed: {}; goal model supplied: {}",
         args.fixed_points,

@@ -54,7 +54,7 @@ fn main() {
 
     let witness_bn = graph.pick_witness(&res_color);
     println!("RESULTING NETWORK:");
-    println!("{}", witness_bn.to_string());
+    println!("{witness_bn}");
 }
 
 #[cfg(test)]

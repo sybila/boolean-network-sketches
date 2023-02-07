@@ -26,7 +26,7 @@ pub fn apply_constraints_and_restrict(
         .unwrap();
 
         if !message.is_empty() {
-            println!("{}", message)
+            println!("{message}")
         }
     }
     graph
@@ -54,7 +54,7 @@ pub fn check_if_result_contains_goal(
                     println!("NOK - goal network is NOT included in the candidate set.")
                 }
             }
-            Err(e) => println!("{}", e),
+            Err(e) => println!("{e}"),
         }
     } else {
         println!("Goal network not provided.")
@@ -138,7 +138,7 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
         }
 
         for (_, num) in fn_map {
-            print!("{} ", num);
+            print!("{num} ");
         }
         println!();
     }

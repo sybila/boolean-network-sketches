@@ -19,11 +19,11 @@ use std::time::SystemTime;
 )]
 struct Arguments {
     /// Use the modified variant of the sketch with complex dynamic properties.
-    #[clap(short, long, takes_value = false)]
+    #[clap(short, long, num_args = 0)]
     modified_sketch_variant: bool,
 
     /// Print summarizing info regarding candidates' update functions (may take a long time).
-    #[clap(short, long, takes_value = false)]
+    #[clap(short, long, num_args = 0)]
     summarize_candidates: bool,
 }
 
@@ -78,7 +78,7 @@ fn main() {
     } else {
         "initial variant of the sketch with fixed-point properties"
     };
-    println!("MODE: {}", sketch_mode);
+    println!("MODE: {sketch_mode}");
 
     // run the variant of the case study specified by the user
     if args.modified_sketch_variant {
