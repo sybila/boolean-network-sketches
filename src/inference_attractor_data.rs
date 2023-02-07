@@ -118,12 +118,8 @@ mod tests {
             two_expected_result_numbers[0]
         );
 
-        let inferred_colors = perform_inference_with_attractors_specific(
-            observations.clone(),
-            graph.clone(),
-            true,
-            true,
-        );
+        let inferred_colors =
+            perform_inference_with_attractors_specific(observations, graph, true, true);
         assert_eq!(
             inferred_colors.approx_cardinality(),
             two_expected_result_numbers[1]
@@ -158,7 +154,7 @@ mod tests {
         // Create graph object with 1 HCTL var (we dont need more)
         let graph = get_extended_symbolic_graph(&bn, 1);
 
-        let goal_aeon_string = read_to_string(goal_model_path.to_string()).unwrap();
+        let goal_aeon_string = read_to_string(goal_model_path).unwrap();
 
         let data_file = File::open(Path::new(attractor_data_path)).unwrap();
         let reader = BufReader::new(&data_file);
@@ -177,14 +173,14 @@ mod tests {
         ));
 
         let inferred_colors = perform_inference_with_attractors_specific(
-            observations.clone(),
+            observations,
             graph.clone(),
             true, // only fixed-points
             false,
         );
         assert!(check_if_result_contains_goal_unsafe(
-            graph.clone(),
-            goal_aeon_string.clone(),
+            graph,
+            goal_aeon_string,
             inferred_colors
         ));
     }
