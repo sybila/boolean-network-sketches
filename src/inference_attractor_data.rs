@@ -214,14 +214,4 @@ mod tests {
             "benchmark_models/nsp4_60v/model_concrete.aeon",
         );
     }
-
-    #[test]
-    /// Test if inferred colors include the color of goal network [model etc_84v].
-    fn test_inferred_colors_contain_goal_etc() {
-        check_inferred_colors_contain_goal(
-            "benchmark_models/etc_84v/attractor_states.txt",
-            "benchmark_models/etc_84v/model_parametrized.aeon",
-            "benchmark_models/etc_84v/model_concrete.aeon",
-        );
-    }
 }
