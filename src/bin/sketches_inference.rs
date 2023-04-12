@@ -14,7 +14,7 @@ use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::{BooleanNetwork, ModelAnnotation};
 
 use boolean_network_sketches::utils::{
-    apply_constraint_trees_and_restrict, summarize_candidates_naively,
+    apply_constraint_trees_and_restrict, pick_random_color, summarize_candidates_naively,
 };
 
 use clap::Parser;
@@ -76,6 +76,7 @@ fn read_model_properties(annotations: &ModelAnnotation) -> Result<Vec<(String, S
 /// Run the inference process
 fn main() {
     let start = SystemTime::now();
+    let mut rng = rand::thread_rng();
 
     // parse the CLI args
     let args = Arguments::parse();
@@ -107,7 +108,7 @@ fn main() {
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
     );
-    println!("-------");
+    println!("\n---------------------\n");
 
     // perform the colored model checking
     let graph = apply_constraint_trees_and_restrict(property_trees, graph, "property ensured");
@@ -145,8 +146,7 @@ fn main() {
             break;
         }
 
-        // TODO: this is probably deterministic, upgrade it to make it randomized
-        let c = valid_colors.pick_singleton();
+        let c = pick_random_color(&mut rng, &graph, &valid_colors);
         let witness_bn = graph.pick_witness(&c);
 
         if witness_dir.is_empty() {
