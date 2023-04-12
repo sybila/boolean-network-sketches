@@ -1,12 +1,13 @@
 //! Contains several useful utilities for either the inference procedure or for post-processing
 //! the results.
 
-use biodivine_hctl_model_checker::model_checking::model_check_formula;
+use biodivine_hctl_model_checker::model_checking::{model_check_formula, model_check_tree};
 
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::symbolic_async_graph::{GraphColors, SymbolicAsyncGraph};
 use biodivine_lib_param_bn::{BooleanNetwork, FnUpdate};
 
+use biodivine_hctl_model_checker::preprocessing::node::HctlTreeNode;
 use std::collections::HashMap;
 
 /// Apply properties (constraints) given by HCTL `formulae` on the graph's colors.
@@ -18,6 +19,30 @@ pub fn apply_constraints_and_restrict(
 ) -> SymbolicAsyncGraph {
     for formula in formulae {
         let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
+        graph = SymbolicAsyncGraph::with_custom_context(
+            graph.as_network().clone(),
+            graph.symbolic_context().clone(),
+            inferred_colors.as_bdd().clone(),
+        )
+        .unwrap();
+
+        if !message.is_empty() {
+            println!("{message}")
+        }
+    }
+    graph
+}
+
+/// Apply properties (constraints) given by HCTL formulae `trees` on the graph's colors.
+/// Returns a graph with colour space restricted only to the suitable colors.
+pub fn apply_constraint_trees_and_restrict(
+    formulae_trees: Vec<HctlTreeNode>,
+    mut graph: SymbolicAsyncGraph,
+    message: &str,
+) -> SymbolicAsyncGraph {
+    for formula_tree in formulae_trees {
+        // do it one by one now to track progress, even though it could be done at once
+        let inferred_colors = model_check_tree(formula_tree, &graph).unwrap().colors();
         graph = SymbolicAsyncGraph::with_custom_context(
             graph.as_network().clone(),
             graph.symbolic_context().clone(),
@@ -86,7 +111,11 @@ pub fn check_if_result_contains_goal_unsafe(
 /// candidates.
 ///
 /// Note that this could be done symbolically to scale significantly better if needed.
-pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: GraphColors) {
+pub fn summarize_candidates_naively(
+    graph: &SymbolicAsyncGraph,
+    mut colors: GraphColors,
+    print_exact_fns: bool,
+) {
     // prepare the map for capturing update fn variants <VarName: <UpdateFn: Count>>
     let mut update_fns: HashMap<String, HashMap<FnUpdate, i32>> = HashMap::new();
     for v in graph.as_network().variables() {
@@ -129,6 +158,7 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
     let mut vars_with_unique_fns = vec![];
     let mut vars_with_variable_fns = vec![];
 
+    // update_fns is structured as Map<VarName : Map<UpdateFn : Count>>
     for (var_name, fn_map) in update_fns {
         print!("{} [{}]:  ", var_name, fn_map.len());
         if fn_map.len() == 1 {
@@ -137,8 +167,12 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
             vars_with_variable_fns.push(var_name);
         }
 
-        for (_, num) in fn_map {
-            print!("{num} ");
+        for (update_fn, num) in fn_map {
+            if print_exact_fns {
+                print!("\"{}\" ${num}$  ", update_fn.to_string(graph.as_network()));
+            } else {
+                print!("{num} ");
+            }
         }
         println!();
     }
@@ -148,12 +182,12 @@ pub fn summarize_candidates_naively(graph: &SymbolicAsyncGraph, mut colors: Grap
 
     println!();
     println!(
-        "{} variables with different possible update fns: {:?}",
+        "{} variables with more than 1 possible update fns: {:?}",
         vars_with_variable_fns.len(),
         vars_with_variable_fns
     );
     println!(
-        "{} variables with only one possible update fn: {:?}",
+        "{} variables with only single possible update fn: {:?}",
         vars_with_unique_fns.len(),
         vars_with_unique_fns
     );

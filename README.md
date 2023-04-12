@@ -1,6 +1,6 @@
 # Boolean Network Sketches: A Unifying Framework for Logical Model Inference
 
-This is a small Rust library focusing on logical model inference through Boolean network sketches. 
+This is a small Rust library focusing on logical model inference through [Boolean network sketches](https://doi.org/10.1093/bioinformatics/btad158). 
 It contains the high-level implementation of the framework, as well as benchmark models and data used for experiments and case studies. 
 This readme describes the repository contents and also contains instructions on how to replicate the main experimental results of the paper.
 The whole repository is available at [github](https://github.com/sybila/boolean-network-sketches), as well as at [zenodo](https://doi.org/10.5281/zenodo.7688740).
