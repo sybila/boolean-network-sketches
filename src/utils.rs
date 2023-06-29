@@ -245,7 +245,7 @@ v_3 -?? v_3
     fn test_pick_color() {
         let mut rng = rand::thread_rng();
         let bn = BooleanNetwork::try_from(TEST_MODEL).unwrap();
-        let stg = get_extended_symbolic_graph(&bn, 1);
+        let stg = get_extended_symbolic_graph(&bn, 1).unwrap();
         let color_set = stg.mk_unit_colors();
 
         let singleton_set = pick_random_color(&mut rng, &stg, &color_set);

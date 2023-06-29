@@ -17,7 +17,7 @@ fn main() {
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
 
-    let graph = get_extended_symbolic_graph(&bn, 3);
+    let graph = get_extended_symbolic_graph(&bn, 3).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
@@ -75,7 +75,7 @@ mod tests {
         let aeon_string = read_to_string(model_name).unwrap();
 
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-        let graph = get_extended_symbolic_graph(&bn, 3);
+        let graph = get_extended_symbolic_graph(&bn, 3).unwrap();
 
         assert_eq!(graph.symbolic_context().num_parameter_variables(), 8);
 

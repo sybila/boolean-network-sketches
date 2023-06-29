@@ -105,7 +105,7 @@ mod tests {
         let aeon_string = read_to_string(model_path).unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
         // Create graph object with 1 HCTL var (we dont need more)
-        let graph = get_extended_symbolic_graph(&bn, 1);
+        let graph = get_extended_symbolic_graph(&bn, 1).unwrap();
 
         let inferred_colors = perform_inference_with_attractors_specific(
             observations.clone(),
@@ -152,7 +152,7 @@ mod tests {
         let aeon_string = read_to_string(model_path).unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
         // Create graph object with 1 HCTL var (we dont need more)
-        let graph = get_extended_symbolic_graph(&bn, 1);
+        let graph = get_extended_symbolic_graph(&bn, 1).unwrap();
 
         let goal_aeon_string = read_to_string(goal_model_path).unwrap();
 

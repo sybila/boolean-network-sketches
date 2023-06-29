@@ -37,7 +37,7 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     println!("Loaded BN model with {} components.", bn.num_vars());
 
     // Create extended symbolic graph object with 1 HCTL var (we dont need more)
-    let graph = get_extended_symbolic_graph(&bn, 1);
+    let graph = get_extended_symbolic_graph(&bn, 1).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()

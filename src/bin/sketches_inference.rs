@@ -103,7 +103,7 @@ fn main() {
     }
 
     // generate the extended STG
-    let graph = get_extended_symbolic_graph(&bn, num_hctl_vars as u16);
+    let graph = get_extended_symbolic_graph(&bn, num_hctl_vars as u16).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()

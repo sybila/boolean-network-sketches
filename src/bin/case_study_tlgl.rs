@@ -44,7 +44,7 @@ fn case_study_part_1() {
     // create the partially specified BN
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded BN model with {} components.", bn.num_vars());
-    let mut graph = get_extended_symbolic_graph(&bn, 2);
+    let mut graph = get_extended_symbolic_graph(&bn, 2).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
@@ -144,7 +144,7 @@ fn case_study_part_2(summarize_candidates: bool) {
     // create the partially specified BN object
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded BN model with {} components.", bn.num_vars());
-    let mut graph = get_extended_symbolic_graph(&bn, 2);
+    let mut graph = get_extended_symbolic_graph(&bn, 2).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
@@ -244,7 +244,7 @@ mod tests {
             read_to_string("benchmark_models/case_study_TLGL/TLGL_reduced_partial_updates.aeon")
                 .unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-        let mut graph = get_extended_symbolic_graph(&bn, 2);
+        let mut graph = get_extended_symbolic_graph(&bn, 2).unwrap();
 
         // define the observations
         let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
