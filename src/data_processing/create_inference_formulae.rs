@@ -173,14 +173,7 @@ pub fn mk_reachability_chain_formula(states_sequence: Vec<String>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use crate::create_inference_formulae::{
-        encode_binary_vector, mk_attractor_formula_nonspecific,
-        mk_attractor_formula_nonspecific_aeon, mk_attractor_formula_specific,
-        mk_forbid_other_attractors_formula, mk_forbid_other_steady_states_formula,
-        mk_reachability_chain_formula, mk_reachability_pair_formula,
-        mk_steady_state_formula_combined, mk_steady_state_formula_nonspecific,
-        mk_steady_state_formula_specific,
-    };
+    use crate::data_processing::create_inference_formulae::*;
 
     #[test]
     /// Test encoding of Boolean vector to formula.

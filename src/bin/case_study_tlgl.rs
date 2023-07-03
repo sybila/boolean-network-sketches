@@ -1,4 +1,4 @@
-use boolean_network_sketches::create_inference_formulae::*;
+use boolean_network_sketches::data_processing::create_inference_formulae::*;
 #[allow(unused_imports)]
 use boolean_network_sketches::utils::{
     apply_constraints_and_restrict, check_if_result_contains_goal, summarize_candidates_naively,
@@ -231,7 +231,7 @@ mod tests {
 
     use biodivine_lib_param_bn::BooleanNetwork;
 
-    use boolean_network_sketches::create_inference_formulae::*;
+    use boolean_network_sketches::data_processing::create_inference_formulae::*;
     use boolean_network_sketches::utils::apply_constraints_and_restrict;
 
     use std::fs::read_to_string;

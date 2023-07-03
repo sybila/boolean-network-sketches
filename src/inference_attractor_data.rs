@@ -1,7 +1,7 @@
 //! Contains functionality regarding the inference process from a sketch that contains
 //! attractor data.
 
-use crate::create_inference_formulae::{
+use crate::data_processing::create_inference_formulae::{
     mk_attractor_formula_specific, mk_forbid_other_attractors_formula,
     mk_forbid_other_steady_states_formula, mk_steady_state_formula_specific,
 };
