@@ -2,8 +2,8 @@
 //! attractor data.
 
 use crate::data_processing::create_inference_formulae::{
-    mk_attractor_formula_specific, mk_forbid_other_attractors_formula,
-    mk_forbid_other_steady_states_formula, mk_steady_state_formula_specific,
+    mk_formula_attractor_specific, mk_formula_fixed_point_specific,
+    mk_formula_forbid_other_attractors, mk_formula_forbid_other_fixed_points,
 };
 
 use biodivine_hctl_model_checker::model_checking::model_check_formula_unsafe_ex;
@@ -44,9 +44,9 @@ pub fn perform_inference_with_attractors_specific(
 
         // automatically generate the formula
         let formula = if use_fixed_points {
-            mk_steady_state_formula_specific(attractor_state)
+            mk_formula_fixed_point_specific(attractor_state)
         } else {
-            mk_attractor_formula_specific(attractor_state)
+            mk_formula_attractor_specific(attractor_state)
         };
 
         // compute satisfying colours
@@ -73,9 +73,9 @@ pub fn perform_inference_with_attractors_specific(
     if forbid_extra_attr {
         println!("Computing candidates with no additional unwanted attractors...");
         let formula = if use_fixed_points {
-            mk_forbid_other_steady_states_formula(attr_set)
+            mk_formula_forbid_other_fixed_points(attr_set)
         } else {
-            mk_forbid_other_attractors_formula(attr_set)
+            mk_formula_forbid_other_attractors(attr_set)
         };
         inferred_colors = model_check_formula_unsafe_ex(formula, &graph)
             .unwrap()

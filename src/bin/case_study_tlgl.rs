@@ -64,9 +64,7 @@ fn case_study_part_1() {
 
     // define data observation and corresponding dynamic property
     let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
-    let formulae: Vec<String> = vec![mk_attractor_formula_nonspecific(
-        diseased_attractor.to_string(),
-    )];
+    let formulae: Vec<String> = vec![mk_formula_attractor(diseased_attractor.to_string())];
 
     // apply dynamic constraints
     graph = apply_constraints_and_restrict(formulae, graph, "attractor property ensured");
@@ -162,8 +160,8 @@ fn case_study_part_2(summarize_candidates: bool) {
     let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
     let healthy_attractor = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
     let formulae: Vec<String> = vec![
-        mk_steady_state_formula_specific(healthy_attractor.to_string()),
-        mk_attractor_formula_nonspecific(diseased_attractor.to_string()),
+        mk_formula_fixed_point_specific(healthy_attractor.to_string()),
+        mk_formula_attractor(diseased_attractor.to_string()),
     ];
 
     // first ensure attractor existence
@@ -178,7 +176,7 @@ fn case_study_part_2(summarize_candidates: bool) {
         healthy_attractor.to_string(),
         diseased_attractor.to_string(),
     ];
-    let formula = mk_forbid_other_attractors_formula(attr_set);
+    let formula = mk_formula_forbid_other_attractors(attr_set);
     let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
     println!(
         "{} consistent candidate networks found in total",
@@ -251,8 +249,8 @@ mod tests {
         let healthy_attractor = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
 
         let formulae: Vec<String> = vec![
-            mk_steady_state_formula_specific(healthy_attractor.to_string()),
-            mk_attractor_formula_nonspecific(diseased_attractor.to_string()),
+            mk_formula_fixed_point_specific(healthy_attractor.to_string()),
+            mk_formula_attractor(diseased_attractor.to_string()),
         ];
 
         // first ensure attractor existence
@@ -262,7 +260,7 @@ mod tests {
             healthy_attractor.to_string(),
             diseased_attractor.to_string(),
         ];
-        let formula = mk_forbid_other_attractors_formula(attr_set);
+        let formula = mk_formula_forbid_other_attractors(attr_set);
         let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
         assert_eq!(inferred_colors.approx_cardinality(), 378.);
     }

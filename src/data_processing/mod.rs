@@ -2,5 +2,6 @@
 //! loading the dataset and encoding it to HCTL.
 
 pub mod create_inference_formulae;
+pub mod data_encoding;
 pub mod data_loading;
 pub mod observations;
