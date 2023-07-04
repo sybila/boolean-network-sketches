@@ -31,6 +31,26 @@ impl Observation {
     pub fn new(values: Vec<VarValue>) -> Self {
         Self { values }
     }
+
+    /// Create observation object from string encoding its values.
+    pub fn try_from_str(observation_string: String) -> Result<Self, String> {
+        let mut observation_vec: Vec<VarValue> = Vec::new();
+        for c in observation_string.chars() {
+            match c {
+                '1' => observation_vec.push(VarValue::True),
+                '0' => observation_vec.push(VarValue::False),
+                '-' => observation_vec.push(VarValue::Any),
+                _ => return Err(format!("Unexpected char '{c}' in an observation.")),
+            }
+        }
+        if observation_vec.is_empty() {
+            return Err("Observation can't be empty.".to_string());
+        }
+
+        Ok(Self {
+            values: observation_vec,
+        })
+    }
 }
 
 impl fmt::Display for Observation {
@@ -47,6 +67,7 @@ pub enum ObservationType {
     Attractor,
     FixedPoint,
     TimeSeries,
+    Unspecified,
 }
 
 impl fmt::Display for ObservationType {
@@ -55,6 +76,7 @@ impl fmt::Display for ObservationType {
             ObservationType::Attractor => write!(f, "attractor"),
             ObservationType::FixedPoint => write!(f, "fixed-point"),
             ObservationType::TimeSeries => write!(f, "time-series"),
+            ObservationType::Unspecified => write!(f, "unspecified"),
         }
     }
 }
@@ -70,6 +92,7 @@ pub struct ObservationList {
 }
 
 impl ObservationList {
+    /// The provided data must be checked beforehand.
     pub fn new(
         observations: Vec<Observation>,
         var_names: Vec<String>,
@@ -96,5 +119,41 @@ impl fmt::Display for ObservationList {
             .fold(write!(f, "{init_string}"), |result, observation| {
                 result.and_then(|_| write!(f, "> {observation}"))
             })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::data_processing::observations::{Observation, VarValue};
+
+    #[test]
+    /// Test creating observation object from string.
+    fn test_observation_from_str() {
+        let observation_str = "001--".to_string();
+        let observation = Observation {
+            values: vec![
+                VarValue::False,
+                VarValue::False,
+                VarValue::True,
+                VarValue::Any,
+                VarValue::Any,
+            ],
+        };
+        assert_eq!(
+            Observation::try_from_str(observation_str).unwrap(),
+            observation
+        );
+    }
+
+    #[test]
+    /// Test error handling while creating observation object from string.
+    fn test_err_observation_from_str() {
+        let observation_str1 = "0 1--".to_string();
+        let observation_str2 = "0--a".to_string();
+        let observation_str3 = "".to_string();
+
+        assert!(Observation::try_from_str(observation_str1).is_err());
+        assert!(Observation::try_from_str(observation_str2).is_err());
+        assert!(Observation::try_from_str(observation_str3).is_err());
     }
 }

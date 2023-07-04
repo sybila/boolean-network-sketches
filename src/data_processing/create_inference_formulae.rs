@@ -65,7 +65,7 @@ pub fn mk_formula_forbid_other_attractors(attractor_state_set: Vec<String>) -> S
 
 /// Create a formula ensuring the existence of a set of attractor states and prohibiting any
 /// other attractors not containing these states.
-pub fn mk_formula_attractors_combined(attractor_state_set: Vec<String>) -> String {
+pub fn mk_formula_exclusive_attractors(attractor_state_set: Vec<String>) -> String {
     // part which ensures attractor states
     let mut formula = String::new();
     for attractor_state in attractor_state_set.clone() {
@@ -126,7 +126,7 @@ pub fn mk_formula_forbid_other_fixed_points(steady_state_set: Vec<String>) -> St
 ///
 /// This formula is build in a way that uses advantage of model-checkers cashing (for "AX x").
 /// Param `steady_state_set` is a vector of formulae, each describing one state.
-pub fn mk_formula_fixed_points_combined(steady_state_set: Vec<String>) -> String {
+pub fn mk_formula_exclusive_fixed_points(steady_state_set: Vec<String>) -> String {
     // part which ensures steady states
     let mut formula = String::new();
     for steady_state in steady_state_set.clone() {
@@ -207,6 +207,14 @@ mod tests {
             mk_formula_forbid_other_attractors(attr_states.clone()),
             "~(3{x}: (@{x}: ~(AG EF ((a & b & ~c) | (a & b & c) | false ))))".to_string(),
         );
+        assert_eq!(
+            mk_formula_attractor_set(attr_states.clone()),
+            "(3{x}: (@{x}: (a & b & ~c & (AG EF (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AG EF (a & b & c & {x}))))) & true".to_string(),
+        );
+        assert_eq!(
+            mk_formula_exclusive_attractors(attr_states.clone()),
+            "(3{x}: (@{x}: (a & b & ~c & (AG EF (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AG EF (a & b & c & {x}))))) & ~(3{x}: (@{x}: ~(AG EF ((a & b & ~c) | (a & b & c) | false ))))".to_string(),
+        );
     }
 
     #[test]
@@ -227,7 +235,11 @@ mod tests {
             "~(3{x}: (@{x}: ~(a & b & ~c) & ~(a & b & c) & (AX {x})))".to_string(),
         );
         assert_eq!(
-            mk_formula_fixed_points_combined(attr_states.clone()),
+            mk_formula_fixed_point_set(attr_states.clone()),
+            "(3{x}: (@{x}: (a & b & ~c & (AX (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AX (a & b & c & {x}))))) & true".to_string(),
+        );
+        assert_eq!(
+            mk_formula_exclusive_fixed_points(attr_states.clone()),
             "(3{x}: (@{x}: (a & b & ~c & (AX (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AX (a & b & c & {x}))))) & ~(3{x}: (@{x}: ~(a & b & ~c) & ~(a & b & c) & (AX {x})))".to_string(),
         );
     }

@@ -10,13 +10,12 @@ pub fn encode_observation(observation: &Observation, prop_names: &[String]) -> S
 
     for (i, prop) in prop_names.iter().enumerate() {
         match observation.values[i] {
-            VarValue::True => formula.push_str(prop),
-            VarValue::False => formula.push_str(format!("~{prop}").as_str()),
+            VarValue::True => formula.push_str(format!("{prop} & ").as_str()),
+            VarValue::False => formula.push_str(format!("~{prop} & ").as_str()),
             VarValue::Any => (),
         }
-        formula.push_str(" & ");
     }
-    formula.push_str("true )"); // to finish the conjunction without affecting evaluation
+    formula.push_str("true)"); // to finish the conjunction without affecting evaluation
     formula
 }
 
@@ -33,12 +32,53 @@ fn encode_multiple_observations(
 
 /// Encode (ordered) set of observations to a single HCTL formula. The particular formula
 /// template is chosen depending on the type of data.
-pub fn encode_observation_list_hctl(observation_list: ObservationList) -> String {
+pub fn encode_observation_list_hctl(observation_list: ObservationList) -> Result<String, String> {
     let encoded_observations =
         encode_multiple_observations(&observation_list.observations, &observation_list.var_names);
     match observation_list.data_type {
-        ObservationType::Attractor => mk_formula_attractor_set(encoded_observations),
-        ObservationType::FixedPoint => mk_formula_fixed_point_set(encoded_observations),
-        ObservationType::TimeSeries => mk_formula_reachability_chain(encoded_observations),
+        ObservationType::Attractor => Ok(mk_formula_attractor_set(encoded_observations)),
+        ObservationType::FixedPoint => Ok(mk_formula_fixed_point_set(encoded_observations)),
+        ObservationType::TimeSeries => Ok(mk_formula_reachability_chain(encoded_observations)),
+        ObservationType::Unspecified => Err("Cannot encode data with unspecified type".to_string()),
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::data_processing::data_encoding::{encode_multiple_observations, encode_observation};
+    use crate::data_processing::observations::Observation;
+
+    #[test]
+    /// Test encoding of an observation.
+    fn test_observation_encoding() {
+        let prop_names = vec![
+            "a".to_string(),
+            "b".to_string(),
+            "c".to_string(),
+            "d".to_string(),
+            "e".to_string(),
+        ];
+
+        let observation1 = Observation::try_from_str("001-1".to_string()).unwrap();
+        let encoded1 = "(~a & ~b & c & e & true)";
+        assert_eq!(encode_observation(&observation1, &prop_names), encoded1);
+
+        let observation2 = Observation::try_from_str("001--".to_string()).unwrap();
+        let encoded2 = "(~a & ~b & c & true)";
+        assert_eq!(encode_observation(&observation2, &prop_names), encoded2);
+
+        let observation3 = Observation::try_from_str("-----".to_string()).unwrap();
+        let encoded3 = "(true)";
+        assert_eq!(encode_observation(&observation3, &prop_names), encoded3);
+
+        assert_eq!(
+            encode_multiple_observations(
+                &vec![observation1, observation2, observation3],
+                &prop_names
+            ),
+            vec![encoded1, encoded2, encoded3]
+        );
+    }
+
+    // TODO: properly test function encode_observation_list_hctl
 }
