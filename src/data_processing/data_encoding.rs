@@ -15,7 +15,14 @@ pub fn encode_observation(observation: &Observation, prop_names: &[String]) -> S
             VarValue::Any => (),
         }
     }
-    formula.push_str("true)"); // to finish the conjunction without affecting evaluation
+
+    // formula might be 'empty' if all props can have arbitrary values - corresponding to 'true'
+    if formula.len() == 1 {
+        formula.push_str("true");
+    } else {
+        formula = formula.strip_suffix(" & ").unwrap().to_string();
+    }
+    formula.push(')');
     formula
 }
 
@@ -45,8 +52,10 @@ pub fn encode_observation_list_hctl(observation_list: ObservationList) -> Result
 
 #[cfg(test)]
 mod tests {
-    use crate::data_processing::data_encoding::{encode_multiple_observations, encode_observation};
-    use crate::data_processing::observations::Observation;
+    use crate::data_processing::data_encoding::{
+        encode_multiple_observations, encode_observation, encode_observation_list_hctl,
+    };
+    use crate::data_processing::observations::{Observation, ObservationList, ObservationType};
 
     #[test]
     /// Test encoding of an observation.
@@ -60,11 +69,11 @@ mod tests {
         ];
 
         let observation1 = Observation::try_from_str("001-1".to_string()).unwrap();
-        let encoded1 = "(~a & ~b & c & e & true)";
+        let encoded1 = "(~a & ~b & c & e)";
         assert_eq!(encode_observation(&observation1, &prop_names), encoded1);
 
         let observation2 = Observation::try_from_str("001--".to_string()).unwrap();
-        let encoded2 = "(~a & ~b & c & true)";
+        let encoded2 = "(~a & ~b & c)";
         assert_eq!(encode_observation(&observation2, &prop_names), encoded2);
 
         let observation3 = Observation::try_from_str("-----".to_string()).unwrap();
@@ -80,5 +89,49 @@ mod tests {
         );
     }
 
-    // TODO: properly test function encode_observation_list_hctl
+    #[test]
+    /// Test encoding of a list of observations of various kinds.
+    fn test_attractor_observations_encoding() {
+        let observation1 = Observation::try_from_str("110".to_string()).unwrap();
+        let observation2 = Observation::try_from_str("1-1".to_string()).unwrap();
+        let raw_observations = vec![observation1, observation2];
+        let prop_names = vec!["a".to_string(), "b".to_string(), "c".to_string()];
+
+        let attr_observations = ObservationList::new(
+            raw_observations.clone(),
+            prop_names.clone(),
+            ObservationType::Attractor,
+        );
+        assert_eq!(
+            encode_observation_list_hctl(attr_observations).unwrap(),
+            "((3{x}: (@{x}: ((a & b & ~c) & (AG EF ((a & b & ~c) & {x}))))) & (3{x}: (@{x}: ((a & c) & (AG EF ((a & c) & {x}))))))".to_string(),
+        );
+
+        let fixed_point_observations = ObservationList::new(
+            raw_observations.clone(),
+            prop_names.clone(),
+            ObservationType::FixedPoint,
+        );
+        assert_eq!(
+            encode_observation_list_hctl(fixed_point_observations).unwrap(),
+            "((3{x}: (@{x}: ((a & b & ~c) & (AX ((a & b & ~c) & {x}))))) & (3{x}: (@{x}: ((a & c) & (AX ((a & c) & {x}))))))".to_string(),
+        );
+
+        let time_series_observations = ObservationList::new(
+            raw_observations.clone(),
+            prop_names.clone(),
+            ObservationType::TimeSeries,
+        );
+        assert_eq!(
+            encode_observation_list_hctl(time_series_observations).unwrap(),
+            "(3{x}: (@{x}: ((a & b & ~c)) & EF ((a & c))))".to_string(),
+        );
+
+        let unspecified_observations = ObservationList::new(
+            raw_observations.clone(),
+            prop_names.clone(),
+            ObservationType::Unspecified,
+        );
+        assert!(encode_observation_list_hctl(unspecified_observations).is_err());
+    }
 }

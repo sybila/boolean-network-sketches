@@ -39,12 +39,15 @@ pub fn mk_formula_attractor(attractor_state: String) -> String {
 
 /// Create a formula ensuring the existence of a set of attractor states.
 pub fn mk_formula_attractor_set(attractor_state_set: Vec<String>) -> String {
+    assert!(!attractor_state_set.is_empty());
     let mut formula = String::new();
+    formula.push('(');
     for attractor_state in attractor_state_set {
         formula.push_str(mk_formula_attractor(attractor_state).as_str());
         formula.push_str(" & ");
     }
-    formula.push_str("true"); // append "true" at the end to ensure that formula is valid
+    formula = formula.strip_suffix(" & ").unwrap().to_string();
+    formula.push(')');
     formula
 }
 
@@ -53,13 +56,15 @@ pub fn mk_formula_attractor_set(attractor_state_set: Vec<String>) -> String {
 /// Param `attractor_state_set` is a vector of formulae, each describing a state in particular
 /// allowed attractor (conjunction of literals).
 pub fn mk_formula_forbid_other_attractors(attractor_state_set: Vec<String>) -> String {
+    assert!(!attractor_state_set.is_empty());
     let mut formula = String::new();
     formula.push_str("~(3{x}: (@{x}: ~(AG EF (");
     for attractor_state in attractor_state_set {
         assert!(!attractor_state.is_empty());
         formula.push_str(format!("({attractor_state}) | ").as_str())
     }
-    formula.push_str("false ))))"); // just so that we dont end with "|"
+    formula = formula.strip_suffix(" | ").unwrap().to_string();
+    formula.push_str("))))");
     formula
 }
 
@@ -99,11 +104,13 @@ pub fn mk_formula_fixed_point(steady_state: String) -> String {
 /// Create a formula ensuring the existence of a set of fixed points.
 pub fn mk_formula_fixed_point_set(steady_state_set: Vec<String>) -> String {
     let mut formula = String::new();
+    formula.push('(');
     for steady_state in steady_state_set {
         formula.push_str(mk_formula_fixed_point(steady_state).as_str());
         formula.push_str(" & ");
     }
-    formula.push_str("true"); // append "true" at the end to ensure that formula is valid
+    formula = formula.strip_suffix(" & ").unwrap().to_string();
+    formula.push(')');
     formula
 }
 
@@ -152,7 +159,7 @@ pub fn mk_formula_reachability_pair(
     if is_negative {
         return format!("(3{{x}}: (@{{x}}: {from_state} & (~EF ({to_state}))))");
     }
-    format!("(3{{x}}: (@{{x}}: {from_state} & (EF ({to_state}))))")
+    format!("(3{{x}}: (@{{x}}: {from_state} & EF ({to_state})))")
 }
 
 /// Create a formula describing the existence of reachability between every two consecutive states
@@ -205,21 +212,21 @@ mod tests {
         );
         assert_eq!(
             mk_formula_forbid_other_attractors(attr_states.clone()),
-            "~(3{x}: (@{x}: ~(AG EF ((a & b & ~c) | (a & b & c) | false ))))".to_string(),
+            "~(3{x}: (@{x}: ~(AG EF ((a & b & ~c) | (a & b & c)))))".to_string(),
         );
         assert_eq!(
             mk_formula_attractor_set(attr_states.clone()),
-            "(3{x}: (@{x}: (a & b & ~c & (AG EF (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AG EF (a & b & c & {x}))))) & true".to_string(),
+            "((3{x}: (@{x}: (a & b & ~c & (AG EF (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AG EF (a & b & c & {x}))))))".to_string(),
         );
         assert_eq!(
             mk_formula_exclusive_attractors(attr_states.clone()),
-            "(3{x}: (@{x}: (a & b & ~c & (AG EF (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AG EF (a & b & c & {x}))))) & ~(3{x}: (@{x}: ~(AG EF ((a & b & ~c) | (a & b & c) | false ))))".to_string(),
+            "(3{x}: (@{x}: (a & b & ~c & (AG EF (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AG EF (a & b & c & {x}))))) & ~(3{x}: (@{x}: ~(AG EF ((a & b & ~c) | (a & b & c)))))".to_string(),
         );
     }
 
     #[test]
     /// Test generating of different kinds of steady state formulae.
-    fn test_steady_state_encodings() {
+    fn test_fixed_point_encodings() {
         let attr_states = vec!["a & b & ~c".to_string(), "a & b & c".to_string()];
 
         assert_eq!(
@@ -236,7 +243,7 @@ mod tests {
         );
         assert_eq!(
             mk_formula_fixed_point_set(attr_states.clone()),
-            "(3{x}: (@{x}: (a & b & ~c & (AX (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AX (a & b & c & {x}))))) & true".to_string(),
+            "((3{x}: (@{x}: (a & b & ~c & (AX (a & b & ~c & {x}))))) & (3{x}: (@{x}: (a & b & c & (AX (a & b & c & {x}))))))".to_string(),
         );
         assert_eq!(
             mk_formula_exclusive_fixed_points(attr_states.clone()),
@@ -259,7 +266,7 @@ mod tests {
         );
         assert_eq!(
             mk_formula_reachability_pair(states[0].clone(), states[1].clone(), false),
-            "(3{x}: (@{x}: a & b & ~c & (EF (a & b & c))))".to_string(),
+            "(3{x}: (@{x}: a & b & ~c & EF (a & b & c)))".to_string(),
         );
         assert_eq!(
             mk_formula_reachability_chain(states),

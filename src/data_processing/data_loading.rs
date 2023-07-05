@@ -59,9 +59,15 @@ fn is_valid_in_name(c: char) -> bool {
 fn parse_var_names(var_string: String) -> Result<Vec<String>, String> {
     let mut var_names: Vec<String> = Vec::new();
     let mut input_chars = var_string.chars().peekable();
+    let mut parsed_something = false;
     while let Some(c) = input_chars.next() {
         match c {
             c if is_valid_in_name(c) => {
+                // if we already parsed a name after previous delimiter, there must have been space
+                if parsed_something {
+                    return Err("Variable name can't contain spaces.".to_string());
+                }
+
                 let mut name = String::new();
                 name.push(c);
                 while let Some(c) = input_chars.peek() {
@@ -73,21 +79,29 @@ fn parse_var_names(var_string: String) -> Result<Vec<String>, String> {
                     }
                 }
                 var_names.push(name);
+                parsed_something = true;
             }
             c if c.is_whitespace() => {} // skip whitespace
-            '|' => {}                    // skip delimiters
+            '|' => {
+                // delimiters
+                // in case that 2 delimiters follow without any var in between
+                if !parsed_something {
+                    return Err("Variable name can't be empty.".to_string());
+                }
+                parsed_something = false;
+            }
             _ => return Err(format!("Unexpected char '{c}' in variable name.")),
         }
     }
 
     if var_names.is_empty() {
-        return Err("No variable names provided".to_string());
+        return Err("No variable names provided.".to_string());
     }
     Ok(var_names)
 }
 
 /// Parse type of the data. Must be one of the valid options.
-fn parse_observation_type(type_string: String) -> Result<ObservationType, String> {
+fn parse_observ_type(type_string: String) -> Result<ObservationType, String> {
     match type_string.as_str() {
         "Attractor" => Ok(ObservationType::Attractor),
         "FixedPoint" => Ok(ObservationType::FixedPoint),
@@ -105,12 +119,12 @@ pub fn generate_observation_list(
 ) -> Result<ObservationList, String> {
     let observations = parse_observations(raw_observation_strs)?;
     let var_names = parse_var_names(raw_vars_str)?;
-    let observation_type = parse_observation_type(raw_type_str)?;
+    let observation_type = parse_observ_type(raw_type_str)?;
 
     let num_vars = var_names.len();
     for observation in &observations {
         if observation.values.len() != num_vars {
-            return Err(format!("Observation {observation} has invalid length."));
+            return Err(format!("Observation '{observation}' has invalid length."));
         }
     }
     Ok(ObservationList::new(
@@ -136,6 +150,137 @@ pub fn load_observations(data_path: &str) -> Result<ObservationList, String> {
 
 #[cfg(test)]
 mod tests {
-    // TODO: properly test functions parse_var_names, parse_observations, parse_observation_type
-    // TODO: properly test function generate_observation_list
+    use crate::data_processing::data_loading::{
+        generate_observation_list, parse_observ_type, parse_observations, parse_var_names,
+    };
+    use crate::data_processing::observations::{
+        Observation, ObservationList, ObservationType, VarValue,
+    };
+
+    #[test]
+    /// Test parsing of variable names.
+    fn test_observation_var_names_parsing() {
+        let var_name_str = "a  | bb|ccc|f_5".to_string();
+        let expected = vec![
+            "a".to_string(),
+            "bb".to_string(),
+            "ccc".to_string(),
+            "f_5".to_string(),
+        ];
+        assert_eq!(parse_var_names(var_name_str).unwrap(), expected);
+
+        let var_name_str = "a  | |ccc|f_5".to_string();
+        let res = parse_var_names(var_name_str);
+        assert!(res.is_err());
+        assert_eq!(
+            res.err().unwrap(),
+            "Variable name can't be empty.".to_string()
+        );
+
+        let var_name_str = "  ".to_string();
+        let res = parse_var_names(var_name_str);
+        assert!(res.is_err());
+        assert_eq!(
+            res.err().unwrap(),
+            "No variable names provided.".to_string()
+        );
+
+        let var_name_str = "a | j7& |ccc|f_5".to_string();
+        let res = parse_var_names(var_name_str);
+        assert!(res.is_err());
+        assert_eq!(
+            res.err().unwrap(),
+            "Unexpected char '&' in variable name.".to_string()
+        );
+
+        let var_name_str = "a o | j7& |ccc|f_5".to_string();
+        let res = parse_var_names(var_name_str);
+        assert!(res.is_err());
+        assert_eq!(
+            res.err().unwrap(),
+            "Variable name can't contain spaces.".to_string()
+        );
+    }
+
+    #[test]
+    /// Test parsing of observation type.
+    fn test_observation_type_parsing() {
+        let observ_type_str = "Attractor".to_string();
+        assert_eq!(
+            parse_observ_type(observ_type_str).unwrap(),
+            ObservationType::Attractor
+        );
+        let observ_type_str = "FixedPoint".to_string();
+        assert_eq!(
+            parse_observ_type(observ_type_str).unwrap(),
+            ObservationType::FixedPoint
+        );
+        let observ_type_str = "TimeSeries".to_string();
+        assert_eq!(
+            parse_observ_type(observ_type_str).unwrap(),
+            ObservationType::TimeSeries
+        );
+        let observ_type_str = "Unspecified".to_string();
+        assert_eq!(
+            parse_observ_type(observ_type_str).unwrap(),
+            ObservationType::Unspecified
+        );
+
+        let observ_type_str = "Idk".to_string();
+        assert!(parse_observ_type(observ_type_str).is_err());
+    }
+
+    #[test]
+    /// Test parsing of observations.
+    fn test_observations_parsing() {
+        let observation_strings = vec!["000".to_string(), "0--".to_string(), "1-1".to_string()];
+        let expected = vec![
+            Observation::new(vec![VarValue::False, VarValue::False, VarValue::False]),
+            Observation::new(vec![VarValue::False, VarValue::Any, VarValue::Any]),
+            Observation::new(vec![VarValue::True, VarValue::Any, VarValue::True]),
+        ];
+        assert_eq!(parse_observations(observation_strings).unwrap(), expected);
+
+        let observation_strings = vec![];
+        assert!(parse_observations(observation_strings).is_err());
+
+        let observation_strings = vec!["0i0".to_string()];
+        assert!(parse_observations(observation_strings).is_err());
+
+        let observation_strings = vec!["000".to_string(), "".to_string()];
+        assert!(parse_observations(observation_strings).is_err());
+    }
+
+    #[test]
+    /// Test whole combined parsing step that generates ObservationList object.
+    fn test_combined_parsing() {
+        // TODO: properly test function generate_observation_list
+        let observation_strings = vec!["01".to_string(), "0-".to_string()];
+        let var_name_str = "a  | B_2".to_string();
+        let observ_type_str = "Attractor".to_string();
+
+        let expected = ObservationList::new(
+            vec![
+                Observation::new(vec![VarValue::False, VarValue::True]),
+                Observation::new(vec![VarValue::False, VarValue::Any]),
+            ],
+            vec!["a".to_string(), "B_2".to_string()],
+            ObservationType::Attractor,
+        );
+        assert_eq!(
+            generate_observation_list(observation_strings, var_name_str, observ_type_str).unwrap(),
+            expected,
+        );
+
+        let invalid = generate_observation_list(
+            vec!["01".to_string()],
+            "a".to_string(),
+            "Attractor".to_string(),
+        );
+        assert!(invalid.is_err());
+        assert_eq!(
+            invalid.err().unwrap(),
+            "Observation '01' has invalid length.".to_string()
+        );
+    }
 }
