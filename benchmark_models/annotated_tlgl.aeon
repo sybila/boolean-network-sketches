@@ -1,0 +1,66 @@
+## PROPERTIES
+#! dynamic_property: diseased_attr: #`(3{x}: (@{x}: (~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_ & (AG EF (~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_ & {x})))))`#
+#! dynamic_property: healthy_fixed_point: #`(3{x}: (@{x}: (Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_ & (AX (Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_)))))`#
+
+## MODEL
+$S1P:!Apoptosis_ & q(Ceramide_)
+Ceramide_ -| S1P
+Apoptosis_ -| S1P
+$sFas:!Apoptosis_ & p(S1P)
+S1P -> sFas
+Apoptosis_ -| sFas
+$Apoptosis_:function(Caspase, Apoptosis_)
+Caspase -> Apoptosis_
+Apoptosis_ -> Apoptosis_
+$Fas:!Apoptosis_ & o(sFas)
+Apoptosis_ -| Fas
+sFas -| Fas
+$Ceramide_:!Apoptosis_ & n(Fas, S1P)
+Fas -> Ceramide_
+S1P -| Ceramide_
+Apoptosis_ -| Ceramide_
+$Caspase:!Apoptosis_ & m(BID_, DISC_, IAP_)
+DISC_ -> Caspase
+IAP_ -| Caspase
+BID_ -> Caspase
+Apoptosis_ -| Caspase
+$MCL1:!Apoptosis_ & l(DISC_)
+DISC_ -| MCL1
+Apoptosis_ -| MCL1
+$BID_:!Apoptosis_ & k(MCL1)
+MCL1 -| BID_
+Apoptosis_ -| BID_
+$DISC_:!Apoptosis_ & j(Fas,Ceramide_,FLIP_)
+Fas -> DISC_
+Ceramide_ -> DISC_
+Apoptosis_ -| DISC_
+FLIP_ -| DISC_
+$FLIP_:!Apoptosis_ & i(DISC_)
+DISC_ -| FLIP_
+Apoptosis_ -| FLIP_
+$CTLA4_:!Apoptosis_ & h(TCR)
+TCR -> CTLA4_
+Apoptosis_ -| CTLA4_
+$TCR:!Apoptosis_ & g(CTLA4_)
+CTLA4_ -| TCR
+Apoptosis_ -| TCR
+$IFNG_:!Apoptosis_ & f(P2, SMAD_)
+P2 -| IFNG_
+SMAD_ -| IFNG_
+Apoptosis_ -| IFNG_
+$CREB:!Apoptosis_ & e(IFNG_)
+IFNG_ -> CREB
+Apoptosis_ -| CREB
+$P2:!Apoptosis_ & d(P2, IFNG_)
+P2 -> P2
+IFNG_ -> P2
+Apoptosis_ -| P2
+$SMAD_:!Apoptosis_ & c(GPCR_)
+GPCR_ -> SMAD_
+Apoptosis_ -| SMAD_
+$GPCR_:!Apoptosis_ & b(S1P)
+S1P -> GPCR_
+Apoptosis_ -| GPCR_
+$IAP_:!Apoptosis_ & a(BID_)
+BID_ -| IAP_
+Apoptosis_ -| IAP_

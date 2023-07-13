@@ -4,9 +4,8 @@ use boolean_network_sketches::utils::{
     apply_constraints_and_restrict, check_if_result_contains_goal, summarize_candidates_naively,
 };
 
-use biodivine_hctl_model_checker::model_checking::{
-    get_extended_symbolic_graph, model_check_formula,
-};
+use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
+use biodivine_hctl_model_checker::model_checking::model_check_formula;
 
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::BooleanNetwork;
@@ -223,9 +222,8 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use biodivine_hctl_model_checker::model_checking::{
-        get_extended_symbolic_graph, model_check_formula,
-    };
+    use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
+    use biodivine_hctl_model_checker::model_checking::model_check_formula;
 
     use biodivine_lib_param_bn::BooleanNetwork;
 

@@ -64,7 +64,6 @@ The sub-folders with models used for scalability evaluation contain four files e
 - `results.txt` - resulting output from the corresponding binary (see below)
 - `metadata.txt` - links to the model's original source and publication
 
-
 ## Binaries and Scripts Regarding Experiments
 
 You can either use prepared Bash wrapper scripts to re-run the experiments, or run them directly by compiling and executing the Rust binaries.
@@ -95,10 +94,7 @@ python3 run_all_experiments.py
 
 ### Individual Binaries
 
-To directly re-run individual benchmarks or case studies, compile the code first (on Windows, we recommend using Powershell 5+ to run the experiments):
-```
-cargo build --release
-```
+To directly re-run individual benchmarks or case studies, compile the code first with `cargo build --release` (on Windows, we recommend using Powershell 5+ to run the experiments).
 
 The Rust code regarding the two case studies from the paper can be found in `src/bin/` folder (particularly, `case_study_arabidopsis.rs` and `case_study_tlgl.rs`). 
 The resulting binaries will be in `target/release/`. 
@@ -127,10 +123,26 @@ You do not need to add any options to replicate the experimental results, but if
 ./target/release/inference-with-attractors -h
 ````
 
+## Running General Inference Process
+
+To run the general inference process (code in `src/main.rs`), compile the program first using `cargo build --release` 
+and then run it as
+```
+.\target\release\sketches-inference [OPTIONS] <MODEL_PATH>
+```
+`MODEL_PATH` must point a file with a (parametrized) model in aeon format, with HCTL formulae for dynamic properties given as model annotations:
+```
+#! dynamic_property: NAME: #`HCTL_FORMULA`#
+```
+- `NAME` refers to arbitrary name of the property
+- `HCTL_FORMULA` is valid formula as described [here](https://github.com/sybila/biodivine-hctl-model-checker)
+
+Example of such annotated model is given in `benchmark_models/annotated_tlgl.aeon`. 
+Note that the example formulae can be generated automatically, as shown in our case study.
 
 ## Availability
 
-This repository is available on [Github](https://github.com/sybila/boolean-network-sketches) and also at [zenodo](https://doi.org/10.5281/zenodo.7688740).
+This repository with the artefact is available on [Github](https://github.com/sybila/boolean-network-sketches) and also at [zenodo](https://doi.org/10.5281/zenodo.7688740).
 
 The implementation is based mainly on two of our Rust libraries: 
 - [biodivine-hctl-model-checker](https://github.com/sybila/biodivine-hctl-model-checker) for the underlying symbolic coloured model checking

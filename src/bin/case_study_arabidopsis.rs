@@ -2,7 +2,7 @@
 use boolean_network_sketches::inference_attractor_data::perform_inference_with_attractors_specific;
 use boolean_network_sketches::utils::summarize_candidates_naively;
 
-use biodivine_hctl_model_checker::model_checking::get_extended_symbolic_graph;
+use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
 
 use biodivine_lib_param_bn::BooleanNetwork;
 

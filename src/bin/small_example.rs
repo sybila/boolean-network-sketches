@@ -1,6 +1,5 @@
-use biodivine_hctl_model_checker::model_checking::{
-    get_extended_symbolic_graph, model_check_formula,
-};
+use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
+use biodivine_hctl_model_checker::model_checking::model_check_formula;
 
 use biodivine_lib_param_bn::BooleanNetwork;
 
@@ -59,9 +58,8 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use biodivine_hctl_model_checker::model_checking::{
-        get_extended_symbolic_graph, model_check_formula,
-    };
+    use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
+    use biodivine_hctl_model_checker::model_checking::model_check_formula;
 
     use biodivine_lib_param_bn::BooleanNetwork;
 

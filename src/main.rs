@@ -4,7 +4,7 @@
 //! Computes the set of all consistent networks.
 //! Outputs summary of candidate set or set of witness networks, if desired.
 
-use biodivine_hctl_model_checker::model_checking::{
+use biodivine_hctl_model_checker::mc_utils::{
     collect_unique_hctl_vars, get_extended_symbolic_graph,
 };
 use biodivine_hctl_model_checker::preprocessing::node::HctlTreeNode;

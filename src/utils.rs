@@ -1,7 +1,9 @@
 //! Contains several useful utilities for either the inference procedure or for post-processing
 //! the results.
 
-use biodivine_hctl_model_checker::model_checking::{model_check_formula, model_check_tree};
+use biodivine_hctl_model_checker::model_checking::{
+    model_check_formula_dirty, model_check_tree_dirty,
+};
 
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::symbolic_async_graph::{GraphColors, SymbolicAsyncGraph};
@@ -20,7 +22,7 @@ pub fn apply_constraints_and_restrict(
     message: &str,
 ) -> SymbolicAsyncGraph {
     for formula in formulae {
-        let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
+        let inferred_colors = model_check_formula_dirty(formula, &graph).unwrap().colors();
         graph = SymbolicAsyncGraph::with_custom_context(
             graph.as_network().clone(),
             graph.symbolic_context().clone(),
@@ -44,7 +46,9 @@ pub fn apply_constraint_trees_and_restrict(
 ) -> SymbolicAsyncGraph {
     for formula_tree in formulae_trees {
         // do it one by one now to track progress, even though it could be done at once
-        let inferred_colors = model_check_tree(formula_tree, &graph).unwrap().colors();
+        let inferred_colors = model_check_tree_dirty(formula_tree, &graph)
+            .unwrap()
+            .colors();
         graph = SymbolicAsyncGraph::with_custom_context(
             graph.as_network().clone(),
             graph.symbolic_context().clone(),
@@ -228,7 +232,7 @@ pub fn summarize_candidates_naively(
 #[cfg(test)]
 mod tests {
     use crate::utils::pick_random_color;
-    use biodivine_hctl_model_checker::model_checking::get_extended_symbolic_graph;
+    use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
     use biodivine_lib_param_bn::BooleanNetwork;
 
     const TEST_MODEL: &str = r"
