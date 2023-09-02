@@ -55,9 +55,9 @@ impl Observation {
 
 impl fmt::Display for Observation {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        self.values.iter().fold(Ok(()), |result, value| {
-            result.and_then(|_| write!(f, "{value}"))
-        })
+        self.values
+            .iter()
+            .try_for_each(|value| write!(f, "{value}"))
     }
 }
 
@@ -108,23 +108,29 @@ impl ObservationList {
 
 impl fmt::Display for ObservationList {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let init_string = format!(
-            "{} {} observations with vars {:?}: ",
+        let mut format_string = format!(
+            "{} {} observations with vars [",
             self.observations.len(),
             self.data_type,
-            self.var_names
         );
-        self.observations
-            .iter()
-            .fold(write!(f, "{init_string}"), |result, observation| {
-                result.and_then(|_| write!(f, "> {observation}"))
-            })
+        for variable in &self.var_names {
+            format_string.push_str(format!("{variable}, ").as_str());
+        }
+        format_string = format_string.strip_suffix(", ").unwrap().to_string();
+        format_string.push_str("]: \n");
+        for observation in &self.observations {
+            format_string.push_str(format!("> {observation}\n").as_str());
+        }
+
+        write!(f, "{format_string}")
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::data_processing::observations::{Observation, VarValue};
+    use crate::data_processing::observations::{
+        Observation, ObservationList, ObservationType, VarValue,
+    };
 
     #[test]
     /// Test creating observation object from string.
@@ -155,5 +161,37 @@ mod tests {
         assert!(Observation::try_from_str(observation_str1).is_err());
         assert!(Observation::try_from_str(observation_str2).is_err());
         assert!(Observation::try_from_str(observation_str3).is_err());
+    }
+
+    #[test]
+    /// Test displaying of observations.
+    fn test_display_observations() {
+        let observation_str = "001--".to_string();
+        let observation = Observation {
+            values: vec![
+                VarValue::False,
+                VarValue::False,
+                VarValue::True,
+                VarValue::Any,
+                VarValue::Any,
+            ],
+        };
+        assert_eq!(observation.to_string(), observation_str);
+    }
+
+    #[test]
+    /// Test displaying of observation lists.
+    fn test_display_observation_list() {
+        let observation1 = Observation::try_from_str("-1".to_string()).unwrap();
+        let observation2 = Observation::try_from_str("00".to_string()).unwrap();
+        let observation_list = ObservationList {
+            observations: vec![observation1, observation2],
+            var_names: vec!["a".to_string(), "b".to_string()],
+            data_type: ObservationType::Attractor,
+        };
+
+        let mut observation_list_str = "2 attractor observations with vars [a, b]: \n".to_string();
+        observation_list_str.push_str("> -1\n> 00\n");
+        assert_eq!(observation_list.to_string(), observation_list_str);
     }
 }

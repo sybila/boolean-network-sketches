@@ -11,7 +11,7 @@ keywords = ["inference", "boolean-network", "model-checking", "symbolic", "syste
 categories = ["science", "simulation"]
 license = "MIT"
 exclude = ["benchmark_models", ".github", ".githooks"]
-rust-version = "1.64"
+rust-version = "1.72"
 
 #[profile.release]
 #lto = true
@@ -42,7 +42,7 @@ path = "src/bin/small_example.rs"
 [dependencies]
 biodivine-lib-bdd = ">=0.5.1, <1.0.0"
 biodivine-lib-param-bn = ">=0.4.5, <1.0.0"
-biodivine-hctl-model-checker = ">=0.1.5, <1.0.0"
+biodivine-hctl-model-checker = ">=0.1.6, <1.0.0"
 clap = { version = "4.1.4", features = ["derive"] }
 termcolor = "1.1.2"
 rand = "0.8.5"
