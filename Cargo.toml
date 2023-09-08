@@ -40,9 +40,9 @@ name = "sketches-inference"
 path = "src/bin/sketches_inference.rs"
 
 [dependencies]
-biodivine-lib-bdd = ">=0.4.2, <1.0.0"
-biodivine-lib-param-bn = ">=0.4.3, <1.0.0"
-biodivine-hctl-model-checker = ">=0.1.1, <1.0.0"
-clap = { version = "4.1.4", features = ["derive"] }
-termcolor = "1.1.2"
-rand = "0.8.5"
+biodivine-lib-bdd = "=0.4.2"
+biodivine-lib-param-bn = "=0.4.3"
+biodivine-hctl-model-checker = "=0.1.1"
+clap = { version = "=4.1.4", features = ["derive"] }
+termcolor = "=1.1.2"
+rand = "=0.8.5"
