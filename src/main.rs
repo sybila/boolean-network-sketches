@@ -20,7 +20,6 @@ use boolean_network_sketches::utils::{
 use clap::Parser;
 
 use std::cmp::max;
-use std::collections::HashSet;
 use std::fs::{read_to_string, File};
 use std::io::Write;
 use std::path::{Path, PathBuf};
@@ -28,7 +27,10 @@ use std::time::SystemTime;
 
 /// Structure to collect CLI arguments.
 #[derive(Parser)]
-#[clap(author = "Ondrej Huvar", about = "Inference through BN sketches.")]
+#[clap(
+    author = "Ondrej Huvar",
+    about = "Model inference through BN sketches."
+)]
 struct Arguments {
     /// Path to a file with a model in aeon format. Properties are given as model annotations.
     model_path: String,
@@ -73,57 +75,86 @@ fn read_model_properties(annotations: &ModelAnnotation) -> Result<Vec<(String, S
     Ok(properties)
 }
 
-/// Run the inference process
-fn main() {
-    let start = SystemTime::now();
+/// Perform the inference of Boolean networks from the input sketch.
+pub fn run_inference(
+    model_path: String,
+    summarize_candidates: bool,
+    n_witnesses: i32,
+    mut witness_dir: String,
+) -> Result<(), String> {
     let mut rng = rand::thread_rng();
-
-    // parse the CLI args
-    let args = Arguments::parse();
-    let model_path = args.model_path;
-    let summarize_candidates = args.summarize_candidates;
-    let n_witnesses = args.n_witnesses;
-    let mut witness_dir = args.witness_dir; // make mut to be able to set it to "" if dir is invalid
+    let start = SystemTime::now();
 
     // load the BN and properties from the model file
-    let aeon_string = read_to_string(model_path).unwrap();
-    let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-    println!("Loaded BN model with {} components.", bn.num_vars());
-    let annotations = ModelAnnotation::from_model_string(aeon_string.as_str());
-    let named_properties = read_model_properties(&annotations).unwrap();
+    println!("INPUT PRE-PROCESSING\n");
+    if !Path::new(model_path.as_str()).is_file() {
+        return Err(format!("{model_path} is not valid file"));
+    }
 
-    // compute number of symbolic vars needed to represent the HCTL properties
+    // load the model and two sets of formulae (from model annotations)
+    let Ok(aeon_string) = read_to_string(model_path.clone()) else {
+        return Err(format!("Input file `{model_path}` is not accessible."));
+    };
+    let bn = BooleanNetwork::try_from(aeon_string.as_str())?;
+    let annotations = ModelAnnotation::from_model_string(aeon_string.as_str());
+    let named_properties = read_model_properties(&annotations)?;
+    println!("Loaded model and properties out of `{model_path}`.");
+
+    // parse formulae and compute number of symbolic vars needed to represent the HCTL properties
+    println!("Parsing formulae and generating symbolic representation...");
     let mut num_hctl_vars = 0;
     let mut property_trees: Vec<HctlTreeNode> = Vec::new();
     for (_name, formula) in &named_properties {
-        let tree = parse_and_minimize_hctl_formula(&bn, formula.as_str()).unwrap();
-        let num_tree_vars = collect_unique_hctl_vars(tree.clone(), HashSet::new()).len();
+        let tree = parse_and_minimize_hctl_formula(&bn, formula.as_str())?;
+        let num_tree_vars = collect_unique_hctl_vars(tree.clone()).len();
         num_hctl_vars = max(num_hctl_vars, num_tree_vars);
         property_trees.push(tree);
     }
-
-    // generate the extended STG
-    let graph = get_extended_symbolic_graph(&bn, num_hctl_vars as u16).unwrap();
     println!(
-        "Model has {} symbolic parameters.",
-        graph.symbolic_context().num_parameter_variables()
+        "Successfully parsed all {} properties.",
+        property_trees.len(),
     );
-    println!("\n---------------------\n");
+
+    // Instantiate extended STG with enough variables to evaluate all formulae.
+    let Ok(graph) = get_extended_symbolic_graph(&bn, num_hctl_vars as u16) else {
+        return Err("Unable to generate STG for provided PSBN model.".to_string());
+    };
+    println!(
+        "Successfully encoded model with {} variables and {} parameters.",
+        graph.symbolic_context().num_state_variables(),
+        graph.symbolic_context().num_parameter_variables(),
+    );
+    println!("\n---------------------------------\nRUNNING THE INFERENCE\n");
+
+    println!("Successfully processed update function properties.");
+    println!("Processing dynamic properties...");
 
     // perform the colored model checking
-    let graph = apply_constraint_trees_and_restrict(property_trees, graph, "property ensured");
+    let graph = apply_constraint_trees_and_restrict(property_trees, graph, "- property processed");
     let valid_colors = graph.mk_unit_colors(); // graph's unit colors have been restricted to consistent ones
+    println!("Successfully processed all dynamic properties.");
+    println!(
+        "Inference finished in {}ms.",
+        start.elapsed().unwrap().as_millis()
+    );
+
     println!(
         "{} consistent candidate networks found in total.",
         valid_colors.approx_cardinality()
     );
-    println!("\n---------------------\n");
+    println!("\n---------------------------------");
 
     // summarize the complete results if required
     if summarize_candidates {
-        println!("Summarization of update fns of ALL CONSISTENT CANDIDATES:");
+        println!("SUMMARIZING ALL CONSISTENT CANDIDATES\n");
+        println!("There are following variants of update functions for each variable:");
         summarize_candidates_naively(&graph, valid_colors.clone(), true);
-        println!("\n---------------------\n");
+    }
+
+    if n_witnesses > 0 {
+        println!("\n---------------------------------\nGENERATING WITNESSES\n");
+    } else {
+        println!("\n---------------------------------\n");
     }
 
     // generate random witnesses if required
@@ -170,13 +201,31 @@ fn main() {
 
     // if some witnesses were generated, always summarize them
     if !witness_colors.is_empty() {
-        println!("\nSummarization of update fns of WITNESSES:");
+        println!("\nSummarization of update fns of ALL WITNESSES:");
         summarize_candidates_naively(&graph, witness_colors, true);
-        println!("\n---------------------\n");
+        println!("\n---------------------------------\n");
     }
 
     println!(
-        "Elapsed time from the start of this computation: {}ms",
+        "Total elapsed time from the start of the computation: {}ms",
         start.elapsed().unwrap().as_millis()
     );
+
+    Ok(())
+}
+
+/// Parse inputs and run the inference process.
+fn main() {
+    let args = Arguments::parse();
+
+    let inference_res = run_inference(
+        args.model_path,
+        args.summarize_candidates,
+        args.n_witnesses,
+        args.witness_dir,
+    );
+
+    if inference_res.is_err() {
+        println!("Error during computation: {}", inference_res.err().unwrap())
+    }
 }
