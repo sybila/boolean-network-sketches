@@ -89,10 +89,12 @@ By providing additional `OPTIONS` (CLI arguments), you can receive more detailed
 This enables, for example, to generate witness networks or summarize update functions of the satisfying BNs.
 To see the details regarding program's optional arguments, you can run 
 ```
-.\target\release\sketches-inference --help`
+.\target\release\sketches-inference --help
 ```
 
-
+See the section `Benchmarks and Evaluation` below on how to run more specialized inference cases,
+such as inference from attractor data. Note that everything can be run using the general inference script. 
+However, the specialized methods might provide further optimizations or simpler user interface.
 
 ## Benchmarks and Evaluation
 

@@ -5,7 +5,7 @@ use boolean_network_sketches::utils::{
 };
 
 use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
-use biodivine_hctl_model_checker::model_checking::model_check_formula;
+use biodivine_hctl_model_checker::model_checking::model_check_formula_dirty;
 
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::BooleanNetwork;
@@ -81,7 +81,7 @@ fn case_study_part_1() {
     println!("Analysing candidate set...");
 
     // compute attractors symbolically
-    let attrs_all_candidates = model_check_formula("!{x}: AG EF {x}".to_string(), &graph).unwrap();
+    let attrs_all_candidates = model_check_formula_dirty("!{x}: AG EF {x}".to_string(), &graph).unwrap();
     println!("Attractors for all candidates computed");
     println!(
         "Elapsed time from the start of this computation: {}ms",
@@ -91,7 +91,7 @@ fn case_study_part_1() {
 
     // check for candidates without attractor for programmed cell death
     let programmed_cell_death_formula = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
-    let pcd = model_check_formula(programmed_cell_death_formula.to_string(), &graph).unwrap();
+    let pcd = model_check_formula_dirty(programmed_cell_death_formula.to_string(), &graph).unwrap();
     let colors_not_pcd = graph
         .mk_unit_colors()
         .minus(&attrs_all_candidates.intersect(&pcd).colors());
@@ -107,7 +107,7 @@ fn case_study_part_1() {
 
     // check for candidates with unwanted attractor states
     let unwanted_state_formula = "Apoptosis_ & (S1P | sFas | Fas | Ceramide_ | Caspase  | MCL1 | BID_ | DISC_  | FLIP_ | CTLA4_ | TCR | IFNG_ | CREB  | P2 | SMAD_ | GPCR_ | IAP_)";
-    let unwanted_states = model_check_formula(unwanted_state_formula.to_string(), &graph).unwrap();
+    let unwanted_states = model_check_formula_dirty(unwanted_state_formula.to_string(), &graph).unwrap();
     let colors_with_unwanted_states = attrs_all_candidates.intersect(&unwanted_states).colors();
     println!(
         "{} candidates have unwanted states in attractors, such as:\n",
@@ -141,6 +141,7 @@ fn case_study_part_2(summarize_candidates: bool) {
     // create the partially specified BN object
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded BN model with {} components.", bn.num_vars());
+    // create the STG object
     let mut graph = get_extended_symbolic_graph(&bn, 2).unwrap();
     println!(
         "Model has {} symbolic parameters.",
@@ -176,7 +177,7 @@ fn case_study_part_2(summarize_candidates: bool) {
         diseased_attractor.to_string(),
     ];
     let formula = mk_formula_forbid_other_attractors(attr_set);
-    let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
+    let inferred_colors = model_check_formula_dirty(formula, &graph).unwrap().colors();
     println!(
         "{} consistent candidate networks found in total",
         inferred_colors.approx_cardinality()
