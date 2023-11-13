@@ -1,12 +1,11 @@
-use boolean_network_sketches::create_inference_formulae::*;
+use boolean_network_sketches::data_processing::create_inference_formulae::*;
 #[allow(unused_imports)]
 use boolean_network_sketches::utils::{
     apply_constraints_and_restrict, check_if_result_contains_goal, summarize_candidates_naively,
 };
 
-use biodivine_hctl_model_checker::model_checking::{
-    get_extended_symbolic_graph, model_check_formula,
-};
+use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
+use biodivine_hctl_model_checker::model_checking::model_check_formula;
 
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::BooleanNetwork;
@@ -44,7 +43,7 @@ fn case_study_part_1() {
     // create the partially specified BN
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded BN model with {} components.", bn.num_vars());
-    let mut graph = get_extended_symbolic_graph(&bn, 2);
+    let mut graph = get_extended_symbolic_graph(&bn, 2).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
@@ -64,9 +63,7 @@ fn case_study_part_1() {
 
     // define data observation and corresponding dynamic property
     let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
-    let formulae: Vec<String> = vec![mk_attractor_formula_nonspecific(
-        diseased_attractor.to_string(),
-    )];
+    let formulae: Vec<String> = vec![mk_formula_attractor(diseased_attractor.to_string())];
 
     // apply dynamic constraints
     graph = apply_constraints_and_restrict(formulae, graph, "attractor property ensured");
@@ -144,7 +141,7 @@ fn case_study_part_2(summarize_candidates: bool) {
     // create the partially specified BN object
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded BN model with {} components.", bn.num_vars());
-    let mut graph = get_extended_symbolic_graph(&bn, 2);
+    let mut graph = get_extended_symbolic_graph(&bn, 2).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
@@ -162,8 +159,8 @@ fn case_study_part_2(summarize_candidates: bool) {
     let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
     let healthy_attractor = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
     let formulae: Vec<String> = vec![
-        mk_steady_state_formula_specific(healthy_attractor.to_string()),
-        mk_attractor_formula_nonspecific(diseased_attractor.to_string()),
+        mk_formula_fixed_point_specific(healthy_attractor.to_string()),
+        mk_formula_attractor(diseased_attractor.to_string()),
     ];
 
     // first ensure attractor existence
@@ -178,7 +175,7 @@ fn case_study_part_2(summarize_candidates: bool) {
         healthy_attractor.to_string(),
         diseased_attractor.to_string(),
     ];
-    let formula = mk_forbid_other_attractors_formula(attr_set);
+    let formula = mk_formula_forbid_other_attractors(attr_set);
     let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
     println!(
         "{} consistent candidate networks found in total",
@@ -201,7 +198,7 @@ fn case_study_part_2(summarize_candidates: bool) {
     // summarize differences and similarities between candidates
     println!("SUMMARIZATION OF CANDIDATES' UPDATE FUNCTIONS:\n");
     if summarize_candidates {
-        summarize_candidates_naively(&graph, inferred_colors);
+        summarize_candidates_naively(&graph, inferred_colors, false);
     }
 }
 
@@ -225,13 +222,12 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use biodivine_hctl_model_checker::model_checking::{
-        get_extended_symbolic_graph, model_check_formula,
-    };
+    use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
+    use biodivine_hctl_model_checker::model_checking::model_check_formula;
 
     use biodivine_lib_param_bn::BooleanNetwork;
 
-    use boolean_network_sketches::create_inference_formulae::*;
+    use boolean_network_sketches::data_processing::create_inference_formulae::*;
     use boolean_network_sketches::utils::apply_constraints_and_restrict;
 
     use std::fs::read_to_string;
@@ -244,15 +240,15 @@ mod tests {
             read_to_string("benchmark_models/case_study_TLGL/TLGL_reduced_partial_updates.aeon")
                 .unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-        let mut graph = get_extended_symbolic_graph(&bn, 2);
+        let mut graph = get_extended_symbolic_graph(&bn, 2).unwrap();
 
         // define the observations
         let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
         let healthy_attractor = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
 
         let formulae: Vec<String> = vec![
-            mk_steady_state_formula_specific(healthy_attractor.to_string()),
-            mk_attractor_formula_nonspecific(diseased_attractor.to_string()),
+            mk_formula_fixed_point_specific(healthy_attractor.to_string()),
+            mk_formula_attractor(diseased_attractor.to_string()),
         ];
 
         // first ensure attractor existence
@@ -262,7 +258,7 @@ mod tests {
             healthy_attractor.to_string(),
             diseased_attractor.to_string(),
         ];
-        let formula = mk_forbid_other_attractors_formula(attr_set);
+        let formula = mk_formula_forbid_other_attractors(attr_set);
         let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
         assert_eq!(inferred_colors.approx_cardinality(), 378.);
     }

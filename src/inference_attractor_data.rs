@@ -1,9 +1,9 @@
 //! Contains functionality regarding the inference process from a sketch that contains
 //! attractor data.
 
-use crate::create_inference_formulae::{
-    mk_attractor_formula_specific, mk_forbid_other_attractors_formula,
-    mk_forbid_other_steady_states_formula, mk_steady_state_formula_specific,
+use crate::data_processing::create_inference_formulae::{
+    mk_formula_attractor_specific, mk_formula_fixed_point_specific,
+    mk_formula_forbid_other_attractors, mk_formula_forbid_other_fixed_points,
 };
 
 use biodivine_hctl_model_checker::model_checking::model_check_formula_unsafe_ex;
@@ -44,9 +44,9 @@ pub fn perform_inference_with_attractors_specific(
 
         // automatically generate the formula
         let formula = if use_fixed_points {
-            mk_steady_state_formula_specific(attractor_state)
+            mk_formula_fixed_point_specific(attractor_state)
         } else {
-            mk_attractor_formula_specific(attractor_state)
+            mk_formula_attractor_specific(attractor_state)
         };
 
         // compute satisfying colours
@@ -73,9 +73,9 @@ pub fn perform_inference_with_attractors_specific(
     if forbid_extra_attr {
         println!("Computing candidates with no additional unwanted attractors...");
         let formula = if use_fixed_points {
-            mk_forbid_other_steady_states_formula(attr_set)
+            mk_formula_forbid_other_fixed_points(attr_set)
         } else {
-            mk_forbid_other_attractors_formula(attr_set)
+            mk_formula_forbid_other_attractors(attr_set)
         };
         inferred_colors = model_check_formula_unsafe_ex(formula, &graph)
             .unwrap()
@@ -89,7 +89,7 @@ pub fn perform_inference_with_attractors_specific(
 mod tests {
     use crate::inference_attractor_data::perform_inference_with_attractors_specific;
     use crate::utils::check_if_result_contains_goal_unsafe;
-    use biodivine_hctl_model_checker::model_checking::get_extended_symbolic_graph;
+    use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
     use biodivine_lib_param_bn::BooleanNetwork;
     use std::fs::{read_to_string, File};
     use std::io::{BufRead, BufReader};
@@ -105,7 +105,7 @@ mod tests {
         let aeon_string = read_to_string(model_path).unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
         // Create graph object with 1 HCTL var (we dont need more)
-        let graph = get_extended_symbolic_graph(&bn, 1);
+        let graph = get_extended_symbolic_graph(&bn, 1).unwrap();
 
         let inferred_colors = perform_inference_with_attractors_specific(
             observations.clone(),
@@ -152,7 +152,7 @@ mod tests {
         let aeon_string = read_to_string(model_path).unwrap();
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
         // Create graph object with 1 HCTL var (we dont need more)
-        let graph = get_extended_symbolic_graph(&bn, 1);
+        let graph = get_extended_symbolic_graph(&bn, 1).unwrap();
 
         let goal_aeon_string = read_to_string(goal_model_path).unwrap();
 

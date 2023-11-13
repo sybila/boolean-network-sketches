@@ -2,7 +2,7 @@
 use boolean_network_sketches::inference_attractor_data::perform_inference_with_attractors_specific;
 use boolean_network_sketches::utils::summarize_candidates_naively;
 
-use biodivine_hctl_model_checker::model_checking::get_extended_symbolic_graph;
+use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
 
 use biodivine_lib_param_bn::BooleanNetwork;
 
@@ -37,7 +37,7 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
     println!("Loaded BN model with {} components.", bn.num_vars());
 
     // Create extended symbolic graph object with 1 HCTL var (we dont need more)
-    let graph = get_extended_symbolic_graph(&bn, 1);
+    let graph = get_extended_symbolic_graph(&bn, 1).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
@@ -64,7 +64,7 @@ fn case_study(fixed_point_version: bool, prohibit_extra_attrs: bool, summarize: 
 
     if summarize {
         // summarize which update functions are unique for all candidates and which vary
-        summarize_candidates_naively(&graph, inferred_colors);
+        summarize_candidates_naively(&graph, inferred_colors, false);
     }
 }
 

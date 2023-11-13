@@ -5,7 +5,7 @@ use biodivine_lib_param_bn::BooleanNetwork;
 use boolean_network_sketches::inference_attractor_data::*;
 use boolean_network_sketches::utils::check_if_result_contains_goal;
 
-use biodivine_hctl_model_checker::model_checking::get_extended_symbolic_graph;
+use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
 use std::fs::{read_to_string, File};
 use std::io::{BufRead, BufReader};
 use std::path::Path;
@@ -64,7 +64,7 @@ fn main() {
     println!("Loaded BN model with {} components.", bn.num_vars());
 
     // Create extended graph object with 1 HCTL var (we dont need more)
-    let graph = get_extended_symbolic_graph(&bn, 1);
+    let graph = get_extended_symbolic_graph(&bn, 1).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()

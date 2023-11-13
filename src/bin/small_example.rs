@@ -1,6 +1,5 @@
-use biodivine_hctl_model_checker::model_checking::{
-    get_extended_symbolic_graph, model_check_formula,
-};
+use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
+use biodivine_hctl_model_checker::model_checking::model_check_formula;
 
 use biodivine_lib_param_bn::BooleanNetwork;
 
@@ -17,7 +16,7 @@ fn main() {
     let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
     println!("Loaded model with {} vars.", bn.num_vars());
 
-    let graph = get_extended_symbolic_graph(&bn, 3);
+    let graph = get_extended_symbolic_graph(&bn, 3).unwrap();
     println!(
         "Model has {} symbolic parameters.",
         graph.symbolic_context().num_parameter_variables()
@@ -59,9 +58,8 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use biodivine_hctl_model_checker::model_checking::{
-        get_extended_symbolic_graph, model_check_formula,
-    };
+    use biodivine_hctl_model_checker::mc_utils::get_extended_symbolic_graph;
+    use biodivine_hctl_model_checker::model_checking::model_check_formula;
 
     use biodivine_lib_param_bn::BooleanNetwork;
 
@@ -75,7 +73,7 @@ mod tests {
         let aeon_string = read_to_string(model_name).unwrap();
 
         let bn = BooleanNetwork::try_from(aeon_string.as_str()).unwrap();
-        let graph = get_extended_symbolic_graph(&bn, 3);
+        let graph = get_extended_symbolic_graph(&bn, 3).unwrap();
 
         assert_eq!(graph.symbolic_context().num_parameter_variables(), 8);
 

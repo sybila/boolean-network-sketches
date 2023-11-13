@@ -1,7 +1,7 @@
 [package]
 name = "boolean-network-sketches"
-version = "0.1.0"
-authors = ["Ondřej Huvar <xhuvar@fi.muni.cz>"]
+version = "0.2.0"
+authors = ["Ondřej Huvar <xhuvar@fi.muni.cz>", "Samuel Pastva <sam.pastva@gmail.com>"]
 edition = "2021"
 description = "Framework for Boolean network inference using BN sketches."
 homepage = "https://github.com/sybila/boolean-network-sketches"
@@ -11,13 +11,17 @@ keywords = ["inference", "boolean-network", "model-checking", "symbolic", "syste
 categories = ["science", "simulation"]
 license = "MIT"
 exclude = ["benchmark_models", ".github", ".githooks"]
-rust-version = "1.64"
+rust-version = "1.72"
 
 #[profile.release]
 #lto = true
 
 [profile.test]
 opt-level = 3
+
+[[bin]]
+name = "sketches-inference"
+path = "src/main.rs"
 
 [[bin]]
 name = "inference-with-attractors"
@@ -35,14 +39,10 @@ path = "src/bin/case_study_arabidopsis.rs"
 name = "small-example"
 path = "src/bin/small_example.rs"
 
-[[bin]]
-name = "sketches-inference"
-path = "src/bin/sketches_inference.rs"
-
 [dependencies]
-biodivine-lib-bdd = "=0.4.2"
-biodivine-lib-param-bn = "=0.4.3"
-biodivine-hctl-model-checker = "=0.1.1"
-clap = { version = "=4.1.4", features = ["derive"] }
-termcolor = "=1.1.2"
-rand = "=0.8.5"
+biodivine-lib-bdd = ">=0.5.2, <1.0.0"
+biodivine-lib-param-bn = ">=0.4.7, <1.0.0"
+biodivine-hctl-model-checker = ">=0.2.0, <1.0.0"
+clap = { version = "4.1.4", features = ["derive"] }
+termcolor = "1.1.2"
+rand = "0.8.5"
