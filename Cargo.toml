@@ -1,6 +1,6 @@
 [package]
 name = "boolean-network-sketches"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Ondřej Huvar <xhuvar@fi.muni.cz>", "Samuel Pastva <sam.pastva@gmail.com>"]
 edition = "2021"
 description = "Framework for Boolean network inference using BN sketches."

@@ -149,12 +149,12 @@ pub fn run_inference(
         println!("SUMMARIZING ALL CONSISTENT CANDIDATES\n");
         println!("There are following variants of update functions for each variable:");
         summarize_candidates_naively(&graph, valid_colors.clone(), true);
-    }
 
-    if n_witnesses > 0 {
-        println!("\n---------------------------------\nGENERATING WITNESSES\n");
-    } else {
-        println!("\n---------------------------------\n");
+        if n_witnesses > 0 {
+            println!("\n---------------------------------\nGENERATING WITNESSES\n");
+        } else {
+            println!("\n---------------------------------\n");
+        }
     }
 
     // generate random witnesses if required
