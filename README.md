@@ -1,51 +1,118 @@
 # Boolean Network Sketches: A Unifying Framework for Logical Model Inference
 
-This is a small Rust library focusing on logical model inference through [Boolean network sketches](https://doi.org/10.1093/bioinformatics/btad158). 
-It contains the high-level implementation of the framework, as well as benchmark models and data used for experiments and case studies. 
+This is a small Rust library focusing on logical model inference through Boolean network sketches, as described in our [paper](https://doi.org/10.1093/bioinformatics/btad158). 
+The repository contains the high-level implementation of the framework, as well as benchmark models and data used for experiments and case studies. 
 This readme describes the repository contents and also contains instructions on how to replicate the main experimental results of the paper.
 The whole repository is available at [github](https://github.com/sybila/boolean-network-sketches), as well as at [zenodo](https://doi.org/10.5281/zenodo.7688740).
 
+This repository contains a newer release of the framework.
+The original release corresponding to the artefact of the paper can be downloaded [here](https://github.com/sybila/boolean-network-sketches/releases/tag/v0.1.0).
 
-## Requirements and Dependencies
+## Setup
 
-We recommend to run the benchmarks on a machine with at least 16GB RAM. 
-Otherwise, the largest benchmarks (models with 100+ variables) may take a long time to evaluate (however, even with less memory, it should be fine to run the code regarding both case studies or smaller benchmarks). 
-All displayed computation times were acquired on a standard laptop with an 11th Gen Intel i5 CPU and 16GB RAM.
-
-To run the experiments, you will need the Rust compiler. 
-We recommend following the instructions on [rustlang.org](https://www.rust-lang.org/learn/get-started) (default configuration should be sufficient) instead of using a package manager, however either method should work ok. 
-When using the official installer, everything is stored in `~/.cargo`, so admin privilages are not necessary. 
-Once you are done with the experiments, you can uninstall the compiler by running `rustup self uninstall`. 
+To run the experiments, you will need the Rust compiler.
+We recommend following the official instructions at [rustlang.org](https://www.rust-lang.org/learn/get-started) (default configuration should be sufficient) instead of using a package manager. 
+However, either method should work fine.
+When using the official installer, everything is stored in `~/.cargo`, so admin privileges are not necessary.
 The tested version of Rust is `1.64` (Sep 2022).
-Rust will automatically download and cache all other libraries necessary to compile the project. 
-You should therefore have internet access while running the commands for the first time. 
+Rust will automatically download and cache all other libraries necessary to compile the project.
+You should therefore have internet access while running the commands for the first time.
 You can force rust do download all dependencies by running `cargo fetch`.
 
-Moreover, for convenience, we have prepared Bash scripts to wrap all the commands needed. If you want to use them, you will need a Unix-based system with Bash. 
-On Windows, it should be sufficient to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) (we have tested the Ubuntu-20.04 WSL). 
-However, note that these scripts are not needed, as you can execute the Rust code directly (as described below).
 
+## Running the Inference Process
 
-## Sketch Format
+### Boolean network sketch
 
 Boolean network sketch represents a combination of prior knowledge, experimental data, and hypotheses regarding the modelled system.
-BN sketch is given by following components:
+BN sketch is given by the following components:
 - influence graph
 - partially specified Boolean network
 - properties of update functions
 - dynamic properties of the system
 
-The first three components of the sketch are all covered by the intuitive aeon model format (details [here](https://biodivine.fi.muni.cz/aeon/aeon-manual.pdf)). 
-This format allows description of:
-- possible influences between variables
-- kinds of influences (such as inhibiting/activating or observable/non-observable), from which we can derive update function properties
-- partially specified update functions 
+### Input format
 
-The dynamic properties are given in a form of HCTL formulae (our formulae format is described in detail [here](https://github.com/sybila/biodivine-hctl-model-checker)). 
-Several types of formulae can be generated from data on the run (via utilities in `src/create_inference_formulae.rs`).
+The input for the analysis is an [AEON model](https://biodivine.fi.muni.cz/aeon) annotated with HCTL formulas.
+
+The intuitive aeon model format (details [here](https://biodivine.fi.muni.cz/aeon/aeon-manual.pdf)) covers the first three components of the sketch.
+To get familar with AEON models, we recommend [this page](https://biodivine.fi.muni.cz/aeon/manual/v0.4.0/model_editor/import_export.html) 
+of the AEON manual. A wide range of real-world models for testing can be also found
+[here](https://github.com/sybila/biodivine-boolean-models) (however, these models do not contain any HCTL formulas).
+
+The dynamic properties are given by HCTL formulas.
+The details of the HCTL syntax can be found [here](https://github.com/sybila/biodivine-hctl-model-checker).
+Note that several types of formulae can be generated from data on the run (via utilities provided in `src/data_processing/data_encoding.rs`).
+You can add a *named dynamic property* by annotating the model with a line in the following format:
+```
+#! dynamic_property: NAME: #`HCTL_FORMULA`#
+```
+
+Below, we show a simple example of how to include assertions and properties in a model file (we intentionally
+limit the use of hybrid operators to simplify the example). 
+
+```
+# This property `reach_apoptosis` states that every state must be able to reach a state where
+# variable `Apoptosis` is true. `#!` is used to start a "comment annotation"
+# The #` and `# serve as opening/closing escape characters for the HCTL formula.
+#! dynamic_property: reach_apoptosis: #`EF Apoptosis`#
+
+# Property `will_die` states that the system will always eventually reach `Apoptosis`.
+#! dynamic_property: will_die: #`AF AG Apoptosis`#
+
+# Property `cannot_be_undead` states that whenever `Apoptosis` is true, it must
+# stay true forver.
+#! dynamic_property: cannot_be_undead: #`Apoptosis => AG Apoptosis`#
+```
+
+Example of such annotated model is given in `benchmark_models/annotated_tlgl.aeon`.
+Note that the example formulae can be generated automatically, as shown in our case study.
+We are currently working on adding automatic encoding for various kinds of datasets directly to the inference program.
+
+### Running the Inference 
+
+To run the general inference process (code in `src/main.rs`), compile the program first using `cargo build --release`
+and then run it as
+```
+.\target\release\sketches-inference [OPTIONS] <MODEL_PATH>
+```
+- `MODEL_PATH` must point a file with a valid sketch model (as described above)
+
+For example, you may try running the inference on the provided TLGL model:
+```
+.\target\release\sketches-inference .\benchmark_models\annotated_tlgl.aeon
+```
+
+The program runs the inference, prints details regarding the computation progress and, once finished, shortly summarizes the results (how many satisfying BNs there are).
+
+By providing additional `OPTIONS` (CLI arguments), you can receive more detailed output.
+This enables, for example, to generate witness networks or summarize update functions of the satisfying BNs.
+To see the details regarding program's optional arguments, you can run 
+```
+.\target\release\sketches-inference --help`
+```
 
 
-## Benchmark Models and Pre-Computed Raw Results
+
+## Benchmarks and Evaluation
+
+Here we describe how to execute the experiments described in the paper.
+You can either use prepared Bash wrapper scripts to re-run the experiments, or run them directly by compiling and executing the Rust binaries.
+
+### Requirements and Dependencies
+
+We recommend to run the benchmarks on a machine with at least 16GB RAM. 
+Otherwise, the largest benchmarks (models with 100+ variables) may take a long time to evaluate (however, even with less memory, it should be fine to run the code regarding both case studies or smaller benchmarks). 
+All displayed computation times were acquired on a standard laptop with an 11th Gen Intel i5 CPU and 16GB RAM.
+
+Follow the instructions in section `Setup` to install the Rust compiler.
+Once you are done with the experimenting, you can uninstall the compiler by running `rustup self uninstall`.
+
+For convenience, we have prepared Bash scripts to wrap all the commands needed. If you want to use them, you will need a Unix-based system with Bash. 
+On Windows, it should be sufficient to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) (we have tested the Ubuntu-20.04 WSL). 
+However, note that these scripts are not needed, as you can execute the Rust code directly (as described below).
+
+### Benchmark Models and Pre-Computed Raw Results
 
 All the models used for the evaluation (and some more) are in the `benchmark_models` directory. 
 Each model has its own subdirectory.
@@ -64,11 +131,7 @@ The sub-folders with models used for scalability evaluation contain four files e
 - `results.txt` - resulting output from the corresponding binary (see below)
 - `metadata.txt` - links to the model's original source and publication
 
-## Binaries and Scripts Regarding Experiments
-
-You can either use prepared Bash wrapper scripts to re-run the experiments, or run them directly by compiling and executing the Rust binaries.
-
-### Bash Wrapper Scripts
+### Running Experiments Through Prepared Scripts
 
 We have prepared four Bash scripts which encompass the compilation and execution of the underlying Rust code.
 Scripts `run_case_study_1.sh` and `run_case_study_2.sh` run the corresponding case studies - for each case study, two computations are executed, corresponding to the two respective sketch variants from the paper.
@@ -92,7 +155,7 @@ You will need a Python 3 (we have used Python 3.8 and 3.10).
 python3 run_all_experiments.py
 ```
 
-### Individual Binaries
+### Running Individual Experiments Directly
 
 To directly re-run individual benchmarks or case studies, compile the code first with `cargo build --release` (on Windows, we recommend using Powershell 5+ to run the experiments).
 
@@ -123,28 +186,14 @@ You do not need to add any options to replicate the experimental results, but if
 ./target/release/inference-with-attractors -h
 ````
 
-## Running General Inference Process
-
-To run the general inference process (code in `src/main.rs`), compile the program first using `cargo build --release` 
-and then run it as
-```
-.\target\release\sketches-inference [OPTIONS] <MODEL_PATH>
-```
-`MODEL_PATH` must point a file with a (parametrized) model in aeon format, with HCTL formulae for dynamic properties given as model annotations:
-```
-#! dynamic_property: NAME: #`HCTL_FORMULA`#
-```
-- `NAME` refers to arbitrary name of the property
-- `HCTL_FORMULA` is valid formula as described [here](https://github.com/sybila/biodivine-hctl-model-checker)
-
-Example of such annotated model is given in `benchmark_models/annotated_tlgl.aeon`. 
-Note that the example formulae can be generated automatically, as shown in our case study.
+### Tests 
+To run the test suite, use `cargo test` command.
 
 ## Availability
 
 This repository with the artefact is available on [Github](https://github.com/sybila/boolean-network-sketches) and also at [zenodo](https://doi.org/10.5281/zenodo.7688740).
 
-The implementation is based mainly on two of our Rust libraries: 
+The implementation is based mainly on two of our Rust libraries:
 - [biodivine-hctl-model-checker](https://github.com/sybila/biodivine-hctl-model-checker) for the underlying symbolic coloured model checking
 - [biodivine-lib-param-bn](https://github.com/sybila/biodivine-lib-param-bn) which facilitate the symbolic encoding of Boolean networks
 
@@ -153,7 +202,3 @@ The implementation itself is fairly minimal (includes i.e., high-level framework
 Everything is open-source and available with the permissive MIT License.
 
 To visualize and modify the partially specified BN models (aeon files) included in this repository, you can use the online interface of our tool [AEON](https://biodivine.fi.muni.cz/aeon). This tool can also be used to further analyse the attractors of Boolean network models.
-
-
-## Tests 
-To run the set of tests, use `cargo test` command.
