@@ -81,7 +81,8 @@ fn case_study_part_1() {
     println!("Analysing candidate set...");
 
     // compute attractors symbolically
-    let attrs_all_candidates = model_check_formula_dirty("!{x}: AG EF {x}".to_string(), &graph).unwrap();
+    let attrs_all_candidates =
+        model_check_formula_dirty("!{x}: AG EF {x}".to_string(), &graph).unwrap();
     println!("Attractors for all candidates computed");
     println!(
         "Elapsed time from the start of this computation: {}ms",
@@ -107,7 +108,8 @@ fn case_study_part_1() {
 
     // check for candidates with unwanted attractor states
     let unwanted_state_formula = "Apoptosis_ & (S1P | sFas | Fas | Ceramide_ | Caspase  | MCL1 | BID_ | DISC_  | FLIP_ | CTLA4_ | TCR | IFNG_ | CREB  | P2 | SMAD_ | GPCR_ | IAP_)";
-    let unwanted_states = model_check_formula_dirty(unwanted_state_formula.to_string(), &graph).unwrap();
+    let unwanted_states =
+        model_check_formula_dirty(unwanted_state_formula.to_string(), &graph).unwrap();
     let colors_with_unwanted_states = attrs_all_candidates.intersect(&unwanted_states).colors();
     println!(
         "{} candidates have unwanted states in attractors, such as:\n",
