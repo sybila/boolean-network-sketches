@@ -9,7 +9,7 @@ use biodivine_lib_param_bn::biodivine_std::traits::Set;
 use biodivine_lib_param_bn::symbolic_async_graph::{GraphColors, SymbolicAsyncGraph};
 use biodivine_lib_param_bn::{BooleanNetwork, FnUpdate};
 
-use biodivine_hctl_model_checker::preprocessing::node::HctlTreeNode;
+use biodivine_hctl_model_checker::preprocessing::hctl_tree::HctlTreeNode;
 use biodivine_lib_bdd::BddPartialValuation;
 use rand::rngs::ThreadRng;
 use std::collections::HashMap;
@@ -24,7 +24,7 @@ pub fn apply_constraints_and_restrict(
     for formula in formulae {
         let inferred_colors = model_check_formula_dirty(formula, &graph).unwrap().colors();
         graph = SymbolicAsyncGraph::with_custom_context(
-            graph.as_network().clone(),
+            graph.as_network().unwrap(),
             graph.symbolic_context().clone(),
             inferred_colors.as_bdd().clone(),
         )
@@ -50,7 +50,7 @@ pub fn apply_constraint_trees_and_restrict(
             .unwrap()
             .colors();
         graph = SymbolicAsyncGraph::with_custom_context(
-            graph.as_network().clone(),
+            graph.as_network().unwrap(),
             graph.symbolic_context().clone(),
             inferred_colors.as_bdd().clone(),
         )
@@ -154,9 +154,9 @@ pub fn summarize_candidates_naively(
 ) {
     // prepare the map for capturing update fn variants <VarName: <UpdateFn: Count>>
     let mut update_fns: HashMap<String, HashMap<FnUpdate, i32>> = HashMap::new();
-    for v in graph.as_network().variables() {
+    for v in graph.as_network().unwrap().variables() {
         update_fns.insert(
-            graph.as_network().get_variable_name(v).clone(),
+            graph.as_network().unwrap().get_variable_name(v).clone(),
             HashMap::new(),
         );
     }
@@ -205,7 +205,10 @@ pub fn summarize_candidates_naively(
 
         for (update_fn, num) in fn_map {
             if print_exact_fns {
-                print!("\"{}\" ${num}$  ", update_fn.to_string(graph.as_network()));
+                print!(
+                    "\"{}\" ${num}$  ",
+                    update_fn.to_string(graph.as_network().unwrap())
+                );
             } else {
                 print!("{num} ");
             }

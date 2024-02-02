@@ -40,9 +40,9 @@ name = "small-example"
 path = "src/bin/small_example.rs"
 
 [dependencies]
-biodivine-lib-bdd = ">=0.5.2, <1.0.0"
-biodivine-lib-param-bn = ">=0.4.7, <1.0.0"
-biodivine-hctl-model-checker = ">=0.2.0, <1.0.0"
+biodivine-lib-bdd = ">=0.5.7, <1.0.0"
+biodivine-lib-param-bn = ">=0.5.1, <1.0.0"
+biodivine-hctl-model-checker = { git = "https://github.com/sybila/biodivine-hctl-model-checker.git", branch = "master" }
 clap = { version = "4.1.4", features = ["derive"] }
 termcolor = "1.1.2"
 rand = "0.8.5"

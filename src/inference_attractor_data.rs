@@ -57,7 +57,7 @@ pub fn perform_inference_with_attractors_specific(
         // restrict the valid colors (unit_colored_set in the graph object)
         // TODO: check
         graph = SymbolicAsyncGraph::with_custom_context(
-            graph.as_network().clone(),
+            graph.as_network().unwrap(),
             graph.symbolic_context().clone(),
             inferred_colors.as_bdd().clone(),
         )

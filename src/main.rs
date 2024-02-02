@@ -7,7 +7,7 @@
 use biodivine_hctl_model_checker::mc_utils::{
     collect_unique_hctl_vars, get_extended_symbolic_graph,
 };
-use biodivine_hctl_model_checker::preprocessing::node::HctlTreeNode;
+use biodivine_hctl_model_checker::preprocessing::hctl_tree::HctlTreeNode;
 use biodivine_hctl_model_checker::preprocessing::parser::parse_and_minimize_hctl_formula;
 
 use biodivine_lib_param_bn::biodivine_std::traits::Set;
@@ -19,6 +19,7 @@ use boolean_network_sketches::utils::{
 
 use clap::Parser;
 
+use biodivine_lib_param_bn::symbolic_async_graph::SymbolicContext;
 use std::cmp::max;
 use std::fs::{read_to_string, File};
 use std::io::Write;
@@ -104,8 +105,9 @@ pub fn run_inference(
     println!("Parsing formulae and generating symbolic representation...");
     let mut num_hctl_vars = 0;
     let mut property_trees: Vec<HctlTreeNode> = Vec::new();
+    let plain_context = SymbolicContext::new(&bn).unwrap();
     for (_name, formula) in &named_properties {
-        let tree = parse_and_minimize_hctl_formula(&bn, formula.as_str())?;
+        let tree = parse_and_minimize_hctl_formula(&plain_context, formula.as_str())?;
         let num_tree_vars = collect_unique_hctl_vars(tree.clone()).len();
         num_hctl_vars = max(num_hctl_vars, num_tree_vars);
         property_trees.push(tree);
