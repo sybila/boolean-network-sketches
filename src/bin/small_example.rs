@@ -29,7 +29,7 @@ fn main() {
 
     // prior-knowledge dynamic properties only
     let prior_formula = "3{a}: (3{b}: (3{c}: (@{c}: ((EF {a}) & (EF {b}) & (@{a}: AG EF {a}) & (@{b}: (AG EF {b} & ~ EF {a}))))))";
-    let intermediate_result = model_check_formula(prior_formula.to_string(), &graph).unwrap();
+    let intermediate_result = model_check_formula(prior_formula, &graph).unwrap();
     println!(
         "After applying prior-knowledge-based dynamic constraints, {} candidates remain.",
         intermediate_result.colors().approx_cardinality(),
@@ -37,7 +37,7 @@ fn main() {
 
     // properties regarding both prior knowledge and data
     let whole_formula = "3{a}: (3{b}: (3{c}: (@{c}: ((EF {a}) & (EF {b}) & (@{a}: AG EF {a}) & (@{b}: (AG EF {b} & ~ EF {a})))))) & (3{x}:@{x}: ~v_1 & ~v_2 & v_3 & AG EF {x}) & (3{y}:@{y}: v_1 & v_2 & ~v_3 & AG EF {y})";
-    let result = model_check_formula(whole_formula.to_string(), &graph).unwrap();
+    let result = model_check_formula(whole_formula, &graph).unwrap();
     let res_color = result.colors();
 
     println!(
@@ -80,11 +80,11 @@ mod tests {
         assert_eq!(graph.mk_unit_colors().approx_cardinality(), 16.);
 
         let prior_formula = "3{a}: (3{b}: (3{c}: (@{c}: ((EF {a}) & (EF {b}) & (@{a}: AG EF {a}) & (@{b}: (AG EF {b} & ~ EF {a}))))))";
-        let intermediate_result = model_check_formula(prior_formula.to_string(), &graph).unwrap();
+        let intermediate_result = model_check_formula(prior_formula, &graph).unwrap();
         assert_eq!(intermediate_result.colors().approx_cardinality(), 4.);
 
         let whole_formula = "3{a}: (3{b}: (3{c}: (@{c}: ((EF {a}) & (EF {b}) & (@{a}: AG EF {a}) & (@{b}: (AG EF {b} & ~ EF {a})))))) & (3{x}:@{x}: ~v_1 & ~v_2 & v_3 & AG EF {x}) & (3{y}:@{y}: v_1 & v_2 & ~v_3 & AG EF {y})";
-        let result = model_check_formula(whole_formula.to_string(), &graph).unwrap();
+        let result = model_check_formula(whole_formula, &graph).unwrap();
         assert_eq!(result.colors().approx_cardinality(), 1.);
     }
 }

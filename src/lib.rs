@@ -2,5 +2,6 @@
 //! with case studies present as binaries.
 
 pub mod data_processing;
+pub mod hctl_with_holes;
 pub mod inference_attractor_data;
 pub mod utils;

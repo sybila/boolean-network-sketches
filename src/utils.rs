@@ -17,7 +17,7 @@ use std::collections::HashMap;
 /// Apply properties (constraints) given by HCTL `formulae` on the graph's colors.
 /// Returns a graph with colour space restricted only to the suitable colors.
 pub fn apply_constraints_and_restrict(
-    formulae: Vec<String>,
+    formulae: Vec<&str>,
     mut graph: SymbolicAsyncGraph,
     message: &str,
 ) -> SymbolicAsyncGraph {

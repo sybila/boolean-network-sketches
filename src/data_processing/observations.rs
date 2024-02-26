@@ -27,12 +27,26 @@ pub struct Observation {
 }
 
 impl Observation {
-    /// Create observation object from string encoding its values.
+    /// Create `Observation` object from a vector with values.
     pub fn new(values: Vec<VarValue>) -> Self {
         Self { values }
     }
 
-    /// Create observation object from string encoding its values.
+    /// Create `Observation` encoding a vector of `n` True values.
+    pub fn new_full_true(n: usize) -> Self {
+        Self {
+            values: vec![VarValue::True; n],
+        }
+    }
+
+    /// Create `Observation` encoding a vector of `n` False values.
+    pub fn new_full_false(n: usize) -> Self {
+        Self {
+            values: vec![VarValue::False; n],
+        }
+    }
+
+    /// Create `Observation` object from string encoding its values.
     pub fn try_from_str(observation_string: String) -> Result<Self, String> {
         let mut observation_vec: Vec<VarValue> = Vec::new();
         for c in observation_string.chars() {
@@ -50,6 +64,29 @@ impl Observation {
         Ok(Self {
             values: observation_vec,
         })
+    }
+
+    pub fn num_values(&self) -> usize {
+        self.values.len()
+    }
+
+    pub fn num_unspecified_values(&self) -> usize {
+        self.values.iter().filter(|&v| *v == VarValue::Any).count()
+    }
+
+    pub fn num_specified_values(&self) -> usize {
+        self.values.iter().filter(|&v| *v != VarValue::Any).count()
+    }
+
+    pub fn num_ones(&self) -> usize {
+        self.values.iter().filter(|&v| *v == VarValue::True).count()
+    }
+
+    pub fn num_zeros(&self) -> usize {
+        self.values
+            .iter()
+            .filter(|&v| *v == VarValue::False)
+            .count()
     }
 }
 

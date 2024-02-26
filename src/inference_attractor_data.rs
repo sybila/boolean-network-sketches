@@ -50,7 +50,7 @@ pub fn perform_inference_with_attractors_specific(
         };
 
         // compute satisfying colours
-        inferred_colors = model_check_formula_unsafe_ex(formula, &graph)
+        inferred_colors = model_check_formula_unsafe_ex(&formula, &graph)
             .unwrap()
             .colors();
 
@@ -77,7 +77,7 @@ pub fn perform_inference_with_attractors_specific(
         } else {
             mk_formula_forbid_other_attractors(attr_set)
         };
-        inferred_colors = model_check_formula_unsafe_ex(formula, &graph)
+        inferred_colors = model_check_formula_unsafe_ex(&formula, &graph)
             .unwrap()
             .colors();
     }

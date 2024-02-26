@@ -11,10 +11,7 @@ keywords = ["inference", "boolean-network", "model-checking", "symbolic", "syste
 categories = ["science", "simulation"]
 license = "MIT"
 exclude = ["benchmark_models", ".github", ".githooks"]
-rust-version = "1.72"
-
-#[profile.release]
-#lto = true
+rust-version = "1.76"
 
 [profile.test]
 opt-level = 3
@@ -39,10 +36,18 @@ path = "src/bin/case_study_arabidopsis.rs"
 name = "small-example"
 path = "src/bin/small_example.rs"
 
+[[bin]]
+name = "test-hctl-with-1-hole"
+path = "src/bin/test_hctl_with_1_hole.rs"
+
+[[bin]]
+name = "test-hctl-with-2-holes"
+path = "src/bin/test_hctl_with_2_holes.rs"
+
 [dependencies]
-biodivine-lib-bdd = ">=0.5.7, <1.0.0"
-biodivine-lib-param-bn = ">=0.5.1, <1.0.0"
-biodivine-hctl-model-checker = { git = "https://github.com/sybila/biodivine-hctl-model-checker.git", branch = "master" }
+biodivine-lib-bdd = ">=0.5.11, <0.6.0"
+biodivine-lib-param-bn = ">=0.5.9, <0.6.0"
+biodivine-hctl-model-checker = { git = "https://github.com/sybila/biodivine-hctl-model-checker.git", rev = "1e893fa" }
 clap = { version = "4.1.4", features = ["derive"] }
 termcolor = "1.1.2"
 rand = "0.8.5"

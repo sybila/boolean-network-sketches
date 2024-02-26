@@ -64,9 +64,10 @@ fn case_study_part_1() {
     // define data observation and corresponding dynamic property
     let diseased_attractor = "~Apoptosis_ & S1P & sFas & ~Fas & ~Ceramide_ & ~Caspase & MCL1 & ~BID_ & ~DISC_ & FLIP_ & ~IFNG_ & GPCR_";
     let formulae: Vec<String> = vec![mk_formula_attractor(diseased_attractor.to_string())];
+    let formulae_slices = formulae.iter().map(|s| s.as_str()).collect();
 
     // apply dynamic constraints
-    graph = apply_constraints_and_restrict(formulae, graph, "attractor property ensured");
+    graph = apply_constraints_and_restrict(formulae_slices, graph, "attractor property ensured");
     println!(
         "{} consistent candidate networks found in total.",
         graph.mk_unit_colors().approx_cardinality(), // graph has restricted unit colors to satisfying ones
@@ -81,8 +82,7 @@ fn case_study_part_1() {
     println!("Analysing candidate set...");
 
     // compute attractors symbolically
-    let attrs_all_candidates =
-        model_check_formula_dirty("!{x}: AG EF {x}".to_string(), &graph).unwrap();
+    let attrs_all_candidates = model_check_formula_dirty("!{x}: AG EF {x}", &graph).unwrap();
     println!("Attractors for all candidates computed");
     println!(
         "Elapsed time from the start of this computation: {}ms",
@@ -92,7 +92,7 @@ fn case_study_part_1() {
 
     // check for candidates without attractor for programmed cell death
     let programmed_cell_death_formula = "Apoptosis_ & ~S1P & ~sFas & ~Fas & ~Ceramide_ & ~Caspase & ~MCL1 & ~BID_ & ~DISC_ & ~FLIP_ & ~CTLA4_ & ~TCR & ~IFNG_ & ~CREB & ~P2 & ~SMAD_ & ~GPCR_ & ~IAP_";
-    let pcd = model_check_formula_dirty(programmed_cell_death_formula.to_string(), &graph).unwrap();
+    let pcd = model_check_formula_dirty(programmed_cell_death_formula, &graph).unwrap();
     let colors_not_pcd = graph
         .mk_unit_colors()
         .minus(&attrs_all_candidates.intersect(&pcd).colors());
@@ -108,8 +108,7 @@ fn case_study_part_1() {
 
     // check for candidates with unwanted attractor states
     let unwanted_state_formula = "Apoptosis_ & (S1P | sFas | Fas | Ceramide_ | Caspase  | MCL1 | BID_ | DISC_  | FLIP_ | CTLA4_ | TCR | IFNG_ | CREB  | P2 | SMAD_ | GPCR_ | IAP_)";
-    let unwanted_states =
-        model_check_formula_dirty(unwanted_state_formula.to_string(), &graph).unwrap();
+    let unwanted_states = model_check_formula_dirty(unwanted_state_formula, &graph).unwrap();
     let colors_with_unwanted_states = attrs_all_candidates.intersect(&unwanted_states).colors();
     println!(
         "{} candidates have unwanted states in attractors, such as:\n",
@@ -167,7 +166,8 @@ fn case_study_part_2(summarize_candidates: bool) {
     ];
 
     // first ensure attractor existence
-    graph = apply_constraints_and_restrict(formulae, graph, "attractor property ensured");
+    let formulae_slice = formulae.iter().map(|s| s.as_str()).collect();
+    graph = apply_constraints_and_restrict(formulae_slice, graph, "attractor property ensured");
     println!(
         "After ensuring both properties regarding attractor presence, {} candidates remain.",
         graph.mk_unit_colors().approx_cardinality(),
@@ -179,7 +179,9 @@ fn case_study_part_2(summarize_candidates: bool) {
         diseased_attractor.to_string(),
     ];
     let formula = mk_formula_forbid_other_attractors(attr_set);
-    let inferred_colors = model_check_formula_dirty(formula, &graph).unwrap().colors();
+    let inferred_colors = model_check_formula_dirty(&formula, &graph)
+        .unwrap()
+        .colors();
     println!(
         "{} consistent candidate networks found in total",
         inferred_colors.approx_cardinality()
@@ -253,16 +255,17 @@ mod tests {
             mk_formula_fixed_point_specific(healthy_attractor.to_string()),
             mk_formula_attractor(diseased_attractor.to_string()),
         ];
+        let formulae_slices = formulae.iter().map(|s| s.as_str()).collect();
 
         // first ensure attractor existence
-        graph = apply_constraints_and_restrict(formulae, graph, "attractor ensured");
+        graph = apply_constraints_and_restrict(formulae_slices, graph, "attractor ensured");
         // prohibit all other attractors
         let attr_set = vec![
             healthy_attractor.to_string(),
             diseased_attractor.to_string(),
         ];
         let formula = mk_formula_forbid_other_attractors(attr_set);
-        let inferred_colors = model_check_formula(formula, &graph).unwrap().colors();
+        let inferred_colors = model_check_formula(&formula, &graph).unwrap().colors();
         assert_eq!(inferred_colors.approx_cardinality(), 378.);
     }
 }
