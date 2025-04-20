@@ -50,14 +50,14 @@ pub fn perform_inference_with_attractors_specific(
         };
 
         // compute satisfying colours
-        inferred_colors = model_check_formula_unsafe_ex(formula, &graph)
+        inferred_colors = model_check_formula_unsafe_ex(&formula, &graph)
             .unwrap()
             .colors();
 
         // restrict the valid colors (unit_colored_set in the graph object)
         // TODO: check
         graph = SymbolicAsyncGraph::with_custom_context(
-            graph.as_network().clone(),
+            graph.as_network().unwrap(),
             graph.symbolic_context().clone(),
             inferred_colors.as_bdd().clone(),
         )
@@ -77,7 +77,7 @@ pub fn perform_inference_with_attractors_specific(
         } else {
             mk_formula_forbid_other_attractors(attr_set)
         };
-        inferred_colors = model_check_formula_unsafe_ex(formula, &graph)
+        inferred_colors = model_check_formula_unsafe_ex(&formula, &graph)
             .unwrap()
             .colors();
     }

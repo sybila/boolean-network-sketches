@@ -1,6 +1,6 @@
 [package]
 name = "boolean-network-sketches"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Ondřej Huvar <xhuvar@fi.muni.cz>", "Samuel Pastva <sam.pastva@gmail.com>"]
 edition = "2021"
 description = "Framework for Boolean network inference using BN sketches."
@@ -11,7 +11,7 @@ keywords = ["inference", "boolean-network", "model-checking", "symbolic", "syste
 categories = ["science", "simulation"]
 license = "MIT"
 exclude = ["benchmark_models", ".github", ".githooks"]
-rust-version = "1.72"
+rust-version = "1.86"
 
 #[profile.release]
 #lto = true
@@ -40,9 +40,9 @@ name = "small-example"
 path = "src/bin/small_example.rs"
 
 [dependencies]
-biodivine-lib-bdd = ">=0.5.2, <1.0.0"
-biodivine-lib-param-bn = ">=0.4.7, <1.0.0"
-biodivine-hctl-model-checker = ">=0.2.0, <1.0.0"
+biodivine-lib-bdd = "=0.5.22"
+biodivine-lib-param-bn = "=0.5.13"
+biodivine-hctl-model-checker = "=0.3.2"
 clap = { version = "4.1.4", features = ["derive"] }
 termcolor = "1.1.2"
 rand = "0.8.5"
