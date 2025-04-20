@@ -1,20 +1,31 @@
 # Boolean Network Sketches: A Unifying Framework for Logical Model Inference
 
-This is a small Rust library focusing on logical model inference through Boolean network sketches, as described in our [paper](https://doi.org/10.1093/bioinformatics/btad158). 
-The repository contains the high-level implementation of the framework, as well as benchmark models and data used for experiments and case studies. 
+This is a small Rust library focusing on logical model inference through Boolean network sketches, as described in our Bioinformatics [paper](https://doi.org/10.1093/bioinformatics/btad158). 
+This repository includes a prototype implementation of the framework, alongside benchmark models and data used for experiments and case studies.
+**See the following section on Sketchbook**, a production-ready desktop tool that fully implements our BN inference method.
+
 This readme describes the repository contents and also contains instructions on how to replicate the main experimental results of the paper.
 The whole repository is available at [github](https://github.com/sybila/boolean-network-sketches), as well as at [zenodo](https://doi.org/10.5281/zenodo.7688740).
 
-This repository contains a newer release of the framework.
-The original release corresponding to the artefact of the paper can be downloaded [here](https://github.com/sybila/boolean-network-sketches/releases/tag/v0.1.0).
+> Also note that this repository currently contains an updated version of the original prototype. The initial release corresponding to the artefact of the paper can be downloaded [here](https://github.com/sybila/boolean-network-sketches/releases/tag/v0.1.0). The assets contain original source code, benchmarks, and correspoding setup instructions.
+
+### Use our new tool Sketchbook!
+
+This repository contains a prototype version of the Boolean Network Sketches framework, developed in 2022.
+Since then, we’ve implemented the full inference method in a production-ready desktop tool, called **Sketchbook**.
+Sketchbook features a user-friendly graphical interface for designing Boolean network sketches and computing all admissible BNs.
+You can find the latest version of Sketchbook at [this Github repository](https://github.com/sybila/biodivine-sketchbook). See the example screenshot below for an illustration of the interface:
+
+<img src="sketchbook.jpeg" alt="sketchook-screenshot" width="650"/>
+
 
 ## Setup
 
-To run the experiments, you will need the Rust compiler.
+To run the experiments in this repository, you will need the Rust compiler.
 We recommend following the official instructions at [rustlang.org](https://www.rust-lang.org/learn/get-started) (default configuration should be sufficient) instead of using a package manager. 
 However, either method should work fine.
 When using the official installer, everything is stored in `~/.cargo`, so admin privileges are not necessary.
-The tested version of Rust is `1.64` (Sep 2022).
+The current version of the repository was tested with Rust `1.64` (April 2025).
 Rust will automatically download and cache all other libraries necessary to compile the project.
 You should therefore have internet access while running the commands for the first time.
 You can force rust do download all dependencies by running `cargo fetch`.
@@ -110,7 +121,7 @@ All displayed computation times were acquired on a standard laptop with an 11th 
 Follow the instructions in section `Setup` to install the Rust compiler.
 Once you are done with the experimenting, you can uninstall the compiler by running `rustup self uninstall`.
 
-For convenience, we have prepared Bash scripts to wrap all the commands needed. If you want to use them, you will need a Unix-based system with Bash. 
+For convenience, we have prepared Bash or Python scripts to wrap all the commands needed. If you want to use the scripts, you will need a Unix-based system with Bash. 
 On Windows, it should be sufficient to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) (we have tested the Ubuntu-20.04 WSL). 
 However, note that these scripts are not needed, as you can execute the Rust code directly (as described below).
 
@@ -149,9 +160,8 @@ bash ./run_scalability_benchmarks.sh
 bash ./run_all_experiments.sh
 ```
 
-The scripts should work on any classical Unix-based system, and we have also tested them on Windows Subsystem for Linux (WSL), particularly on Ubuntu-20.04 WSL.
-If you have a Unix-based system but have a problem running Bash scripts, you can try the Python version of the encompassing script.
-You will need a Python 3 (we have used Python 3.8 and 3.10).
+The scripts should work on any classical Unix-based system, and we have also tested them on Windows Subsystem for Linux (WSL), particularly on the Ubuntu distribution.
+If you have a Unix-based system but have a problem running Bash scripts, you can try the Python version of the encompassing script (you will need a Python 3).
 
 ```
 python3 run_all_experiments.py
@@ -203,4 +213,5 @@ The implementation itself is fairly minimal (includes i.e., high-level framework
 
 Everything is open-source and available with the permissive MIT License.
 
-To visualize and modify the partially specified BN models (aeon files) included in this repository, you can use the online interface of our tool [AEON](https://biodivine.fi.muni.cz/aeon). This tool can also be used to further analyse the attractors of Boolean network models.
+You can find the latest version of our desktop inference tool Sketchbook at [this Github repository](https://github.com/sybila/biodivine-sketchbook), as described above.
+To visualize and modify the partially specified BN models (aeon files) included in this repository, you can also use the online interface of our tool [AEON](https://biodivine.fi.muni.cz/aeon). This tool can also be used to further analyse the attractors of Boolean network models.
