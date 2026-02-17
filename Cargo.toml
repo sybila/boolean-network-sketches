@@ -46,3 +46,7 @@ biodivine-hctl-model-checker = "=0.3.2"
 clap = { version = "4.1.4", features = ["derive"] }
 termcolor = "1.1.2"
 rand = "0.8.5"
+
+[patch.crates-io]
+biodivine-lib-bdd = { git = "https://github.com/sybila/biodivine-lib-bdd", tag = "v0.5.22" }
+biodivine-lib-param-bn = { git = "https://github.com/sybila/biodivine-lib-param-bn", tag = "v0.5.13" }
